@@ -1,0 +1,42 @@
+.navbar-container {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  flex: 1; /* Aligns Airline Management to the left */
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex: 2; /* Centers the buttons */
+  justify-content: center;
+}
+
+.nav-button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
+.logout-button {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+}
