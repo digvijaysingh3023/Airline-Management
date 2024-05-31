@@ -37,7 +37,7 @@ function CreateAccount({ setSignIn }) {
         }
 
         try {
-            const response = await fetch('https://your-backend-url.com/api/register', {
+            const response = await fetch('http://127.0.0.1:8080/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -46,6 +46,7 @@ function CreateAccount({ setSignIn }) {
             });
 
             const data = await response.json();
+            console.log(data);
 
             if (response.ok) {
                 toast.success("Account created successfully");
@@ -53,7 +54,13 @@ function CreateAccount({ setSignIn }) {
                 setSignIn("true");
             } else if (data.error === 'Username already exists') {
                 toast.error("Username already exists");
-            } else {
+            } else if (data.error === 'Email already exists') {
+                toast.error("Email already exists");
+            }
+            else if (data.error === 'Passwords do not match!') {
+                toast.error("Passwords do not match");
+            }
+             else {
                 toast.error("An error occurred, please try again");
             }
         } catch (error) {

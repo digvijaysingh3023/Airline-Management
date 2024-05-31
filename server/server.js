@@ -3,8 +3,11 @@ const cors = require('cors')
 const morgan = require('morgan')
 const router = require('./router/route.js')
 const connect = require('./db/connection.js');
+const dotenv = require('dotenv');
 
 const app = express()
+
+dotenv.config();
 
 /* middleware */
 app.use(express.json());
@@ -21,9 +24,8 @@ app.get('/',(req,res)=>{
 /* api rotes */
 app.use('/api',router)
 
-
 /*start server only when we have valid connection */
-connect().then(()=>{
+connect(process.env.CONNECTION_STRING).then(()=>{
     try {
         app.listen(port,()=>{
             console.log(`server is connected to http://localhost:${port} `);
@@ -32,5 +34,6 @@ connect().then(()=>{
         console.log("cant connect to server");
     }
 }).catch(error=>{
+    console.log(error);
     console.log("invalid db connection");
 })

@@ -1,16 +1,7 @@
-const { MongoMemoryServer } = require("mongodb-memory-server");
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-async function connect(){
-    const mongod = await MongoMemoryServer.create();
-    const getUri = mongod.getUri();
+const connect = (url) =>{
+    return mongoose.connect(url)
+} 
 
-    mongoose.set('strictQuery',true)
-
-    const db = await mongoose.connect(getUri);
-    console.log("database connected");
-
-    return db;
-}
-
-module.exports = connect;
+module.exports = connect

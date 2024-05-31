@@ -1,55 +1,65 @@
-const UserModel = require('../model/User.model')
+const User = require('../model/User.model')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv');
+dotenv.config()
 
-async function register(req, res) {
+const register = async (req, res) => {
+    const { username, email, password,firstName,lastName,address,mobile } = req.body;
+    console.log(req.body);
+
     try {
-        const {username,password,profile,email} = req.body
+        // Check if email already exists
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail) {
+            return res.status(400).json({ error: 'Email already exists' });
+        }
 
-        //check existing user
-        const existUsername = await UserModel.findOne({
-            username,
-            function(err, user) {
-              if (err) reject(new Error(err));
-              if (user) reject({ error: "Please use unique username" });
-            },
-          });
-        //check existing email
-        const existEmail = await UserModel.findOne({
-            email,
-            function(err, email) {
-              if (err) reject(new Error(err));
-              if (email) reject({ error: "Please use unique email" });
-            },
-          });
-                if(password){
-                    bcrypt.hash(password,10)
-                        .then(hashedPassord => {
+        // Check if username already exists
+        const existingUsername = await User.findOne({ username });
+        if (existingUsername) {
+            return res.status(400).json({ error: 'Username already exists' });
+        }
 
-                            const user = new UserModel({
-                                username,
-                                password:hashedPassord,
-                                profile:profile || '',
-                                email,
-                            });
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 12);
 
-                            user.save()
-                                .then(result => res.status(201).send({ msg : "User Register Successfull"}))
-                                .catch(error=> res.status(500).send({error}))
+        // Create new user
+        const newUser = new User({ username, email, password: hashedPassword,firstName,lastName,mobile,address });
+        await newUser.save();
 
-                        }).catch(error=>{
-                            return res.status(500).send({
-                                error:"Enable to hash password"
-                            })
-                        })
-                }
+        res.status(201).json({ status:'ok', message: 'User created successfully' });
     } catch (error) {
-        return res.status(500).send(error);
+        res.status(500).json({ message: 'Server error' });
     }
-}
+};
 
-async function login(req, res) {
-    res.json('login route')
-}
+const login = async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Check if user exists
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid credential' });
+        }
+
+        // Compare password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT
+        const token = jwt.sign({ userId: user._id,username : user.username }, process.env.JWT_SECRET, { expiresIn: '12h' });
+
+        res.status(200).json({status: 'ok',user:token});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 
 async function getUser(req, res) {
     res.json('getUser route')
@@ -59,22 +69,6 @@ async function updateUser(req, res) {
     res.json('updateUser route')
 }
 
-async function generateOTP(req, res) {
-    res.json('generateOTP route')
-}
 
 
-async function verifyOTP(req, res) {
-    res.json('verifyOTP route')
-}
-
-async function createResetSession(req, res) {
-    res.json('createResetSession route')
-}
-
-async function resetPassword(req, res) {
-    res.json('resetPassword route')
-}
-
-
-module.exports = { login, register, getUser, generateOTP, verifyOTP, createResetSession, updateUser, resetPassword }
+module.exports = { login, register  }

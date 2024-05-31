@@ -11,6 +11,7 @@ function Navbar({isLoggedIn, setIsLoggedIn }) {
 
     function clickHandleSignOut() {
         setIsLoggedIn("false");
+        localStorage.removeItem('token')
         navigate('/home');
     }
 

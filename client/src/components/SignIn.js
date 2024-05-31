@@ -22,7 +22,7 @@ function SignIn({ setIsLoggedIn }) {
     async function HandleSubmit(event) {
         event.preventDefault();
         try {
-            const response = await fetch('https://your-backend-url.com/api/authenticate', {
+            const response = await fetch('http://127.0.0.1:8080/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,6 +33,7 @@ function SignIn({ setIsLoggedIn }) {
             const data = await response.json();
 
             if (response.ok) {
+                localStorage.setItem('token',data['user'])
                 setIsLoggedIn("true");
                 toast.success("Login successful!");
                 navigate('/home');
