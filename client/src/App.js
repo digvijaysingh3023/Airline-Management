@@ -22,6 +22,7 @@ const decodeToken = (token) => {
 function App() {
 
   const [username,setusername] = useState("");
+  const [viewFlightData,setViewFlightData]=useState([]);
   
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem('isLoggedIn') || "false";
@@ -48,10 +49,10 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/home" element={<Home setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/home" element={<Home setViewFlightData={setViewFlightData} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/my_flights" element={<MyFlights setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
-        <Route path="/view_flights" element={<ViewFlights setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/view_flights" element={<ViewFlights username={username} viewFlightData={viewFlightData} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="/contact" element={<Contact username={username} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="*"  element={<Navigate to="/Home" />} /> 

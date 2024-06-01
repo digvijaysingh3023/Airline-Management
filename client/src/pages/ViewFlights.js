@@ -1,10 +1,16 @@
 import Navbar from '../components/Navbar';
+import FlightCard from '../components/FlightCard';
 
-function ViewFlights({isLoggedIn,setIsLoggedIn}){
+function ViewFlights({username,viewFlightData,isLoggedIn,setIsLoggedIn}){
     return (<div>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+        <Navbar isLoggedIn={isLoggedIn} 
+        setIsLoggedIn={setIsLoggedIn}/>
 
-        This is View Flight Page
+        {
+            viewFlightData.map((flightData,index)=>{
+                return <FlightCard username={username} isLoggedIn={isLoggedIn} flag={true} key={flightData.id} flightData={flightData}/>
+            })
+        }
     </div>)
 }
 export default ViewFlights;

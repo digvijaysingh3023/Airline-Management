@@ -1,28 +1,31 @@
-// import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from '../components/Navbar';
 import '../CSS/Home.css';
 
+function Home({ setViewFlightData, isLoggedIn, setIsLoggedIn }) {
+    const navigate = useNavigate();
 
-function Home({isLoggedIn,setIsLoggedIn}){
     const [formData, setFormData] = useState({
-        source: "",
-        destination: "",
+        from: "",
+        to: "",
         date: "",
+        category: "Economy"
     });
 
-    function changeHandler(event){
+    function changeHandler(event) {
         const { name, value } = event.target;
         setFormData(prevData => ({
             ...prevData,
             [name]: value
         }));
-    };
+    }
 
-    async function submitHandler(event){
+    async function submitHandler(event) {
         event.preventDefault();
+        
         try {
             const response = await fetch('url to send data', {
                 method: 'POST',
@@ -35,48 +38,47 @@ function Home({isLoggedIn,setIsLoggedIn}){
             const data = await response.json();
 
             if (response.ok) {
-                
+                setViewFlightData(data.flights);
+                navigate('/view_flights');
             } else {
-                toast.error(data.message || "Error Occured");
+                toast.error(data.message || "Error Occurred");
             }
         } catch (error) {
             toast.error("Network error, please try again later");
         }
         
-        setFormData({
-            source: "",
-            destination: "",
-            date: "",
-        });
-    };
 
-    return (<div>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        
-        <form onSubmit={submitHandler}>
+        navigate('/view_flights');
+    }
+
+    return (
+        <div className="container">
+            <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+
+            <form onSubmit={submitHandler}>
                 <div>
                     <p>Source</p>
-                    <input 
+                    <input
                         type="text"
-                        source="source"
+                        name="from"
                         onChange={changeHandler}
-                        value={formData.source}
+                        value={formData.from}
                         required
                     />
                 </div>
                 <div>
                     <p>Destination</p>
-                    <input 
+                    <input
                         type="text"
-                        name="destination"
+                        name="to"
                         onChange={changeHandler}
-                        value={formData.destination}
+                        value={formData.to}
                         required
                     />
                 </div>
                 <div>
                     <p>Date</p>
-                    <input 
+                    <input
                         type="date"
                         name="date"
                         onChange={changeHandler}
@@ -84,8 +86,23 @@ function Home({isLoggedIn,setIsLoggedIn}){
                         required
                     />
                 </div>
+                <div>
+                    <p>Category</p>
+                    <select
+                        name="category"
+                        onChange={changeHandler}
+                        value={formData.category}
+                        required
+                    >
+                        <option>Economy</option>
+                        <option>Business</option>
+                        <option>First Class</option>
+                    </select>
+                </div>
                 <button type="submit">View Flights</button>
             </form>
-    </div>)
+        </div>
+    );
 }
+
 export default Home;
