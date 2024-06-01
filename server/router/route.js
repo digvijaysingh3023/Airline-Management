@@ -1,7 +1,7 @@
 // backend/routes/flights.js
 const express = require('express');
 const router = express.Router();
-const { searchFlight, bookFlight, getBookedFlights, getUserDetails } = require('../controllers/appController');
+const { searchFlight, bookFlight, getBookedFlights, getUserDetails, updateUserDetails } = require('../controllers/appController');
 const { addFlight, editFlight, deleteFlight, } = require('../controllers/adminControllers');
 
 /* POST Methods */
