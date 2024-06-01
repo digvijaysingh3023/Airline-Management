@@ -1,42 +1,86 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
 .navbar-container {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: white;
 }
 
 .logo {
-  font-size: 20px;
-  flex: 1; /* Aligns Airline Management to the left */
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .nav-links {
   display: flex;
-  align-items: center;
-  flex: 2; /* Centers the buttons */
-  justify-content: center;
+  gap: 10px;
 }
 
 .nav-button {
-  background-color: transparent;
-  color: #fff;
+  background: none;
   border: none;
-  cursor: pointer;
-  margin-right: 10px;
+  color: white;
   font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .nav-button:hover {
-  text-decoration: underline;
+  background-color: #575757;
+  border-radius: 4px;
 }
 
-.logout-button {
-  background-color: transparent;
-  color: #fff;
-  border: 1px solid #fff;
-  cursor: pointer;
-  padding: 5px 10px;
+.user-actions {
+  position: relative;
+}
+
+.logout-button, .profile-button {
+  background: none;
+  border: none;
+  color: white;
   font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.logout-button:hover, .profile-button:hover {
+  background-color: #575757;
+  border-radius: 4px;
+}
+
+.profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.dropdown-item {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
 }

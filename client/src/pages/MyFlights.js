@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function MyFlights({username,isLoggedIn,setIsLoggedIn}){
+function MyFlights({isLoggedIn,setIsLoggedIn}){
     const [myflights,setmyflights] = useState([])
     async function fetch_data(){
         try {
@@ -41,7 +41,7 @@ function MyFlights({username,isLoggedIn,setIsLoggedIn}){
                 <h1>Login First to visit Flights</h1>
             ):(
                 myflights.map((flightData,index)=>{
-                    return <FlightCard username={username} isLoggedIn={isLoggedIn} flag={false} key={flightData.id} flightData={flightData}/>
+                    return <FlightCard isLoggedIn={isLoggedIn} flag={false} key={flightData.id} flightData={flightData}/>
                 })
             )
         }

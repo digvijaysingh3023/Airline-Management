@@ -5,46 +5,35 @@ import Login from './pages/Login';
 import ViewFlights from './pages/ViewFlights';
 import MyFlights from './pages/MyFlights';
 import Contact from './pages/Contact';
+import UserProfile from './pages/UserProfile';
 import About from './pages/About';
 import './App.css';
-import {jwtDecode} from 'jwt-decode';
-
-const decodeToken = (token) => {
-  try {
-    const decodedToken = jwtDecode(token);
-    return decodedToken;
-  } catch (error) {
-    console.error("Invalid token:", error);
-    return null;
-  }
-};
+import axios from 'axios';
 
 function App() {
-
-  const [username,setusername] = useState("");
   const [viewFlightData,setViewFlightData]=useState([]);
   
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem('isLoggedIn') || "false";
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState("false");
 
   useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn);
     const token = localStorage.getItem('token');
-    const decodedToken = decodeToken(token);
-    if(token){
-        if(!decodeToken){
-            localStorage.removeItem('token');
-            setIsLoggedIn("false");
-        }
-        else{
-            const username_ = decodedToken['username'];
-            setusername(username_);
-        }
-    }else{
-      setusername("");
+    if (token) {
+      verifyToken(token);
     }
-  }, [isLoggedIn]);
+  }, []);
+
+  const verifyToken = async (token) => {
+    try {
+      const response = await axios.get('/api/auth/verify', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setIsLoggedIn(response.status === 200);
+    } catch (error) {
+      setIsLoggedIn(false);
+    }
+  };
     
   return (
     <div>
@@ -52,9 +41,10 @@ function App() {
         <Route path="/home" element={<Home setViewFlightData={setViewFlightData} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/my_flights" element={<MyFlights setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
-        <Route path="/view_flights" element={<ViewFlights username={username} viewFlightData={viewFlightData} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/view_flights" element={<ViewFlights viewFlightData={viewFlightData} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
-        <Route path="/contact" element={<Contact username={username} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/contact" element={<Contact setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/user_profile" element={<UserProfile setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
         <Route path="*"  element={<Navigate to="/Home" />} /> 
       </Routes>
     </div>

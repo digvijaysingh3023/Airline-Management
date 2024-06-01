@@ -3,10 +3,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 
-function FlightCard({username,isLoggedIn,flag, flightData }) {
+function FlightCard({isLoggedIn,flag, flightData }) {
     const navigate=useNavigate();
 
-    const {id, flightNo, from, to, category, date, time, totalSeats } = flightData;
+    const { flightNo, from, to, category, date, time, totalSeats } = flightData;
 
     async function book_flight(event){
         event.preventDefault();
@@ -22,7 +22,7 @@ function FlightCard({username,isLoggedIn,flag, flightData }) {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({username:username,flightNo})
+                body: JSON.stringify({flightNo})
             });
 
             const data = await response.json();

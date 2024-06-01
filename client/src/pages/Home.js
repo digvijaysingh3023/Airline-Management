@@ -52,9 +52,9 @@ function Home({ setViewFlightData, isLoggedIn, setIsLoggedIn }) {
         navigate('/view_flights');
     }
 
-    return (
+    return (<>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <div className="container">
-            <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
             <form onSubmit={submitHandler}>
                 <div>
@@ -103,7 +103,7 @@ function Home({ setViewFlightData, isLoggedIn, setIsLoggedIn }) {
                 <button type="submit">View Flights</button>
             </form>
         </div>
-    );
+    </>);
 }
 
 export default Home;
