@@ -24,8 +24,7 @@ function Navbar({isLoggedIn, setIsLoggedIn }) {
             <div className="logo">Airline Management</div>
             <div className="nav-links">
                 <button className="nav-button" name="home" onClick={clickHandlePage}>Home</button>
-                <button className="nav-button" name="book_flight" onClick={clickHandlePage}>Book Flight</button>
-                <button className="nav-button" name="schedule_flight" onClick={clickHandlePage}>Schedule Flight</button>
+                <button className="nav-button" name="my_flights" onClick={clickHandlePage}>My Flight</button>
                 <button className="nav-button" name="contact" onClick={clickHandlePage}>Contact</button>
                 <button className="nav-button" name="about" onClick={clickHandlePage}>About</button>
             </div>

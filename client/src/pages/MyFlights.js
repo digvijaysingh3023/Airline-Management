@@ -1,10 +1,11 @@
 import Navbar from '../components/Navbar';
+import React from 'react';
 
-function BookFlight({isLoggedIn,setIsLoggedIn}){
+function MyFlights({isLoggedIn,setIsLoggedIn}){
     return (<div>
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
 
-        This is Book Flight Page
+        This is My Flights Page
     </div>)
 }
-export default BookFlight;
+export default MyFlights;

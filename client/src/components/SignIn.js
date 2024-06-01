@@ -56,6 +56,7 @@ function SignIn({ setIsLoggedIn }) {
                         name="username"
                         onChange={changeHandler}
                         value={formData.username}
+                        required
                     ></input>
                 </div>
                 <div>
@@ -65,6 +66,7 @@ function SignIn({ setIsLoggedIn }) {
                         name="password"
                         onChange={changeHandler}
                         value={formData.password}
+                        required
                     ></input>
                 </div>
                 <div>

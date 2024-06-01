@@ -80,6 +80,7 @@ function CreateAccount({ setSignIn }) {
                             name="firstName"
                             onChange={changeHandler}
                             value={formData.firstName}
+                            required
                         ></input>
                     </div>
                     <div>
@@ -99,6 +100,7 @@ function CreateAccount({ setSignIn }) {
                         name="mobile"
                         onChange={changeHandler}
                         value={formData.mobile}
+                        required
                     ></input>
                 </div>
                 <div>
@@ -117,6 +119,7 @@ function CreateAccount({ setSignIn }) {
                         name="email"
                         onChange={changeHandler}
                         value={formData.email}
+                        required
                     ></input>
                 </div>
                 <div>
@@ -126,6 +129,7 @@ function CreateAccount({ setSignIn }) {
                         name="username"
                         onChange={changeHandler}
                         value={formData.username}
+                        required
                     ></input>
                 </div>
                 <div className="password-container">
@@ -136,6 +140,7 @@ function CreateAccount({ setSignIn }) {
                             name="password"
                             onChange={changeHandler}
                             value={formData.password}
+                            required
                         ></input>
                     </div>
                     <div>
@@ -145,6 +150,7 @@ function CreateAccount({ setSignIn }) {
                             name="confirmPassword"
                             onChange={handleConfirmPassword}
                             value={confirmPassword}
+                            required
                         ></input>
                     </div>
                 </div>
