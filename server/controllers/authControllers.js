@@ -7,19 +7,18 @@ dotenv.config()
 
 const register = async (req, res) => {
     const { username, email, password, firstName, lastName, address, mobile } = req.body;
-    console.log(req.body);
 
     try {
         // Check if email already exists
         const existingEmail = await User.findOne({ email });
         if (existingEmail) {
-            return res.status(400).json({ error: 'Email already exists' });
+            return res.status(400).json({ message: 'Email is already taken' });
         }
 
         // Check if username already exists
         const existingUsername = await User.findOne({ username });
         if (existingUsername) {
-            return res.status(400).json({ error: 'Username already exists' });
+            return res.status(400).json({ message: 'This Username is already taken.' });
         }
 
         // Hash the password
@@ -42,13 +41,13 @@ const login = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid credential' });
+            return res.status(400).json({ message: 'No such user exist.' });
         }
 
         // Compare password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Invalid Password' });
         }
 
         // Generate JWT

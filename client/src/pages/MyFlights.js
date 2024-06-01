@@ -14,15 +14,12 @@ function MyFlights({username,isLoggedIn,setIsLoggedIn}){
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                // body: JSON.stringify({username})
             });
     
             const data = await response.json();
     
             if (response.ok) {
-                // setMyFlights.apply(data.flights);
                 setmyflights(data.flights);
-                // console.log(myFlights);
             } else {
                 console.log(data);
                 toast.error(data.message || "Error Occurred");

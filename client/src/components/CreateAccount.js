@@ -52,15 +52,11 @@ function CreateAccount({ setSignIn }) {
                 toast.success("Account created successfully");
                 console.log(data);
                 setSignIn("true");
-            } else if (data.error === 'Username already exists') {
-                toast.error("Username already exists");
-            } else if (data.error === 'Email already exists') {
-                toast.error("Email already exists");
             }
-            else if (data.error === 'Passwords do not match!') {
-                toast.error("Passwords do not match");
+            else if(data.message){
+                toast.error(data.message)
             }
-             else {
+            else {
                 toast.error("An error occurred, please try again");
             }
         } catch (error) {

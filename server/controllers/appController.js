@@ -10,11 +10,11 @@ async function getUserDetails(req, res) {
     try {
         const user = await User.findOne({ username }).select('firstName lastName mobile address username email')
         if (!user) {
-            return res.status(400).json({ error: "Not authorized" })
+            return res.status(400).json({ message: "Not authorized" })
         }
         return res.status(200).json({ status: "ok", user })
     } catch (error) {
-        return res.status(500).json({ error: "Something went wrong." })
+        return res.status(500).json({ message: "Something went wrong." })
     }
 }
 
@@ -25,7 +25,7 @@ async function updateUserDetails(req, res) {
     try {
         const user = await User.findOne({ username })
         if (!user) {
-            return res.status(400).json({ error: "Not authorized" })
+            return res.status(400).json({ message: "Not authorized" })
         }
         if (firstName)
             user.firstName = firstName
@@ -41,7 +41,7 @@ async function updateUserDetails(req, res) {
         return res.status(201).json({ status: "ok", user, message: "User Details updated." })
 
     } catch (error) {
-        return res.status(500).json({ error: "Something went wrong." })
+        return res.status(500).json({ message: "Something went wrong." })
     }
 }
 
@@ -57,10 +57,10 @@ async function addFlight(req, res) {
     } catch (error) {
         const errorcode = error['errorResponse']
         if (errorcode && errorcode['code'] === 11000) {
-            return res.status(400).json({ error: "This Flight number Already Exists" })
+            return res.status(400).json({ message: "This Flight number Already Exists" })
         }
         const errormessage = "Cannot add flight Now.Try again later."
-        return res.status(500).json({ error: errormessage })
+        return res.status(500).json({ message: errormessage })
     }
 }
 
@@ -86,7 +86,7 @@ async function searchFlight(req, res) {
             flights
         });
     } catch (error) {
-        return res.status(500).json({ error: "Something went wrong." })
+        return res.status(500).json({ message: "Something went wrong." })
     }
 }
 
@@ -102,11 +102,11 @@ const bookFlight = async (req, res) => {
                 const user = await User.findOne({ username })
 
                 if (!user) {
-                    return res.status(404).json({ error: 'User not found' });
+                    return res.status(404).json({ message: 'User not found' });
                 }
 
                 if (user.flights.includes(flight._id)) {
-                    return res.status(400).json({ error: 'You have already booked this flight' });
+                    return res.status(400).json({ message: 'You have already booked this flight' });
                 }
 
                 user.flights.push(flight._id);
@@ -118,14 +118,14 @@ const bookFlight = async (req, res) => {
                 return res.status(200).send({ message: `Booking Successful!` })
             }
             else {
-                return res.status(400).send({ error: `No flight exist with no - ${flightNo}` })
+                return res.status(400).send({ message: `No flight exist with no - ${flightNo}` })
             }
         }
         else {
-            return res.status(400).send({ error: "Not Authorized!" })
+            return res.status(400).send({ message: "Not Authorized!" })
         }
     } catch (error) {
-        return res.status(500).json({ error: "Please try again later." })
+        return res.status(500).json({ message: "Please try again later." })
     }
 }
 
@@ -146,7 +146,7 @@ const getBookedFlights = async (req, res) => {
             flights: user.flights
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        res.status(500).json({ message: 'Server error' });
     }
 };
 
