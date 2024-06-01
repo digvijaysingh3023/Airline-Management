@@ -25,7 +25,13 @@ app.get('/',(req,res)=>{
 
 /* api rotes */
 app.use('/api/auth',authroutes)
-app.use('/api',authMiddleware,router)
+app.use('/api',(req, res, next) => {
+    if (req.path === '/searchFlight') {
+      next(); // Skip authMiddleware for this route
+    } else {
+      authMiddleware(req, res, next);
+    }
+  },router)
 
 /*start server only when we have valid connection */
 connect(process.env.CONNECTION_STRING).then(()=>{

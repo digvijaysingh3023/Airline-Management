@@ -19,6 +19,9 @@ const FlightSchema = new mongoose.Schema({
         type:String,
     },
     totalSeats:{type:Number,required:[true,"Please provide total number of Seats."]},
+    date:{type:Date},
+    price:{type:Number},
+    time:{type:String}
 })
 
 module.exports = mongoose.model('Flight' ,FlightSchema)
