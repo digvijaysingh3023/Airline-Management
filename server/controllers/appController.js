@@ -1,64 +1,7 @@
 const User = require('../model/User.model')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const Flight = require('../model/Flight.model')
 const dotenv = require('dotenv');
 dotenv.config()
-
-const register = async (req, res) => {
-    const { username, email, password,firstName,lastName,address,mobile } = req.body;
-    console.log(req.body);
-
-    try {
-        // Check if email already exists
-        const existingEmail = await User.findOne({ email });
-        if (existingEmail) {
-            return res.status(400).json({ error: 'Email already exists' });
-        }
-
-        // Check if username already exists
-        const existingUsername = await User.findOne({ username });
-        if (existingUsername) {
-            return res.status(400).json({ error: 'Username already exists' });
-        }
-
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 12);
-
-        // Create new user
-        const newUser = new User({ username, email, password: hashedPassword,firstName,lastName,mobile,address });
-        await newUser.save();
-
-        res.status(201).json({ status:'ok', message: 'User created successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-};
-
-const login = async (req, res) => {
-    const { username, password } = req.body;
-
-    try {
-        // Check if user exists
-        const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(400).json({ message: 'Invalid credential' });
-        }
-
-        // Compare password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
-
-        // Generate JWT
-        const token = jwt.sign({ userId: user._id,username : user.username }, process.env.JWT_SECRET, { expiresIn: '12h' });
-
-        res.status(200).json({status: 'ok',user:token});
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Server error' });
-    }
-};
 
 
 async function getUser(req, res) {
@@ -69,6 +12,63 @@ async function updateUser(req, res) {
     res.json('updateUser route')
 }
 
+async function addFlight(req, res) {
+    const { flightNo, to, from, category, totalSeats } = req.body;
 
+    try {
+        const flight = new Flight({ flightNo, to, from, category, totalSeats })
+        await flight.save()
 
-module.exports = { login, register  }
+        return res.status(201).json({ status: 'ok', message: `New Flight created with flightNo- ${flightNo}` })
+
+    } catch (error) {
+        console.log(error);
+        const errorcode = error['errorResponse']
+        if (errorcode && errorcode['code'] === 11000) {
+            return res.status(400).json({ error: "This Flight number Already Exists" })
+        }
+        const errormessage = "Cannot add flight Now.Try again later."
+        return res.status(500).json({ error: errormessage })
+    }
+}
+
+const bookFlight = async (req, res) => {
+    const username = req.user.username
+    const { flightNo } = req.body
+
+    try {
+        if (username) {
+            const flight = await Flight.findOne({ flightNo })
+            if (flight) {
+                const user = await User.findOne({username})
+
+                if (!user) {
+                    return res.status(404).json({ error: 'User not found' });
+                }
+
+                if (user.flights.includes(flight._id)) {
+                    return res.status(400).json({ error: 'You have already booked this flight' });
+                }
+
+                user.flights.push(flight._id);
+                await user.save();
+
+                flight.totalSeats -= 1;
+                await flight.save()
+
+                return res.status(200).send({ message: `Booking Successful!` })
+            }
+            else {
+                return res.status(400).send({ error: `No flight exist with no - ${flightNo}` })
+            }
+        }
+        else {
+            return res.status(400).send({ error: "Not Authorized!" })
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error : "Please try again later."})
+    }
+}
+
+module.exports = { addFlight, bookFlight }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator');
+const FlightModel = require('./Flight.model');
 
 const UserSchema = new mongoose.Schema({
     username : {
@@ -22,8 +23,11 @@ const UserSchema = new mongoose.Schema({
     lastName:{type:String},
     mobile:{type:Number},
     address:{type:String},
-    profile:{type:String}
+    profile:{type:String},
+    flights:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Flight"
+    }]
 })
- 
 
 module.exports = mongoose.model.Users || mongoose.model('User' ,UserSchema)

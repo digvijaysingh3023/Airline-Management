@@ -2,8 +2,10 @@ const express =  require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const router = require('./router/route.js')
+const authroutes = require('./router/authRoutes.js')
 const connect = require('./db/connection.js');
 const dotenv = require('dotenv');
+const authMiddleware = require('./middleware/authMiddleware.js')
 
 const app = express()
 
@@ -22,7 +24,8 @@ app.get('/',(req,res)=>{
 });
 
 /* api rotes */
-app.use('/api',router)
+app.use('/api/auth',authroutes)
+app.use('/api',authMiddleware,router)
 
 /*start server only when we have valid connection */
 connect(process.env.CONNECTION_STRING).then(()=>{
