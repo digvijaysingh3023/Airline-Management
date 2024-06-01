@@ -27,10 +27,11 @@ function Home({ setViewFlightData, isLoggedIn, setIsLoggedIn }) {
         event.preventDefault();
         
         try {
-            const response = await fetch('url to send data', {
+            const response = await fetch('http://127.0.0.1:8080/api/searchFlight', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+
                 },
                 body: JSON.stringify(formData)
             });

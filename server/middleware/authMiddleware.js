@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: 'Invalid token' });
+      return res.status(401).json({ message: 'Unauthorized!! Please Login again.'});
     }
 
     req.user = decoded; // Add user info to req.user

@@ -1,33 +1,40 @@
 import Navbar from '../components/Navbar';
 import FlightCard from '../components/FlightCard';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function MyFlights({username,isLoggedIn,setIsLoggedIn}){
-    let myFlights=[];
+    const [myflights,setmyflights] = useState([])
     async function fetch_data(){
         try {
-            const response = await fetch('url to my flights', {
-                method: 'POST',
+            const response = await fetch('http://127.0.0.1:8080/api/getbookedflights', {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({username})
+                // body: JSON.stringify({username})
             });
     
             const data = await response.json();
     
             if (response.ok) {
-                myFlights=data.flights;
+                // setMyFlights.apply(data.flights);
+                setmyflights(data.flights);
+                // console.log(myFlights);
             } else {
+                console.log(data);
                 toast.error(data.message || "Error Occurred");
             }
         } catch (error) {
+            console.log(error);
             toast.error("Network error, please try again later");
         }
     }
-    if(isLoggedIn==="true")fetch_data();
+    useEffect(()=>{
+        if(isLoggedIn==="true")fetch_data();
+    },[])
 
     return (<div>
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
@@ -36,7 +43,7 @@ function MyFlights({username,isLoggedIn,setIsLoggedIn}){
             isLoggedIn==="false"?(
                 <h1>Login First to visit Flights</h1>
             ):(
-                myFlights.map((flightData,index)=>{
+                myflights.map((flightData,index)=>{
                     return <FlightCard username={username} isLoggedIn={isLoggedIn} flag={false} key={flightData.id} flightData={flightData}/>
                 })
             )

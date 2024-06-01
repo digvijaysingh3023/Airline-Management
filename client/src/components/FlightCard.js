@@ -16,12 +16,13 @@ function FlightCard({username,isLoggedIn,flag, flightData }) {
             return ;
         }
         try {
-            const response = await fetch('api to book flight', {
+            const response = await fetch('http://127.0.0.1:8080/api/bookflight', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({username:username,id:id})
+                body: JSON.stringify({username:username,flightNo})
             });
 
             const data = await response.json();
@@ -52,9 +53,11 @@ function FlightCard({username,isLoggedIn,flag, flightData }) {
                         <p><strong>Time:</strong> {time}</p>
                     </div>
                     <p><strong>Category:</strong> {category}</p>
-                    <p><strong>Total Seats:</strong> {totalSeats}</p>
                     {flag?(
+                        <>
+                            <p><strong>Total Seats:</strong> {totalSeats}</p>
                             <button onClick={book_flight}>Book Flight</button>
+                        </>
                         ):(
                             <></>
                         )}
