@@ -1,3 +1,0 @@
-CONNECTION_STRING = mongodb+srv://digvijay:n2qAeKA04XJyhlMS@nodeexpress.cbk9yal.mongodb.net/Airline-Management?retryWrites=true&w=majority&appName=NodeExpress
-JWT_SECRET=secret123
-JWT_EXPIRY = 30d
