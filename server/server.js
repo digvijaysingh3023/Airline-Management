@@ -28,6 +28,15 @@ app.get('/', (req, res) => {
 /** USER Auth Routes */
 app.use('/api/auth', authroutes)
 
+/** ADMIN Routes */
+app.use('/api/admin', (req, res, next) => {
+    if (req.path === '/login') {
+        next(); // Skip authMiddleware for this route
+    } else {
+        authMiddleware(req, res, next);
+    }
+}, adminRoutes)
+
 /** USER Routes */
 app.use('/api', (req, res, next) => {
     if (req.path === '/searchFlight') {
@@ -37,14 +46,6 @@ app.use('/api', (req, res, next) => {
     }
 }, router)
 
-/** ADMIN Routes */
-app.use('/api/admin', (req, res, next) => {
-    if (req.path === '/login') {
-        next(); // Skip authMiddleware for this route
-    } else {
-        authMiddleware(req, res, next);
-    }
-}, adminRoutes)
 
 /*start server only when we have valid connection */
 connect(process.env.CONNECTION_STRING).then(() => {

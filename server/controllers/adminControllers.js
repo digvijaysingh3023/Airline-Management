@@ -17,7 +17,7 @@ const adminLogin = async (req, res) => {
         const token = jwt.sign({ email: adminCredentials.email, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '12h' });
         return res.status(200).json({ status: 'ok', token });
     } else {
-        return res.status(401).json({ message: 'Invalid credentials' });
+        return res.status(401).json({ message: 'Invalid admin credentials' });
     }
 };
 
@@ -25,6 +25,9 @@ async function addFlight(req, res) {
     const { flightNo, to, from, category, totalSeats, date, time } = req.body;
     const date_ = new Date(date);
     try {
+        if(req.user.role != 'admin'){
+            return res.status(400).json({messagev: "Not Authorized"})
+        }
         const flight = new Flight({ flightNo, to, from, category, totalSeats, date: date_, time });
         await flight.save();
 
@@ -45,6 +48,9 @@ async function editFlight(req, res) {
     const { flightNo, to, from, category, totalSeats, date, time } = req.body;
 
     try {
+        if(req.user.role != 'admin'){
+            return res.status(400).json({messagev: "Not Authorized"})
+        }
         const flight = await Flight.findById(id);
         if (!flight) {
             return res.status(404).json({ error: 'Flight not found' });
@@ -71,6 +77,9 @@ async function deleteFlight(req, res) {
     const { id } = req.params;
 
     try {
+        if(req.user.role != 'admin'){
+            return res.status(400).json({messagev: "Not Authorized"})
+        }
         const flight = await Flight.findById(id);
         if (!flight) {
             return res.status(404).json({ error: 'Flight not found' });
