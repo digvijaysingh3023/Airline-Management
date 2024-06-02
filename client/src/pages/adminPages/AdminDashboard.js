@@ -1,9 +1,9 @@
 import React from 'react';
 import Layout from './Layout';
 
-const AdminDashboard = ({setIsAdminLoggedIn}) => {
+const AdminDashboard = ({setIsLoggedIn}) => {
   return (
-    <Layout setIsAdminLoggedIn={setIsAdminLoggedIn}>
+    <Layout setIsLoggedIn={setIsLoggedIn}>
       <div className="box">
         <h2>Total Available Flights</h2>
         <h5>10</h5>

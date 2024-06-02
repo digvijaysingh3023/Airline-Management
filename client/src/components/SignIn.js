@@ -4,7 +4,7 @@ import '../CSS/SignIn.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function SignIn({setIsAdminLoggedIn, setIsUserLoggedIn }) {
+function SignIn({ setIsLoggedIn }) {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -34,11 +34,7 @@ function SignIn({setIsAdminLoggedIn, setIsUserLoggedIn }) {
 
             if (response.ok) {
                 localStorage.setItem('token',data['user'])
-<<<<<<< Updated upstream
                 setIsLoggedIn(true);
-=======
-                setIsUserLoggedIn("true");
->>>>>>> Stashed changes
                 toast.success("Login successful!");
                 navigate('/home');
             } else {
@@ -65,7 +61,7 @@ function SignIn({setIsAdminLoggedIn, setIsUserLoggedIn }) {
 
             if (response.ok) {
                 localStorage.setItem('token',data['user'])
-                setIsAdminLoggedIn("true");
+                setIsLoggedIn(true);
                 toast.success("Login successful!");
                 navigate('/admin_dashboard');
             } else {

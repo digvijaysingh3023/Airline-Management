@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FlightManage = ({ setIsAdminLoggedIn }) => {
+const FlightManage = ({ setIsLoggedIn }) => {
   const initialFlights = [
     { id: 1, from: 'New York', to: 'London', flightNo: 'AA101', category: 'Economy', schedule: '10:00 AM', seats: 150 },
     { id: 2, from: 'Los Angeles', to: 'Tokyo', flightNo: 'JL002', category: 'Business', schedule: '2:00 PM', seats: 200 },
@@ -129,7 +129,7 @@ const FlightManage = ({ setIsAdminLoggedIn }) => {
   };
 
   return (
-    <Layout setIsAdminLoggedIn={setIsAdminLoggedIn}>
+    <Layout setIsLoggedIn={setIsLoggedIn}>
       <div className="box">
         <h2>Flight Management</h2>
         <table>

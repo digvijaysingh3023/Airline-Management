@@ -4,18 +4,18 @@ import CreateAccount from "../components/CreateAccount";
 import { useState } from "react";
 import '../CSS/Login.css'; 
 
-function Login({isLoggedIn,setIsUserLoggedIn ,setIsAdminLoggedIn}) {
+function Login({isLoggedIn,setIsLoggedIn}) {
     const [signIn, setSignIn] = useState(true);
 
     return (<div>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsUserLoggedIn}/>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
 
         <div className="login-container">
             <div className="login-options">
                 <button className={signIn ? "active" : ""} onClick={() => setSignIn(true)}>Sign In</button>
                 <button className={!signIn ? "active" : ""} onClick={() => setSignIn(false)}>Create Account</button>
             </div>
-            {signIn ? <SignIn setIsAdminLoggedIn={setIsAdminLoggedIn} setIsUserLoggedIn={setIsUserLoggedIn} /> : <CreateAccount setSignIn={setSignIn}/>}
+            {signIn ? <SignIn setIsLoggedIn={setIsLoggedIn} /> : <CreateAccount setSignIn={setSignIn}/>}
         </div>
     </div>)
 }

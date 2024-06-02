@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 
-const AddFlight = ({setIsAdminLoggedIn}) => {
+const AddFlight = ({setIsLoggedIn}) => {
   const navigate=useNavigate();
   const [flightDetails, setFlightDetails] = useState({
     from: '',
@@ -51,7 +51,7 @@ const AddFlight = ({setIsAdminLoggedIn}) => {
   };
 
   return (
-    <Layout setIsAdminLoggedIn={setIsAdminLoggedIn}>
+    <Layout setIsLoggedIn={setIsLoggedIn}>
       <div className="add-flight-box">
         <h2>Add Flight</h2>
         <form onSubmit={handleSubmit}>

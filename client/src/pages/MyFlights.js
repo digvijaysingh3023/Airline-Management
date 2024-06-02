@@ -43,13 +43,13 @@ function MyFlights({ isLoggedIn, setIsLoggedIn }) {
         <div>
             <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             {
-                isLoading ? (
-                    <Loading />
+                !isLoggedIn ? (
+                    <h1>Login First to visit Flights</h1>
                 ) : (
-                    isLoggedIn === "false" ? (
-                        <h1>Login First to visit Flights</h1>
+                    isLoading ? (
+                        <Loading />
                     ) : (
-                        myflights.map((flightData, index) => {
+                        myflights.map((flightData) => {
                             return <FlightCard isLoggedIn={isLoggedIn} flag={false} key={flightData.id} flightData={flightData} />
                         })
                     )

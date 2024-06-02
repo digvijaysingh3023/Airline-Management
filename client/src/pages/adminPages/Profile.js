@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from './Layout';
 import "../../CSS/Profile.css"; // Import the profile-specific CSS
 
-const Profile = ({setIsAdminLoggedIn}) => {
+const Profile = ({setIsLoggedIn}) => {
   // Sample admin data
   const adminData = {
     name: 'Admin Name',
@@ -11,7 +11,7 @@ const Profile = ({setIsAdminLoggedIn}) => {
   };
 
   return (
-    <Layout setIsAdminLoggedIn={setIsAdminLoggedIn}>
+    <Layout setIsLoggedIn={setIsLoggedIn}>
       <div className="profile-box">
         <h2>Profile</h2>
         <div className="profile-item">

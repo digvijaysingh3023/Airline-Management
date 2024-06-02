@@ -10,7 +10,7 @@ function FlightCard({isLoggedIn,flag, flightData }) {
 
     async function book_flight(event){
         event.preventDefault();
-        if(isLoggedIn==="false"){
+        if(!isLoggedIn){
             toast.error("Login first to book flight");
             navigate('/login');
             return ;

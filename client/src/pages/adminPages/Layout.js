@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import "../../CSS/Layout.css"; 
 import { useNavigate } from 'react-router-dom';
 
-const Layout = ({setIsAdminLoggedIn, children }) => {
+const Layout = ({setIsLoggedIn, children }) => {
   const navigate=useNavigate();
   
   function handleChange(event){
     navigate(`/${event.target.name}`)
   }
   function handleSignOut(){
-      setIsAdminLoggedIn("false");
+      setIsLoggedIn(false);
       localStorage.removeItem('token');
       navigate('/home');
   }
