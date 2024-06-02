@@ -9,7 +9,7 @@ import AuthContext from '../authContext';
 function MyFlights() {
     const [myflights, setmyflights] = useState([]);
     const [isLoading, setIsLoading] = useState(true); 
-    const isAuthenticated = useContext(AuthContext)
+    const {isAuthenticated} = useContext(AuthContext)
     
 
     async function fetch_data() {
@@ -23,7 +23,7 @@ function MyFlights() {
             });
 
             const data = await response.json();
-
+            console.log(data);
             if (response.ok) {
                 setmyflights(data.flights);
                 setIsLoading(false); 
