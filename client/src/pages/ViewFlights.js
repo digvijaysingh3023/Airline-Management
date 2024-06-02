@@ -6,8 +6,8 @@ function ViewFlights({viewFlightData}){
         <Navbar />
 
         {
-            viewFlightData.map((flightData,index)=>{
-                return <FlightCard flag={true} key={flightData.id} flightData={flightData}/>
+            viewFlightData.map((flightData)=>{
+                return <FlightCard  key={flightData.id} flightData={flightData}/>
             })
         }
     </div>)

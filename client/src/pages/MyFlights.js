@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar';
-import FlightCard from '../components/FlightCard';
+import MyFlightCard from '../components/MyFlightCard';
 import Loading from '../components/Loading';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from "react-toastify";
@@ -53,7 +53,7 @@ function MyFlights() {
                         <Loading />
                     ) : (
                         myflights.map((flightData) => {
-                            return <FlightCard flag={false} key={flightData.id} flightData={flightData} />
+                            return <MyFlightCard key={flightData.id} flightData={flightData} />
                         })
                     )
                 )

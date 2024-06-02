@@ -6,7 +6,7 @@ import AuthContext from '../../authContext';
 
 const Layout = ({children }) => {
   const navigate=useNavigate();
-  const logout = useContext(AuthContext)
+  const {logout} = useContext(AuthContext)
   
   function handleChange(event){
     navigate(`/${event.target.name}`)
