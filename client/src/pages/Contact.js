@@ -1,11 +1,11 @@
 import Navbar from '../components/Navbar';
-import { useState,useContext } from 'react';
+import { useState, useContext } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import '../CSS/Contact.css'
+import '../CSS/Contact.css';
 import AuthContext from '../authContext';
 
-function Contact({username}){
+function Contact({username}) {
     const isAuthenticated = useContext(AuthContext);
     
     const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ function Contact({username}){
         email: "",
         subject: "",
         message: "",
-        username:username
+        username: username
     });
 
     function changeHandler(event){
@@ -31,7 +31,7 @@ function Contact({username}){
             return ;
         }
         try {
-            const response = await fetch('url to send data', {
+            const response = await fetch('/api/feedback/addFeedback', { // Update the URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ function Contact({username}){
             if (response.ok) {
                 toast.success("Message sent successfully");
             } else {
-                toast.error(data.message || "Error Occured");
+                toast.error(data.message || "Error Occurred");
             }
         } catch (error) {
             toast.error("Network error, please try again later");
@@ -56,60 +56,61 @@ function Contact({username}){
             email: "",
             subject: "",
             message: "",
-            username:username
+            username: username
         });
     };
 
-
-    return (<div>
-        <Navbar/>
-
-        <div className="contact-container">
-            <h1>Contact Us</h1>
-            <p>If you have any questions, concerns, or feedback, please feel free to reach out to us using the form below. We are here to help and ensure you have a great experience with our airline.</p>
-            <form onSubmit={submitHandler}>
-                <div>
-                    <p>Name</p>
-                    <input 
-                        type="text"
-                        name="name"
-                        onChange={changeHandler}
-                        value={formData.name}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Email</p>
-                    <input 
-                        type="email"
-                        name="email"
-                        onChange={changeHandler}
-                        value={formData.email}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Subject</p>
-                    <input 
-                        type="text"
-                        name="subject"
-                        onChange={changeHandler}
-                        value={formData.subject}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Message</p>
-                    <textarea 
-                        name="message"
-                        onChange={changeHandler}
-                        value={formData.message}
-                        required
-                    />
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
+    return (
+        <div>
+            <Navbar/>
+            <div className="contact-container">
+                <h1>Contact Us</h1>
+                <p>If you have any questions, concerns, or feedback, please feel free to reach out to us using the form below. We are here to help and ensure you have a great experience with our airline.</p>
+                <form onSubmit={submitHandler}>
+                    <div>
+                        <p>Name</p>
+                        <input 
+                            type="text"
+                            name="name"
+                            onChange={changeHandler}
+                            value={formData.name}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <p>Email</p>
+                        <input 
+                            type="email"
+                            name="email"
+                            onChange={changeHandler}
+                            value={formData.email}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <p>Subject</p>
+                        <input 
+                            type="text"
+                            name="subject"
+                            onChange={changeHandler}
+                            value={formData.subject}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <p>Message</p>
+                        <textarea 
+                            name="message"
+                            onChange={changeHandler}
+                            value={formData.message}
+                            required
+                        />
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
         </div>
-    </div>)
+    )
 }
+
 export default Contact;

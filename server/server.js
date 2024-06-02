@@ -1,14 +1,16 @@
-const express = require('express')
-const cors = require('cors')
-const morgan = require('morgan')
-const router = require('./router/UserRoutes.js')
-const authroutes = require('./router/UserAuthRoutes.js')
-const adminRoutes = require('./router/adminRoutes.js')
+// backend/index.js or backend/server.js (main server file)
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+const router = require('./router/UserRoutes.js');
+const authroutes = require('./router/UserAuthRoutes.js');
+const adminRoutes = require('./router/adminRoutes.js');
+const feedbackRoutes = require('./router/feedbackRoutes.js'); // Add this line
 const connect = require('./db/connection.js');
 const dotenv = require('dotenv');
-const authMiddleware = require('./middleware/authMiddleware.js')
+const authMiddleware = require('./middleware/authMiddleware.js');
 
-const app = express()
+const app = express();
 
 dotenv.config();
 
@@ -24,9 +26,9 @@ app.get('/', (req, res) => {
     res.status(201).json("Home get request")
 });
 
-/* api rotes */
+/* api routes */
 /** USER Auth Routes */
-app.use('/api/auth', authroutes)
+app.use('/api/auth', authroutes);
 
 /** ADMIN Routes */
 app.use('/api/admin', (req, res, next) => {
@@ -35,7 +37,7 @@ app.use('/api/admin', (req, res, next) => {
     } else {
         authMiddleware(req, res, next);
     }
-}, adminRoutes)
+}, adminRoutes);
 
 /** USER Routes */
 app.use('/api', (req, res, next) => {
@@ -44,10 +46,12 @@ app.use('/api', (req, res, next) => {
     } else {
         authMiddleware(req, res, next);
     }
-}, router)
+}, router);
 
+/** FEEDBACK Routes */
+app.use('/api/feedback', feedbackRoutes); // Add this line
 
-/*start server only when we have valid connection */
+/* start server only when we have valid connection */
 connect(process.env.CONNECTION_STRING).then(() => {
     try {
         app.listen(port, () => {
@@ -59,4 +63,4 @@ connect(process.env.CONNECTION_STRING).then(() => {
 }).catch(error => {
     console.log(error);
     console.log("invalid db connection");
-})
+});
