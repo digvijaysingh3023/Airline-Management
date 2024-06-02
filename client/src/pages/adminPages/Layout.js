@@ -4,7 +4,7 @@ import "../../CSS/Layout.css";
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../authContext';
 
-const Layout = ({children }) => {
+const Layout = ({children}) => {
   const navigate=useNavigate();
   const {logout} = useContext(AuthContext)
   
@@ -19,7 +19,7 @@ const Layout = ({children }) => {
     <div className="mainContainer">
       <div className="header">
         <Link to="/add_flight" className="btn">Add Flights</Link>
-        <Link to="#" className="btn">Profile Name</Link>
+        <Link to="#" className="btn">Admin</Link>
       </div>
       
       <div className="content">
