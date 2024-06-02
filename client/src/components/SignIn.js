@@ -34,7 +34,7 @@ function SignIn({ setIsLoggedIn }) {
 
             if (response.ok) {
                 localStorage.setItem('token',data['user'])
-                setIsLoggedIn("true");
+                setIsLoggedIn(true);
                 toast.success("Login successful!");
                 navigate('/home');
             } else {

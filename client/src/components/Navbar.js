@@ -11,7 +11,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
     }
 
     function clickHandleSignOut() {
-        setIsLoggedIn("false");
+        setIsLoggedIn(false);
         localStorage.removeItem('token');
         navigate('/home');
     }
@@ -42,7 +42,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
                 <button className="nav-button" name="about" onClick={clickHandlePage}>About</button>
             </div>
             <div className="user-actions">
-                {isLoggedIn === "false" ? (
+                {isLoggedIn === false ? (
                     <button className="logout-button" onClick={clickHandleSignIn}>Sign In</button>
                 ) : (
                     <div className="profile-menu" onMouseLeave={closeDropdown}>

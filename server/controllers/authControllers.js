@@ -60,7 +60,11 @@ const login = async (req, res) => {
     }
 };
 
+const verifyUser = async (req,res) => {
+    res.status(200).json({status : 'ok'})
+}
 
-module.exports = { login, register }
+
+module.exports = { login, register,verifyUser }
 
 

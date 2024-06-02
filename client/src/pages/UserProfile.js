@@ -1,12 +1,15 @@
-import Navbar from '../components/Navbar';
 import React, { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from '../components/Loading';
 import '../CSS/UserProfile.css';
+import '../CSS/Loading.css';
 
-function UserProfile({isLoggedIn, setIsLoggedIn }) {
+function UserProfile({ isLoggedIn, setIsLoggedIn }) {
     const [userData, setUserData] = useState({});
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -16,7 +19,7 @@ function UserProfile({isLoggedIn, setIsLoggedIn }) {
 
     async function fetch_data() {
         try {
-            const response = await fetch('url for user data', {
+            const response = await fetch('http://localhost:8080/api/getuserdetails', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,6 +42,8 @@ function UserProfile({isLoggedIn, setIsLoggedIn }) {
             }
         } catch (error) {
             toast.error("Network error, please try again later");
+        } finally {
+            setIsLoading(false); 
         }
     }
 
@@ -57,7 +62,7 @@ function UserProfile({isLoggedIn, setIsLoggedIn }) {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            const response = await fetch('url for updating user data', {
+            const response = await fetch('http://localhost:8080/api/updateuserdetails', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +88,9 @@ function UserProfile({isLoggedIn, setIsLoggedIn }) {
     return (
         <>
             <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-            {
+            {isLoading ? (
+                <Loading /> 
+            ) : (
                 !isEditing ? (
                     <div className="user-profile-container">
                         <h2>User Profile</h2>
@@ -145,7 +152,7 @@ function UserProfile({isLoggedIn, setIsLoggedIn }) {
                         </form>
                     </div>
                 )
-            }
+            )}
         </>
     );
 }

@@ -8,12 +8,12 @@ import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
 import About from './pages/About';
 import './App.css';
-import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function App() {
   const [viewFlightData,setViewFlightData]=useState([]);
   
-  const [isLoggedIn, setIsLoggedIn] = useState("false");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,13 +24,14 @@ function App() {
 
   const verifyToken = async (token) => {
     try {
-      const response = await axios.get('/api/auth/verify', {
+      const response = await fetch('http://localhost:8080/api/auth/verify', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
       setIsLoggedIn(response.status === 200);
     } catch (error) {
+      toast.error(error)
       setIsLoggedIn(false);
     }
   };
