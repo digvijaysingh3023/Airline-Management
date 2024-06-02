@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar';
-import FlightCard from '../components/FlightCard';
+import MyFlightCard from '../components/MyFlightCard';
 import Loading from '../components/Loading';
 import React, { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
@@ -50,7 +50,7 @@ function MyFlights({ isLoggedIn, setIsLoggedIn }) {
                         <Loading />
                     ) : (
                         myflights.map((flightData) => {
-                            return <FlightCard isLoggedIn={isLoggedIn} flag={false} key={flightData.id} flightData={flightData} />
+                            return <MyFlightCard isLoggedIn={isLoggedIn} key={flightData.id} flightData={flightData} />
                         })
                     )
                 )

@@ -7,8 +7,8 @@ function ViewFlights({viewFlightData,isLoggedIn,setIsLoggedIn}){
         setIsLoggedIn={setIsLoggedIn}/>
 
         {
-            viewFlightData.map((flightData,index)=>{
-                return <FlightCard isLoggedIn={isLoggedIn} flag={true} key={flightData.id} flightData={flightData}/>
+            viewFlightData.map((flightData)=>{
+                return <FlightCard isLoggedIn={isLoggedIn}  key={flightData.id} flightData={flightData}/>
             })
         }
     </div>)
