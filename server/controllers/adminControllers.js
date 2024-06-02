@@ -69,7 +69,7 @@ async function editFlight(req, res) {
         }
         const flight = await Flight.findById(id);
         if (!flight) {
-            return res.status(404).json({ error: 'Flight not found' });
+            return res.status(404).json({ message: 'Flight not found' });
         }
 
         if (flightNo) flight.flightNo = flightNo;
@@ -85,7 +85,7 @@ async function editFlight(req, res) {
         return res.status(200).json({ status: 'ok', message: `Flight with flightNo- ${flightNo} updated successfully` });
 
     } catch (error) {
-        return res.status(500).json({ error: "Cannot update flight now. Try again later." });
+        return res.status(500).json({ message: "Cannot update flight now. Try again later." });
     }
 }
 
@@ -97,12 +97,12 @@ async function deleteFlight(req, res) {
             return res.status(400).json({message: "Not Authorized"})
         }
         const flight = await Flight.findByIdAndDelete(id);
-        
+
         if (!flight) {
             return res.status(404).json({ message: 'Flight not found' });
         }
-
-        return res.status(200).json({ status: 'ok', message: `Flight with flightNo- ${flight.flightNo} deleted successfully` });
+        const flights = await Flight.find()
+        return res.status(200).json({ status: 'ok', message: `Flight with flightNo- ${flight.flightNo} deleted successfully`,flights });
 
     } catch (error) {
         console.log(error);
