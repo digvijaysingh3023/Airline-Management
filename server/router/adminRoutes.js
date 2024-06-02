@@ -1,9 +1,10 @@
 // backend/routes/admin.js
 const express = require('express');
 const router = express.Router();
-const { adminLogin,addFlight, editFlight,deleteFlight } = require('../controllers/adminControllers');
+const { adminLogin,addFlight, editFlight,deleteFlight, getAllFlights } = require('../controllers/adminControllers');
 
 
+router.route('/getallflights').get(getAllFlights);
 /* POST Methods */
 router.route('/login').post(adminLogin);
 router.route('/addflight').post(addFlight);

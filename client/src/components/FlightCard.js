@@ -2,15 +2,18 @@ import '../CSS/FlightCard.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../authContext';
+import { useContext } from 'react';
 
-function FlightCard({isLoggedIn,flag, flightData }) {
+function FlightCard({flag, flightData }) {
     const navigate=useNavigate();
+    const isAuthenticated = useContext(AuthContext);
 
     const { flightNo, from, to, category, date, time, totalSeats } = flightData;
 
     async function book_flight(event){
         event.preventDefault();
-        if(!isLoggedIn){
+        if(!isAuthenticated){
             toast.error("Login first to book flight");
             navigate('/login');
             return ;

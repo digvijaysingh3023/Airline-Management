@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import "../../CSS/Layout.css"; 
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../authContext';
 
-const Layout = ({setIsLoggedIn, children }) => {
+const Layout = ({children }) => {
   const navigate=useNavigate();
+  const logout = useContext(AuthContext)
   
   function handleChange(event){
     navigate(`/${event.target.name}`)
   }
   function handleSignOut(){
-      setIsLoggedIn(false);
-      localStorage.removeItem('token');
+      logout();
       navigate('/home');
   }
   return (

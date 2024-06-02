@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/Navbar.css'; 
-
-function Navbar({ isLoggedIn, setIsLoggedIn }) {
+import AuthContext from '../authContext';
+import { toast } from 'react-toastify';
+    
+function Navbar() {
     const navigate = useNavigate();
+    const  {logout , isAuthenticated}  = useContext(AuthContext);
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    // console.log(logout);
 
     function clickHandlePage(event) {
         navigate(`/${event.target.name}`);
     }
 
     function clickHandleSignOut() {
-        setIsLoggedIn(false);
-        localStorage.removeItem('token');
+        logout();
+        console.log(isAuthenticated);
+        toast.info("Logged Out!")
         navigate('/home');
     }
 
@@ -42,7 +47,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
                 <button className="nav-button" name="about" onClick={clickHandlePage}>About</button>
             </div>
             <div className="user-actions">
-                {isLoggedIn === false ? (
+                {isAuthenticated === false ? (
                     <button className="logout-button" onClick={clickHandleSignIn}>Sign In</button>
                 ) : (
                     <div className="profile-menu" onMouseLeave={closeDropdown}>

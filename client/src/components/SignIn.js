@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import '../CSS/SignIn.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthContext from "../authContext";
 
-function SignIn({ setIsLoggedIn }) {
+function SignIn() {
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const [formData, setFormData] = useState({
         username: "",
@@ -34,7 +36,7 @@ function SignIn({ setIsLoggedIn }) {
 
             if (response.ok) {
                 localStorage.setItem('token',data['user'])
-                setIsLoggedIn(true);
+                login(data['user'])
                 toast.success("Login successful!");
                 navigate('/home');
             } else {
@@ -49,7 +51,7 @@ function SignIn({ setIsLoggedIn }) {
     async function HandleSubmitAdmin(event) {
         event.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8080/api/auth/login', {
+            const response = await fetch('http://127.0.0.1:8080/api/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,7 +63,7 @@ function SignIn({ setIsLoggedIn }) {
 
             if (response.ok) {
                 localStorage.setItem('token',data['user'])
-                setIsLoggedIn(true);
+                login(data['user'])
                 toast.success("Login successful!");
                 navigate('/admin_dashboard');
             } else {

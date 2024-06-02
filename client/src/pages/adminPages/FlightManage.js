@@ -4,21 +4,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FlightManage = ({ setIsLoggedIn }) => {
-  const initialFlights = [
-    { id: 1, from: 'New York', to: 'London', flightNo: 'AA101', category: 'Economy', schedule: '10:00 AM', seats: 150 },
-    { id: 2, from: 'Los Angeles', to: 'Tokyo', flightNo: 'JL002', category: 'Business', schedule: '2:00 PM', seats: 200 },
-    { id: 3, from: 'Chicago', to: 'Paris', flightNo: 'AF123', category: 'First Class', schedule: '6:00 AM', seats: 50 },
-    { id: 4, from: 'Miami', to: 'Madrid', flightNo: 'IB456', category: 'Economy', schedule: '12:00 PM', seats: 150 },
-    { id: 5, from: 'Houston', to: 'Berlin', flightNo: 'LH789', category: 'Economy', schedule: '9:00 PM', seats: 150 },
-    { id: 6, from: 'San Francisco', to: 'Beijing', flightNo: 'CA321', category: 'Business', schedule: '5:00 AM', seats: 200 },
-    { id: 7, from: 'Seattle', to: 'Dubai', flightNo: 'EK654', category: 'First Class', schedule: '3:00 PM', seats: 50 },
-    { id: 8, from: 'Denver', to: 'Rome', flightNo: 'AZ987', category: 'Economy', schedule: '8:00 AM', seats: 150 },
-    { id: 9, from: 'Orlando', to: 'Sydney', flightNo: 'QF765', category: 'Business', schedule: '11:00 PM', seats: 200 },
-    { id: 10, from: 'Atlanta', to: 'Amsterdam', flightNo: 'KL123', category: 'Economy', schedule: '1:00 PM', seats: 150 }
-  ];
+const FlightManage = () => {
 
-  const [flights, setFlights] = useState(initialFlights);
+  const [flights, setFlights] = useState([]);
   const [editingFlight, setEditingFlight] = useState(null);
   const [formValues, setFormValues] = useState({
     id: '',
@@ -33,8 +21,7 @@ const FlightManage = ({ setIsLoggedIn }) => {
   const formRef = useRef(null);
 
   useEffect(() => {
-    // Uncomment the below lines if you want to fetch data from an API
-    // fetch_data();
+    fetch_data();
   }, []);
 
   // Scroll to form when editingFlight changes
@@ -44,30 +31,29 @@ const FlightManage = ({ setIsLoggedIn }) => {
     }
   }, [editingFlight]);
 
-  // Uncomment this function if you want to fetch data from an API
-  // async function fetch_data() {
-  //   try {
-  //     const response = await fetch('url-to-fetch-data', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${localStorage.getItem('token')}`
-  //       },
-  //     });
+  async function fetch_data() {
+    try {
+      const response = await fetch('http://localhost:8080/api/admin/getallflights', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+      });
 
-  //     const data = await response.json();
+      const data = await response.json();
 
-  //     if (response.ok) {
-  //       setFlights(data.flights);
-  //     } else {
-  //       console.log(data);
-  //       toast.error(data.message || "Error Occurred");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Network error, please try again later");
-  //   }
-  // }
+      if (response.ok) {
+        setFlights(data.flights);
+      } else {
+        console.log(data);
+        toast.error(data.message || "Error Occurred");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Network error, please try again later");
+    }
+  }
 
   const handleEdit = (flight) => {
     setEditingFlight(flight);
@@ -76,7 +62,7 @@ const FlightManage = ({ setIsLoggedIn }) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`url-to-delete-flight/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/admin/deleteFlight/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -84,11 +70,11 @@ const FlightManage = ({ setIsLoggedIn }) => {
         }
       });
 
-      if (response.ok) {
-        setFlights(flights.filter(flight => flight.id !== id));
-        toast.success("Flight deleted successfully");
+      const data = await response.json();
+      if (data.ok) {
+        setFlights(flights.filter(flight => flight._id !== id));
+        toast.success(data.message);
       } else {
-        const data = await response.json();
         toast.error(data.message || "Error Occurred");
       }
     } catch (error) {
@@ -105,7 +91,7 @@ const FlightManage = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`url-to-update-flight/${formValues.id}`, {
+      const response = await fetch(`http://localhost:8080/api/admin/updateFlight/${formValues.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +115,7 @@ const FlightManage = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <Layout setIsLoggedIn={setIsLoggedIn}>
+    <Layout>
       <div className="box">
         <h2>Flight Management</h2>
         <table>
@@ -146,16 +132,16 @@ const FlightManage = ({ setIsLoggedIn }) => {
           </thead>
           <tbody>
             {flights.map(flight => (
-              <tr key={flight.id}>
+              <tr key={flight._id}>
                 <td>{flight.from}</td>
                 <td>{flight.to}</td>
                 <td>{flight.flightNo}</td>
                 <td>{flight.category}</td>
-                <td>{flight.schedule}</td>
-                <td>{flight.seats}</td>
+                <td>{flight.time}</td>
+                <td>{flight.totalSeats}</td>
                 <td>
                   <button onClick={() => handleEdit(flight)}>Edit</button>
-                  <button onClick={() => handleDelete(flight.id)}>Delete</button>
+                  <button onClick={() => handleDelete(flight._id)}>Delete</button>
                 </td>
               </tr>
             ))}

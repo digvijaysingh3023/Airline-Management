@@ -1,14 +1,13 @@
 import Navbar from '../components/Navbar';
 import FlightCard from '../components/FlightCard';
 
-function ViewFlights({viewFlightData,isLoggedIn,setIsLoggedIn}){
+function ViewFlights({viewFlightData}){
     return (<div>
-        <Navbar isLoggedIn={isLoggedIn} 
-        setIsLoggedIn={setIsLoggedIn}/>
+        <Navbar />
 
         {
             viewFlightData.map((flightData,index)=>{
-                return <FlightCard isLoggedIn={isLoggedIn} flag={true} key={flightData.id} flightData={flightData}/>
+                return <FlightCard flag={true} key={flightData.id} flightData={flightData}/>
             })
         }
     </div>)

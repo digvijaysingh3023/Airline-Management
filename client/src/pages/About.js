@@ -1,9 +1,9 @@
 import Navbar from '../components/Navbar';
 import '../CSS/About.css';
 
-function About({isLoggedIn,setIsLoggedIn}){
+function About(){
     return (<div>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+        <Navbar />
 
         <div className="about-container">
             <h1>About Our Airline</h1>

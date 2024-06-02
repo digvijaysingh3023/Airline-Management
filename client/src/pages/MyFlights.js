@@ -1,13 +1,16 @@
 import Navbar from '../components/Navbar';
 import FlightCard from '../components/FlightCard';
 import Loading from '../components/Loading';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthContext from '../authContext';
 
-function MyFlights({ isLoggedIn, setIsLoggedIn }) {
+function MyFlights() {
     const [myflights, setmyflights] = useState([]);
     const [isLoading, setIsLoading] = useState(true); 
+    const isAuthenticated = useContext(AuthContext)
+    
 
     async function fetch_data() {
         try {
@@ -36,21 +39,21 @@ function MyFlights({ isLoggedIn, setIsLoggedIn }) {
     }
 
     useEffect(() => {
-        if (isLoggedIn) fetch_data();
-    }, [isLoggedIn]);
+        if (isAuthenticated) fetch_data();
+    }, []);
 
     return (
         <div>
-            <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Navbar />
             {
-                !isLoggedIn ? (
+                !isAuthenticated ? (
                     <h1>Login First to visit Flights</h1>
                 ) : (
                     isLoading ? (
                         <Loading />
                     ) : (
                         myflights.map((flightData) => {
-                            return <FlightCard isLoggedIn={isLoggedIn} flag={false} key={flightData.id} flightData={flightData} />
+                            return <FlightCard flag={false} key={flightData.id} flightData={flightData} />
                         })
                     )
                 )

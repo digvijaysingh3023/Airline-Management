@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ViewFlights from './pages/ViewFlights';
@@ -14,61 +14,40 @@ import { toast } from 'react-toastify';
 import AdminDashboard from './pages/adminPages/AdminDashboard';
 import Feedback from './pages/adminPages/Feedback';
 import Profile from './pages/adminPages/Profile'
+import AuthContext from './authContext';
 
 function App() {
-  const [viewFlightData,setViewFlightData]=useState([]);
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [viewFlightData, setViewFlightData] = useState([]);
+  const { isAuthenticated } = useContext(AuthContext);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      verifyToken(token);
-    }
-  }, []);
-
-  const verifyToken = async (token) => {
-    try {
-      const response = await fetch('http://localhost:8080/api/auth/verify', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setIsLoggedIn(response.status === 200);
-    } catch (error) {
-      toast.error(error)
-      setIsLoggedIn(false);
-    }
-  };
-    
   return (
     <div>
       <Routes>
-        <Route path="/home" element={<Home setViewFlightData={setViewFlightData} setIsLoggedIn={isLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/home" element={<Home setViewFlightData={setViewFlightData} />} />
 
-        <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/login" element={<Login />} />
 
-        <Route path="/my_flights" element={<MyFlights setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/my_flights" element={<MyFlights />} />
 
-        <Route path="/view_flights" element={<ViewFlights viewFlightData={viewFlightData} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/view_flights" element={<ViewFlights viewFlightData={viewFlightData} />} />
 
-        <Route path="/about" element={<About setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/about" element={<About />} />
 
-        <Route path="/contact" element={<Contact setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>} />
+        <Route path="/contact" element={<Contact />} />
 
-        <Route path="/user_profile" element={isLoggedIn?(<UserProfile setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>):(<Navigate to="/home" />)} />
+        <Route path="/user_profile" element={{isAuthenticated} ? (<UserProfile />) : (<Navigate to="/home" />)} />
 
-        <Route path="*"  element={<Navigate to="/home" />} /> 
+        <Route path="*" element={<Navigate to="/home" />} />
 
-        <Route path="/admin_dashboard" element={isLoggedIn?(<AdminDashboard setIsLoggedIn={setIsLoggedIn}/>):(<Navigate to="/home"/>)} />
+        <Route path="/admin_dashboard" element={{isAuthenticated} ? (<AdminDashboard />) : (<Navigate to="/home" />)} />
 
-        <Route path="/add_flight" element={isLoggedIn?(<AddFlight setIsLoggedIn={setIsLoggedIn}/>):(<Navigate to="/home"/>)} />
+        <Route path="/add_flight" element={{isAuthenticated} ? (<AddFlight />) : (<Navigate to="/home" />)} />
 
-        <Route path="/feedback" element={isLoggedIn?(<Feedback setIsLoggedIn={setIsLoggedIn}/>):(<Navigate to="/home"/>)} />
+        <Route path="/feedback" element={{isAuthenticated} ? (<Feedback />) : (<Navigate to="/home" />)} />
 
-        <Route path="/flight_manage" element={isLoggedIn?(<FlightManage setIsLoggedIn={setIsLoggedIn}/>):(<Navigate to="/home"/>)} />
+        <Route path="/flight_manage" element={{isAuthenticated} ? (<FlightManage />) : (<Navigate to="/home" />)} />
 
-        <Route path="/profile" element={isLoggedIn?(<Profile setIsLoggedIn={setIsLoggedIn}/>):(<Navigate to="/home"/>)} />
+        <Route path="/profile" element={{isAuthenticated} ? (<Profile />) : (<Navigate to="/home" />)} />
       </Routes>
     </div>
   );

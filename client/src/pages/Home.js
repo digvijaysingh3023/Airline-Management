@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from '../components/Navbar';
 import '../CSS/Home.css';
+import AuthContext from '../authContext';
 
-function Home({ setViewFlightData, isLoggedIn, setIsLoggedIn }) {
+function Home({ setViewFlightData }) {
     const navigate = useNavigate();
+    const isAuthenticated = useContext(AuthContext)
 
     const [formData, setFormData] = useState({
         from: "",
@@ -53,7 +55,7 @@ function Home({ setViewFlightData, isLoggedIn, setIsLoggedIn }) {
     }
 
     return (<>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Navbar />
         <div className="container">
 
             <form onSubmit={submitHandler}>

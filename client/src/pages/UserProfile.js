@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 import '../CSS/UserProfile.css';
 import '../CSS/Loading.css';
 
-function UserProfile({ isLoggedIn, setIsLoggedIn }) {
+function UserProfile() {
     const [userData, setUserData] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +87,7 @@ function UserProfile({ isLoggedIn, setIsLoggedIn }) {
 
     return (
         <>
-            <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Navbar />
             {isLoading ? (
                 <Loading /> 
             ) : (

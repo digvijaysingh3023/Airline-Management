@@ -5,15 +5,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 
-const AddFlight = ({setIsLoggedIn}) => {
+const AddFlight = () => {
   const navigate=useNavigate();
   const [flightDetails, setFlightDetails] = useState({
-    from: '',
-    to: '',
-    flightNo: '',
-    category: '',
-    schedule: '',
-    seats: ''
+    "flightNo": '',
+    "to": '',
+    "from": '',
+    "category": '',
+    "totalSeats" : 0,
+    "date": '',
   });
 
   const handleChange = (e) => {
@@ -27,16 +27,17 @@ const AddFlight = ({setIsLoggedIn}) => {
   async function handleSubmit(e){
     e.preventDefault();
     try {
-      const response = await fetch('url to add flight', {
+      const response = await fetch('http://localhost:8080/api/admin/addflight', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
           },
-          body: JSON.stringify({flightDetails})
+          body: JSON.stringify(flightDetails)
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (response.ok) {
           toast.success("Successfully Added Flight");
@@ -51,7 +52,7 @@ const AddFlight = ({setIsLoggedIn}) => {
   };
 
   return (
-    <Layout setIsLoggedIn={setIsLoggedIn}>
+    <Layout>
       <div className="add-flight-box">
         <h2>Add Flight</h2>
         <form onSubmit={handleSubmit}>
@@ -73,11 +74,11 @@ const AddFlight = ({setIsLoggedIn}) => {
           </div>
           <div className="form-group">
             <label>Schedule:</label>
-            <input type="text" name="schedule" value={flightDetails.schedule} onChange={handleChange} required />
+            <input type="date" name="date" value={flightDetails.date} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label>Seats:</label>
-            <input type="number" name="seats" value={flightDetails.seats} onChange={handleChange} required />
+            <input type="number" name="totalSeats" value={flightDetails.totalSeats} onChange={handleChange} required />
           </div>
           <button type="submit">Add Flight</button>
         </form>

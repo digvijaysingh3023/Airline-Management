@@ -11,35 +11,51 @@ const adminCredentials = {
 };
 
 const adminLogin = async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (email === adminCredentials.email && password === adminCredentials.password) {
+    if (username === adminCredentials.email && password === adminCredentials.password) {
         const token = jwt.sign({ email: adminCredentials.email, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '12h' });
-        return res.status(200).json({ status: 'ok', token });
+        return res.status(200).json({ status: 'ok', user: token });
     } else {
         return res.status(401).json({ message: 'Invalid admin credentials' });
     }
 };
 
+async function getAllFlights(req,res) {
+    try {
+        if(req.user.role !== 'admin'){
+            return res.status(400).json({message: "Not Authorized"})
+        }
+
+        const flights = await Flight.find()
+
+        return res.status(200).json({flights})
+        
+    } catch (error) {
+        return res.status(400).json({message : "Not Authorized"})
+    }
+}
+
 async function addFlight(req, res) {
-    const { flightNo, to, from, category, totalSeats, date, time } = req.body;
+    const { flightNo, to, from, category, totalSeats, date,time } = req.body;
     const date_ = new Date(date);
     try {
-        if(req.user.role != 'admin'){
-            return res.status(400).json({messagev: "Not Authorized"})
+        if(req.user.role !== 'admin'){
+            return res.status(400).json({message : "Not Authorized"})
         }
         const flight = new Flight({ flightNo, to, from, category, totalSeats, date: date_, time });
         await flight.save();
 
-        return res.status(201).json({ status: 'ok', message: `New Flight created with flightNo- ${flightNo}` });
+        return res.status(200).json({ status: 'ok', message: `New Flight created with flightNo- ${flightNo}` });
 
     } catch (error) {
         const errorcode = error['errorResponse'];
         if (errorcode && errorcode['code'] === 11000) {
-            return res.status(400).json({ error: "This Flight number Already Exists" });
+            return res.status(400).json({ message: "This Flight number Already Exists" });
         }
+        console.log(error);
         const errormessage = "Cannot add flight Now. Try again later.";
-        return res.status(500).json({ error: errormessage });
+        return res.status(500).json({ message: errormessage });
     }
 }
 
@@ -49,7 +65,7 @@ async function editFlight(req, res) {
 
     try {
         if(req.user.role != 'admin'){
-            return res.status(400).json({messagev: "Not Authorized"})
+            return res.status(400).json({message: "Not Authorized"})
         }
         const flight = await Flight.findById(id);
         if (!flight) {
@@ -78,19 +94,19 @@ async function deleteFlight(req, res) {
 
     try {
         if(req.user.role != 'admin'){
-            return res.status(400).json({messagev: "Not Authorized"})
+            return res.status(400).json({message: "Not Authorized"})
         }
-        const flight = await Flight.findById(id);
+        const flight = await Flight.findByIdAndDelete(id);
+        
         if (!flight) {
-            return res.status(404).json({ error: 'Flight not found' });
+            return res.status(404).json({ message: 'Flight not found' });
         }
-
-        await flight.remove();
 
         return res.status(200).json({ status: 'ok', message: `Flight with flightNo- ${flight.flightNo} deleted successfully` });
 
     } catch (error) {
-        return res.status(500).json({ error: "Cannot delete flight now. Try again later." });
+        console.log(error);
+        return res.status(500).json({ message: "Cannot delete flight now. Try again later." });
     }
 }
 
@@ -99,4 +115,5 @@ module.exports = {
     editFlight,
     deleteFlight,
     adminLogin,
+    getAllFlights
 };

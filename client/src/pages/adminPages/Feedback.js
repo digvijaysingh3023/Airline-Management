@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../CSS/Feedback.css"; // Import the feedback-specific CSS
 
-const Feedback = ({setIsLoggedIn}) => {
+const Feedback = () => {
   const [feedbacks,setfeedbacks] = useState([
     {
       id: 1,
@@ -53,7 +53,7 @@ useEffect(()=>{
 },[])
 
   return (
-    <Layout setIsLoggedIn={setIsLoggedIn}>
+    <Layout >
       <div className="box">
         <h2>Feedback</h2>
         <div className="feedback-list">

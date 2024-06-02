@@ -1,10 +1,13 @@
 import Navbar from '../components/Navbar';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../CSS/Contact.css'
+import AuthContext from '../authContext';
 
-function Contact({username,isLoggedIn,setIsLoggedIn}){
+function Contact({username}){
+    const isAuthenticated = useContext(AuthContext);
+    
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -23,8 +26,8 @@ function Contact({username,isLoggedIn,setIsLoggedIn}){
 
     async function submitHandler(event){
         event.preventDefault();
-        if(isLoggedIn==="false"){
-            toast.error("Login to sent message");
+        if(!isAuthenticated){
+            toast.error("Login to send message");
             return ;
         }
         try {
@@ -59,7 +62,7 @@ function Contact({username,isLoggedIn,setIsLoggedIn}){
 
 
     return (<div>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+        <Navbar/>
 
         <div className="contact-container">
             <h1>Contact Us</h1>
