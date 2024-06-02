@@ -38,7 +38,7 @@ const AddFlight = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (response.ok) {
         toast.success("Successfully Added Flight");

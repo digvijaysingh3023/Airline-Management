@@ -73,8 +73,9 @@ const FlightManage = () => {
       });
 
       const data = await response.json();
-      if (data.ok) {
-        setFlights(data['flights']);
+      console.log(data);
+      if (data.status) {
+        setFlights(data["flights"]);
         toast.success(data.message);
       } else {
         toast.error(data.message || "Error Occurred");

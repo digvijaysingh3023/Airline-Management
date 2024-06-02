@@ -20,13 +20,14 @@ function MyFlightCard({ flightData }) {
                 <p><strong>Category:</strong> {category}</p>
                 <h3>Passengers</h3>
                 <ul>
-                    {passengers.map((passenger, index) => (
+                    {passengers?(
+                    passengers.map((passenger, index) => (
                         <li key={index}>
                             <p><strong>Name:</strong> {passenger.name}</p>
                             <p><strong>Age:</strong> {passenger.age}</p>
                             <p><strong>Passport No:</strong> {passenger.passportNo}</p>
                         </li>
-                    ))}
+                    ))):(<></>)}
                 </ul>
             </div>
         </div>

@@ -1,11 +1,12 @@
-import { useState,useContext} from "react";
-import { useNavigate, Link } from "react-router-dom";
-import '../CSS/SignIn.css';
+import Navbar from "../../components/Navbar";
+import { useState,useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import '../../CSS/SignIn.css'; 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthContext from "../authContext";
+import AuthContext from "../../authContext";
 
-function SignIn() {
+function AdminLogin() {
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
@@ -21,10 +22,10 @@ function SignIn() {
         }));
     }
 
-    async function HandleSubmitUser(event) {
+    async function HandleSubmitAdmin(event) {
         event.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8080/api/auth/login', {
+            const response = await fetch('http://127.0.0.1:8080/api/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,7 +39,7 @@ function SignIn() {
                 localStorage.setItem('token',data['user'])
                 login(data['user'])
                 toast.success("Login successful!");
-                navigate('/home');
+                navigate('/admin_dashboard');
             } else {
                 toast.error(data.message || "Authentication failed");
             }
@@ -48,7 +49,9 @@ function SignIn() {
         }
     }
 
-    return (
+    return (<div>
+        <Navbar/>
+
         <div className="signin-container">
             <form>
                 <div>
@@ -72,12 +75,11 @@ function SignIn() {
                     ></input>
                 </div>
                 <div>
-                    <button onClick={HandleSubmitUser}>Sign In</button>
-                    <Link to="/admin_login">Sign In as Admin</Link>
+                    <button onClick={HandleSubmitAdmin}>Sign In</button>
                 </div>
             </form>
         </div>
-    );
+    </div>)
 }
 
-export default SignIn;
+export default AdminLogin;

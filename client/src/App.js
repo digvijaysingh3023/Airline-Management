@@ -9,15 +9,17 @@ import UserProfile from './pages/UserProfile';
 import About from './pages/About';
 import AddFlight from './pages/adminPages/AddFlight';
 import FlightManage from './pages/adminPages/FlightManage';
+import BookFlight from './pages/BookFlight';
 import './App.css';
-import { toast } from 'react-toastify';
 import AdminDashboard from './pages/adminPages/AdminDashboard';
 import Feedback from './pages/adminPages/Feedback';
 import Profile from './pages/adminPages/Profile'
 import AuthContext from './authContext';
+import AdminLogin from './pages/adminPages/AdminLogin';
 
 function App() {
   const [viewFlightData, setViewFlightData] = useState([]);
+  const [bookFlightData, setBookFlightData] = useState({});
   const { isAuthenticated } = useContext(AuthContext);
 
   return (
@@ -29,9 +31,13 @@ function App() {
 
         <Route path="/my_flights" element={<MyFlights />} />
 
-        <Route path="/view_flights" element={<ViewFlights viewFlightData={viewFlightData} />} />
+        <Route path="/view_flights" element={<ViewFlights viewFlightData={viewFlightData} setBookFlightData={setBookFlightData}/>} />
+
+        <Route path="/book_flight" element={<BookFlight bookFlightData={bookFlightData} />} />
 
         <Route path="/about" element={<About />} />
+
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/contact" element={<Contact />} />
 
@@ -48,6 +54,8 @@ function App() {
         <Route path="/flight_manage" element={{isAuthenticated} ? (<FlightManage />) : (<Navigate to="/home" />)} />
 
         <Route path="/profile" element={{isAuthenticated} ? (<Profile />) : (<Navigate to="/home" />)} />
+
+        <Route path="/admin_login" element={<AdminLogin />} />
       </Routes>
     </div>
   );
