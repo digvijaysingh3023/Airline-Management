@@ -1,0 +1,40 @@
+/* Feedback specific styles */
+.box {
+    background-color: white;
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .feedback-list {
+    margin-top: 20px;
+  }
+  
+  .feedback-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    text-align: left;
+  }
+  
+  .feedback-item:last-of-type {
+    border-bottom: none;
+  }
+  
+  .user {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .comment {
+    font-style: italic;
+    margin: 5px 0;
+  }
+  
+  .date {
+    color: #7f8c8d;
+    font-size: 0.9em;
+  }
+  

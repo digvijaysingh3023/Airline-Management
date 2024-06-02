@@ -1,0 +1,59 @@
+/* Flight management specific styles */
+.box {
+    background-color: white;
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .box th, .box td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .box th {
+    background-color: #2c3e50;
+    color: white;
+    text-align: left;
+  }
+  
+  .box td {
+    text-align: left;
+  }
+  
+  .box button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .box button:hover {
+    opacity: 0.8;
+  }
+  
+  .box button:first-of-type {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .box button:nth-of-type(2) {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .box button:last-of-type {
+    background-color: #e74c3c;
+    color: white;
+  }
+  

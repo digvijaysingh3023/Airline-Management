@@ -4,7 +4,7 @@ import '../CSS/SignIn.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function SignIn({ setIsLoggedIn }) {
+function SignIn({setIsAdminLoggedIn, setIsUserLoggedIn }) {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ function SignIn({ setIsLoggedIn }) {
         }));
     }
 
-    async function HandleSubmit(event) {
+    async function HandleSubmitUser(event) {
         event.preventDefault();
         try {
             const response = await fetch('http://127.0.0.1:8080/api/auth/login', {
@@ -34,7 +34,11 @@ function SignIn({ setIsLoggedIn }) {
 
             if (response.ok) {
                 localStorage.setItem('token',data['user'])
+<<<<<<< Updated upstream
                 setIsLoggedIn(true);
+=======
+                setIsUserLoggedIn("true");
+>>>>>>> Stashed changes
                 toast.success("Login successful!");
                 navigate('/home');
             } else {
@@ -46,9 +50,36 @@ function SignIn({ setIsLoggedIn }) {
         }
     }
 
+    async function HandleSubmitAdmin(event) {
+        event.preventDefault();
+        try {
+            const response = await fetch('http://127.0.0.1:8080/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token',data['user'])
+                setIsAdminLoggedIn("true");
+                toast.success("Login successful!");
+                navigate('/admin_dashboard');
+            } else {
+                toast.error(data.message || "Authentication failed");
+            }
+        } catch (error) {
+            toast.error("Network error, please try again later");
+            console.error("Network error:", error);
+        }
+    }
+
     return (
         <div className="signin-container">
-            <form onSubmit={HandleSubmit}>
+            <form>
                 <div>
                     <p>Username</p>
                     <input
@@ -70,7 +101,8 @@ function SignIn({ setIsLoggedIn }) {
                     ></input>
                 </div>
                 <div>
-                    <button type="submit">Sign In</button>
+                    <button onClick={HandleSubmitUser}>Sign In As User</button>
+                    <button onClick={HandleSubmitAdmin}>Sign In as Admin</button>
                 </div>
             </form>
         </div>
