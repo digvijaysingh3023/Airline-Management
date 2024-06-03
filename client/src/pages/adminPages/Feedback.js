@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../CSS/Feedback.css"; // Import the feedback-specific CSS
+import Loading from '../../components/Loading';
 
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [isLoading,setisLoading] = useState(true);
   
   async function fetch_data() {
     try {
-        const response = await fetch('/api/feedback/getAllFeedback', { // Update the URL
+        const response = await fetch('http://localhost:8080/api/feedback/getAllFeedback', { // Update the URL
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,6 +23,7 @@ const Feedback = () => {
 
         if (response.ok) {
             setFeedbacks(data.feedbacks);
+            setisLoading(false)
         } else {
             console.log(data);
             toast.error(data.message || "Error Occurred");
@@ -37,6 +40,8 @@ const Feedback = () => {
 
   return (
     <Layout >
+      { isLoading ? 
+      (<Loading />)  : 
       <div className="box">
         <h2>Feedback</h2>
         <div className="feedback-list">
@@ -50,6 +55,7 @@ const Feedback = () => {
           ))}
         </div>
       </div>
+    }
     </Layout>
   );
 };

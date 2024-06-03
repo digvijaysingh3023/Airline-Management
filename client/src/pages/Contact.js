@@ -9,7 +9,7 @@ function Contact({username}) {
     const isAuthenticated = useContext(AuthContext);
     
     const [formData, setFormData] = useState({
-        name: "",
+        user: "",
         email: "",
         subject: "",
         message: "",
@@ -31,7 +31,7 @@ function Contact({username}) {
             return ;
         }
         try {
-            const response = await fetch('/api/feedback/addFeedback', { // Update the URL
+            const response = await fetch('http://localhost:8080/api/feedback/addFeedback', { // Update the URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ function Contact({username}) {
         }
         
         setFormData({
-            name: "",
+            user: "",
             email: "",
             subject: "",
             message: "",
@@ -71,9 +71,9 @@ function Contact({username}) {
                         <p>Name</p>
                         <input 
                             type="text"
-                            name="name"
+                            name="user"
                             onChange={changeHandler}
-                            value={formData.name}
+                            value={formData.user}
                             required
                         />
                     </div>

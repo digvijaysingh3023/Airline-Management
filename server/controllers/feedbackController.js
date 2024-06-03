@@ -3,8 +3,9 @@ const Feedback = require('../model/Feedback.model');
 
 const addFeedback = async (req, res) => {
     const { user, email, subject, message } = req.body;
+    const date = Date.now();
     try {
-        const feedback = new Feedback({ user, email, subject, message });
+        const feedback = new Feedback({ user, email, subject, message,date });
         await feedback.save();
         return res.status(200).json({ status: 'ok', message: 'Feedback sent successfully' });
     } catch (error) {

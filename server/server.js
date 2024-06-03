@@ -30,6 +30,9 @@ app.get('/', (req, res) => {
 /** USER Auth Routes */
 app.use('/api/auth', authroutes);
 
+/** FEEDBACK Routes */
+app.use('/api/feedback', feedbackRoutes);
+
 /** ADMIN Routes */
 app.use('/api/admin', (req, res, next) => {
     if (req.path === '/login') {
@@ -48,8 +51,6 @@ app.use('/api', (req, res, next) => {
     }
 }, router);
 
-/** FEEDBACK Routes */
-app.use('/api/feedback', feedbackRoutes); // Add this line
 
 /* start server only when we have valid connection */
 connect(process.env.CONNECTION_STRING).then(() => {
