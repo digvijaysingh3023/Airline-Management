@@ -1,12 +1,17 @@
 import Navbar from "../../components/Navbar";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import '../../CSS/SignIn.css'; 
+import '../../CSS/SignIn.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../authContext";
+import Loading from "../../components/Loading";
 
 function AdminLogin() {
+    const [isLoading, setIsLoading] = useState(true);
+    setTimeout(() => {
+        setIsLoading(false)
+    }, 1500);
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
@@ -36,7 +41,7 @@ function AdminLogin() {
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('token',data['user'])
+                localStorage.setItem('token', data['user'])
                 login(data['user'])
                 toast.success("Login successful!");
                 navigate('/admin_dashboard');
@@ -50,34 +55,39 @@ function AdminLogin() {
     }
 
     return (<div>
-        <Navbar/>
+        <div className={isLoading ? 'loading' : 'loaded'}>
+            <Loading isLoading={isLoading} />
+            <div className="content_">
+                <Navbar />
 
-        <div className="signin-container">
-            <form>
-                <div>
-                    <p>Username</p>
-                    <input
-                        type="text"
-                        name="username"
-                        onChange={changeHandler}
-                        value={formData.username}
-                        required
-                    ></input>
+                <div className="signin-container">
+                    <form>
+                        <div>
+                            <p>Username</p>
+                            <input
+                                type="text"
+                                name="username"
+                                onChange={changeHandler}
+                                value={formData.username}
+                                required
+                            ></input>
+                        </div>
+                        <div>
+                            <p>Password</p>
+                            <input
+                                type="password"
+                                name="password"
+                                onChange={changeHandler}
+                                value={formData.password}
+                                required
+                            ></input>
+                        </div>
+                        <div>
+                            <button onClick={HandleSubmitAdmin}>Sign In</button>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <p>Password</p>
-                    <input
-                        type="password"
-                        name="password"
-                        onChange={changeHandler}
-                        value={formData.password}
-                        required
-                    ></input>
-                </div>
-                <div>
-                    <button onClick={HandleSubmitAdmin}>Sign In</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>)
 }

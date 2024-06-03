@@ -103,7 +103,7 @@ const bookFlight = async (req, res) => {
 
 const getBookedFlights = async (req, res) => {
     const username = req.user.username;
-    console.log(username);
+    // console.log(username);
 
     try {
         // Find the user and populate the flights array

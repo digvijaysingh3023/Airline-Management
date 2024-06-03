@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
-  const [isLoading,setisLoading] = useState(true);
+  const [isLoading,setIsLoading] = useState(true);
   
   async function fetch_data() {
     try {
@@ -23,7 +23,9 @@ const Feedback = () => {
 
         if (response.ok) {
             setFeedbacks(data.feedbacks);
-            setisLoading(false)
+            setTimeout(() => {
+              setIsLoading(false)
+            }, 1500);
         } else {
             console.log(data);
             toast.error(data.message || "Error Occurred");
@@ -39,9 +41,11 @@ const Feedback = () => {
   }, []);
 
   return (
-    <Layout >
-      { isLoading ? 
-      (<Loading />)  : 
+    <>
+      <div className={isLoading ? 'loading' : 'loaded'}>
+      <Loading isLoading={isLoading} />
+      <div className="content_">
+        <Layout >
       <div className="box">
         <h2>Feedback</h2>
         <div className="feedback-list">
@@ -55,8 +59,10 @@ const Feedback = () => {
           ))}
         </div>
       </div>
-    }
-    </Layout>
+      </Layout>
+      </div>  
+    </div>
+    </>
   );
 };
 

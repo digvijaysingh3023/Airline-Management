@@ -8,9 +8,9 @@ import AuthContext from '../authContext';
 
 function MyFlights() {
     const [myflights, setmyflights] = useState([]);
-    const [isLoading, setIsLoading] = useState(true); 
-    const {isAuthenticated} = useContext(AuthContext)
-    
+    const [isLoading, setIsLoading] = useState(true);
+    const { isAuthenticated } = useContext(AuthContext)
+
 
     async function fetch_data() {
         try {
@@ -26,38 +26,48 @@ function MyFlights() {
             console.log(data);
             if (response.ok) {
                 setmyflights(data.flights);
-                setIsLoading(false); 
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 1500);
             } else {
                 console.log(data);
                 toast.error(data.message || "Error Occurred");
-                setIsLoading(false); 
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 1500);
             }
         } catch (error) {
             toast.error("Network error, please try again later");
-            setIsLoading(false); 
+            setIsLoading(false);
         }
     }
 
     useEffect(() => {
-        if (isAuthenticated) fetch_data();
+        console.log(isAuthenticated);
+        fetch_data();
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1500);
     }, []);
 
     return (
         <div>
-            <Navbar />
-            {
-                !isAuthenticated ? (
-                    <h1>Login First to visit Flights</h1>
-                ) : (
-                    isLoading ? (
-                        <Loading />
-                    ) : (
-                        myflights.map((flightData) => {
-                            return <MyFlightCard key={flightData.id} flightData={flightData} />
-                        })
-                    )
-                )
-            }
+            <div className={isLoading ? 'loading' : 'loaded'}>
+                <Loading isLoading={isLoading} />
+                <div className="content_">
+                    <Navbar />
+                    {
+                        !isAuthenticated ? (
+                            <h1>Login First to visit Flights</h1>
+                        ) : (                             (
+                                myflights.map((flightData) => {
+                                    return <MyFlightCard key={flightData.id} flightData={flightData} />
+                                })
+                            )
+                        )
+                    }
+                </div>
+            </div>
         </div>
     );
 }
