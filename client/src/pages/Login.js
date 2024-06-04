@@ -2,10 +2,15 @@ import SignIn from "../components/SignIn";
 import Navbar from "../components/Navbar";
 import CreateAccount from "../components/CreateAccount";
 import { useState } from "react";
-import '../CSS/Login.css'; 
+import '../CSS/Login.css';
+import Loading from "../components/Loading";
 
 function Login() {
     const [signIn, setSignIn] = useState(true);
+    const [isLoading,setIsLoading] = useState(true);
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1500);
 
     const backgroundStyle = {
         backgroundImage: 'url(/loginImage.jpg)',
@@ -13,7 +18,12 @@ function Login() {
         backgroundPosition: 'center',
       };
 
-    return (<div>
+    return (
+    
+        <div className={isLoading ? 'loading' : 'loaded'}>
+        <Loading isLoading={isLoading} />
+        <div className="content_">
+    <div>
         <Navbar/>
         <div className="wrapper flex items-center h-screen justify-start" style={backgroundStyle}>
             <div className="login-container min-w-[25rem]" style={{marginLeft:'20%'}}>
@@ -25,6 +35,8 @@ function Login() {
             </div>
 
 
+                </div>
+            </div>
         </div>
         
     </div>)

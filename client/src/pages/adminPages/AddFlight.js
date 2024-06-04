@@ -4,9 +4,14 @@ import "../../CSS/Addflight.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const AddFlight = () => {
   const navigate = useNavigate();
+  const [isLoading,setIsLoading] = useState(true);
+  setTimeout(() => {
+      setIsLoading(false)
+    }, 1500);
   const [flightDetails, setFlightDetails] = useState({
     "flightNo": '',
     "to": '',
@@ -53,6 +58,9 @@ const AddFlight = () => {
   };
 
   return (
+    <div className={isLoading ? 'loading' : 'loaded'}>
+      <Loading isLoading={isLoading} />
+      <div className="content_">
     <Layout>
       <div className="add-flight-box">
         <h2>Add Flight</h2>
@@ -98,6 +106,7 @@ const AddFlight = () => {
         </form>
       </div>
     </Layout>
+    </div></div>
   );
 };
 

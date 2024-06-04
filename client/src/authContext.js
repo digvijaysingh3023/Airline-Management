@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
           Authorization: `Bearer ${token}`
         }
       });
+      // console.log(response);
       setIsAuthenticated(response.status === 200);
     } catch (error) {
       setIsAuthenticated(false);

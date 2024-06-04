@@ -5,10 +5,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from '../components/Navbar';
 import '../CSS/Home.css';
 import AuthContext from '../authContext';
+import Loading from '../components/Loading';
 
 function Home({ setViewFlightData }) {
     const navigate = useNavigate();
     const isAuthenticated = useContext(AuthContext)
+    const [isLoading,setIsLoading] = useState(true);
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1500);
 
     const [formData, setFormData] = useState({
         from: "",
@@ -27,7 +32,6 @@ function Home({ setViewFlightData }) {
 
     async function submitHandler(event) {
         event.preventDefault();
-        
         try {
             const response = await fetch('http://127.0.0.1:8080/api/searchFlight', {
                 method: 'POST',
@@ -40,7 +44,8 @@ function Home({ setViewFlightData }) {
 
             const data = await response.json();
 
-            if (response.ok) {
+            if (response.status === 200) {
+                console.log(response.status);
                 setViewFlightData(data.flights);
                 navigate('/view_flights');
             } else {
@@ -49,9 +54,6 @@ function Home({ setViewFlightData }) {
         } catch (error) {
             toast.error("Network error, please try again later");
         }
-        
-
-        navigate('/view_flights');
     }
 
     const backgroundStyle = {
@@ -63,7 +65,13 @@ function Home({ setViewFlightData }) {
       };
     
 
-    return (<div>
+    return (
+        <div className={isLoading ? 'loading' : 'loaded'}>
+      <Loading isLoading={isLoading} />
+      <div className="content_">
+        
+        <div>
+
         <Navbar/>
         <div className="flex h-screen items-center justify-center" style={backgroundStyle}>
             <div className="container">
@@ -122,8 +130,10 @@ function Home({ setViewFlightData }) {
                 </form>
             </div>
         </div>
-        
-    </div>);
+    </div>
+    </div>
+    </div>
+    );
 }
 
 export default Home;

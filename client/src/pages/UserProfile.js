@@ -37,13 +37,18 @@ function UserProfile() {
                     mobile: data.user.mobile,
                     address: data.user.address
                 });
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 1500);
             } else {
                 toast.error(data.message || "Error Occurred");
             }
         } catch (error) {
             toast.error("Network error, please try again later");
         } finally {
-            setIsLoading(false); 
+            setTimeout(() => {
+                setIsLoading(false)
+            }, 1500);
         }
     }
 
@@ -61,6 +66,7 @@ function UserProfile() {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        setIsLoading(true)
         try {
             const response = await fetch('http://localhost:8080/api/updateuserdetails', {
                 method: 'PUT',
@@ -74,9 +80,12 @@ function UserProfile() {
             const data = await response.json();
 
             if (response.ok) {
-                toast.success("Profile updated successfully!");
                 setUserData(data.user);
                 setIsEditing(false);
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 1500);
+                toast.success("Profile updated successfully!");
             } else {
                 toast.error(data.message || "Error Occurred");
             }
@@ -87,11 +96,12 @@ function UserProfile() {
 
     return (
         <>
-            <Navbar />
-            {isLoading ? (
-                <Loading /> 
-            ) : (
-                !isEditing ? (
+            <div className={isLoading ? 'loading' : 'loaded'}>
+                <Loading isLoading={isLoading} />
+                <div className="content_">
+                    <Navbar />
+                    {
+                    !isEditing ? (
                     <div className="user-profile-container">
                         <h2>User Profile</h2>
                         <div className="user-info">
@@ -104,7 +114,7 @@ function UserProfile() {
                         </div>
                         <button onClick={() => setIsEditing(true)}>Edit</button>
                     </div>
-                ) : (
+                    ) : (
                     <div className='form-container'>
                         <form onSubmit={handleSubmit}>
                             <div>
@@ -151,8 +161,10 @@ function UserProfile() {
                             <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
                         </form>
                     </div>
-                )
-            )}
+                    )
+                    }
+                </div>
+            </div>
         </>
     );
 }

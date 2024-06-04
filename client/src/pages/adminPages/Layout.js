@@ -19,7 +19,7 @@ const Layout = ({children}) => {
     <div className="mainContainer">
       <div className="header">
         <Link to="/add_flight" className="btn">Add Flights</Link>
-        <Link to="#" className="btn">Admin</Link>
+        <Link to="/admin_dashboard" className="btn">Admin</Link>
       </div>
       
       <div className="content">

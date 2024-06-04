@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loading from '../../components/Loading';
 
 const FlightManage = () => {
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(true); 
   const [flights, setFlights] = useState([]);
   const [editingFlight, setEditingFlight] = useState(null);
   const [formValues, setFormValues] = useState({
@@ -47,8 +47,9 @@ const FlightManage = () => {
 
       if (response.ok) {
         setFlights(data.flights);
-        setIsLoading(false);
-      } else {
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1500);      } else {
         toast.error(data.message || "Error Occurred");
       }
     } catch (error) {
@@ -63,6 +64,7 @@ const FlightManage = () => {
   };
 
   const handleDelete = async (id) => {
+    setIsLoading(true)
     try {
       const response = await fetch(`http://localhost:8080/api/admin/deleteFlight/${id}`, {
         method: 'DELETE',
@@ -76,6 +78,9 @@ const FlightManage = () => {
       console.log(data);
       if (data.status) {
         setFlights(data["flights"]);
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1500);
         toast.success(data.message);
       } else {
         toast.error(data.message || "Error Occurred");
@@ -107,7 +112,9 @@ const FlightManage = () => {
       if (response.ok) {
         setFlights(flights.map(flight => flight._id === formValues._id ? formValues : flight));
         setEditingFlight(null);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1500);
         toast.success("Flight updated successfully");
       } else {
         const data = await response.json();
@@ -120,11 +127,10 @@ const FlightManage = () => {
   };
 
   return (
+    <div className={isLoading ? 'loading' : 'loaded'}>
+      <Loading isLoading={isLoading} />
+      <div className="content_">
     <Layout> 
-      {
-        isLoading ? <Loading />
-        :
-        <>
         <div className="box">
           <h2>Flight Management</h2>
           <table>
@@ -181,9 +187,9 @@ const FlightManage = () => {
             </div>
           </div>
         )}
-        </>
-      } 
     </Layout>
+    </div>
+    </div>
   );
 };
 
