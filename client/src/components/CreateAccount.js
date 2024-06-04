@@ -13,7 +13,7 @@ function CreateAccount({ setSignIn }) {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        mobile: 0,
+        mobile: "",
         address: "",
         email: "",
         profile: "client",
@@ -66,9 +66,9 @@ function CreateAccount({ setSignIn }) {
     }
 
     return (
-        <div className="create-account-container">
-            <form onSubmit={submitHandler}>
-                <div className="name-container">
+        <div className="create-account-container bg-[#ebe8e8] bg-opacity-40 rounded-2xl">
+            <form className="m-0 px-4 pb-6" onSubmit={submitHandler}>
+                <div className="name-container flex gap-2 pt-4">
                     <div>
                         <p>First Name</p>
                         <input 
@@ -92,7 +92,7 @@ function CreateAccount({ setSignIn }) {
                 <div>
                     <p>Mobile No.</p>
                     <input 
-                        type="number"
+                        type="tel"
                         name="mobile"
                         onChange={changeHandler}
                         value={formData.mobile}
@@ -128,7 +128,7 @@ function CreateAccount({ setSignIn }) {
                         required
                     ></input>
                 </div>
-                <div className="password-container">
+                <div className="password-container flex gap-2">
                     <div>
                         <p>Password</p>
                         <input 
@@ -150,7 +150,10 @@ function CreateAccount({ setSignIn }) {
                         ></input>
                     </div>
                 </div>
-                <button type="submit">Create Account</button>
+                <div className="flex justify-center">
+                    <button type="submit">Create Account</button>
+                </div>
+               
             </form>
         </div>
     );

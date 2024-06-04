@@ -60,53 +60,71 @@ function Contact({username}) {
         });
     };
 
+    const backgroundStyle = {
+        backgroundImage: 'url(/ContactImage.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      };
+
     return (
-        <div>
+        <div className='h-screen' style={backgroundStyle}>
             <Navbar/>
-            <div className="contact-container">
-                <h1>Contact Us</h1>
-                <p>If you have any questions, concerns, or feedback, please feel free to reach out to us using the form below. We are here to help and ensure you have a great experience with our airline.</p>
+            <div className='h-[70px]'></div>
+            <div className="contact-container max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md bg-opacity-90">
+                <h1 className="text-3xl font-bold text-center mb-4">Contact Us</h1>
+                <p className="text-gray-600 text-center mb-8">If you have any questions, concerns, or feedback, please feel free to reach out to us using the form below. We are here to help and ensure you have a great experience with our airline.</p>
                 <form onSubmit={submitHandler}>
                     <div>
-                        <p>Name</p>
+                        <p className="text-gray-700 font-semibold mb-2">Name</p>
                         <input 
                             type="text"
                             name="name"
                             onChange={changeHandler}
                             value={formData.name}
                             required
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div>
-                        <p>Email</p>
+                        <p className="text-gray-700 font-semibold mb-2">Email</p>
                         <input 
                             type="email"
                             name="email"
                             onChange={changeHandler}
                             value={formData.email}
                             required
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div>
-                        <p>Subject</p>
+                        <p className="text-gray-700 font-semibold mb-2">Subject</p>
                         <input 
                             type="text"
                             name="subject"
                             onChange={changeHandler}
                             value={formData.subject}
                             required
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <div>
-                        <p>Message</p>
+                        <p className="text-gray-700 font-semibold mb-2">Message</p>
                         <textarea 
                             name="message"
                             onChange={changeHandler}
                             value={formData.message}
                             required
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
                         />
                     </div>
-                    <button type="submit">Send Message</button>
+                    <div className="flex justify-center">
+                        <button 
+                            type="submit"
+                            className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            Send Message
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

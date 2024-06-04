@@ -1,4 +1,4 @@
-.create-account-container {
+/* .create-account-container {
   width: 350px;
   margin: auto;
   padding: 20px;
@@ -15,12 +15,18 @@
 .create-account-container form div {
   margin-bottom: 10px;
 }
+*/
+.create-account-container form p{
+  padding-left: 10px;
+}
 
 .create-account-container form input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  width: 90%;
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 .create-account-container form button {
@@ -35,7 +41,7 @@
 .create-account-container form button:hover {
   background-color: #0056b3;
 }
-
+/*
 .name-container {
   display: flex;
   justify-content: space-between;
@@ -44,4 +50,4 @@
 .password-container {
   display: flex;
   justify-content: space-between;
-}
+} */

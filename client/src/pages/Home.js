@@ -54,58 +54,76 @@ function Home({ setViewFlightData }) {
         navigate('/view_flights');
     }
 
-    return (<>
-        <Navbar />
-        <div className="container">
+    const backgroundStyle = {
+        backgroundImage: 'url(/homeImage.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        // height: '100%',
+        width: '100%',
+      };
+    
 
-            <form onSubmit={submitHandler}>
-                <div>
-                    <p>Source</p>
-                    <input
-                        type="text"
-                        name="from"
-                        onChange={changeHandler}
-                        value={formData.from}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Destination</p>
-                    <input
-                        type="text"
-                        name="to"
-                        onChange={changeHandler}
-                        value={formData.to}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Date</p>
-                    <input
-                        type="date"
-                        name="date"
-                        onChange={changeHandler}
-                        value={formData.date}
-                        required
-                    />
-                </div>
-                <div>
-                    <p>Category</p>
-                    <select
-                        name="category"
-                        onChange={changeHandler}
-                        value={formData.category}
-                        required
-                    >
-                        <option>Economy</option>
-                        <option>Business</option>
-                        <option>First Class</option>
-                    </select>
-                </div>
-                <button type="submit">View Flights</button>
-            </form>
+    return (<div>
+        <Navbar/>
+        <div className="flex h-screen items-center justify-center" style={backgroundStyle}>
+            <div className="container">
+                <form className="grid grid-cols-2 gap-6 p-6 bg-white rounded-lg shadow-md bg-opacity-80" onSubmit={submitHandler}>
+                    <div>
+                        <p className="text-gray-700 font-semibold mb-2">Source</p>
+                        <input
+                            type="text"
+                            name="from"
+                            onChange={changeHandler}
+                            value={formData.from}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div>
+                        <p className="text-gray-700 font-semibold mb-2">Destination</p>
+                        <input
+                            type="text"
+                            name="to"
+                            onChange={changeHandler}
+                            value={formData.to}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div>
+                        <p className="text-gray-700 font-semibold mb-2">Date</p>
+                        <input
+                            type="date"
+                            name="date"
+                            onChange={changeHandler}
+                            value={formData.date}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                    <div>
+                        <p className="text-gray-700 font-semibold mb-2">Category</p>
+                        <select
+                            name="category"
+                            onChange={changeHandler}
+                            value={formData.category}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option>Economy</option>
+                            <option>Business</option>
+                            <option>First Class</option>
+                        </select>
+                    </div>
+                    <div className="col-span-2 flex justify-center mt-4">
+                         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">View Flights</button>
+                    </div>
+                    
+                </form>
+            </div>
         </div>
-    </>);
+        
+    </div>);
 }
 
 export default Home;

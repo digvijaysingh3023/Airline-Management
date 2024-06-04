@@ -49,11 +49,12 @@ function SignIn() {
     }
 
     return (
-        <div className="signin-container">
-            <form>
-                <div>
+        <div className="signin-container bg-[#ebe8e8] bg-opacity-40 rounded-lg">
+            <form className="m-0 pl-4 pr-4 pb-4">
+                <div className="pt-4">
                     <p>Username</p>
                     <input
+                        
                         type="text"
                         name="username"
                         onChange={changeHandler}
@@ -71,9 +72,9 @@ function SignIn() {
                         required
                     ></input>
                 </div>
-                <div>
+                <div className="flex justify-center items-center">
                     <button onClick={HandleSubmitUser}>Sign In</button>
-                    <Link to="/admin_login">Sign In as Admin</Link>
+                    <Link className="ml-10 text-blue-500" to="/admin_login">Sign In as Admin</Link>
                 </div>
             </form>
         </div>

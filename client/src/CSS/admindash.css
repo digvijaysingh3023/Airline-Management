@@ -1,4 +1,4 @@
-.mainContainer {
+/* .mainContainer {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -93,11 +93,11 @@
   
   .box h5 {
     color: #7f8c8d;
-  }
+  } */
   
   /* Existing styles */
 
-.box table {
+/* .box table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -144,4 +144,4 @@
     background-color: #e74c3c;
     color: white;
   }
-  
+   */
