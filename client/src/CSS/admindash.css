@@ -1,11 +1,11 @@
-html, body {
+/* html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-}
+} */
 
-.content_ {
+/* .content_ {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,16 +13,16 @@ html, body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-}
+} */
 
-.dashboard {
+/* .dashboard {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
   width: 100%;
   height: 100%;
-}
+} */
 
 .box-dash {
   background-color: white;
@@ -51,8 +51,7 @@ html, body {
   font-size: 20px;
 }
 
-
-.dashboard-container {
+/* .dashboard-container {
   padding: 20px;
 }
 
@@ -65,8 +64,8 @@ html, body {
 }
 
 /* Media Queries for Responsiveness */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .dashboard-container {
     text-align: center;
   }
-}
+} */ 

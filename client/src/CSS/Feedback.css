@@ -1,4 +1,4 @@
-/* Feedback specific styles */
+Feedback specific styles
 .box-feedback {
     background-color: white;
     width: 80%;
@@ -7,10 +7,16 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
+    position: relative;
   }
-  
+  .box-feedback h2{
+position: absolute;
+left: 55%;
+font-size: 30px;
+  }
   .feedback-list {
-    margin-top: 20px;
+    margin-top: 30px;
+    margin-left: 40px;
   }
   
   .feedback-item {
@@ -55,7 +61,14 @@
   
   /* Media Queries for Responsiveness */
   @media (max-width: 768px) {
+    .box-feedback h2{
+      position: absolute;
+      left: 35%;
+      font-size: 30px;
+        }
     .feedback-container {
+      
       text-align: center;
     }
   }
+  
