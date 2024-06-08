@@ -1,5 +1,5 @@
 /* Feedback specific styles */
-.box {
+.box-feedback {
     background-color: white;
     width: 80%;
     margin: 20px auto;
@@ -23,21 +23,39 @@
     border-bottom: none;
   }
   
-  .user {
+  .user-feedback {
     font-weight: bold;
     color: #2c3e50;
   }
   
-  .comment {
+  .comment-feedback {
     font-style: italic;
     margin: 5px 0;
   }
   
-  .date {
+  .date-feedback {
     color: #7f8c8d;
     font-size: 0.9em;
   }
   
-  .message{
+  .message-feedback{
     word-break: break-all;
+  }
+  .feedback-container {
+    padding: 20px;
+  }
+  
+  .feedback-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .feedback-container p {
+    font-size: 16px;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .feedback-container {
+      text-align: center;
+    }
   }

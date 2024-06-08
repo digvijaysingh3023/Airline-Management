@@ -16,14 +16,14 @@ const Layout = ({children}) => {
       navigate('/home');
   }
   return (
-    <div className="mainContainer">
-      <div className="header">
-        <Link to="/add_flight" className="btn">Add Flights</Link>
-        <Link to="/admin_dashboard" className="btn">Admin</Link>
+    <div className="mainContainer-layout">
+      <div className="header-layout">
+        <Link to="/add_flight" className="btn-layout">Add Flights</Link>
+        <Link to="/admin_dashboard" className="btn-layout">Admin</Link>
       </div>
       
-      <div className="content">
-        <div className="menu">
+      <div className="content-layout">
+        <div className="menu-layout">
           <ul>
             <li><button onClick={handleChange} name="admin_dashboard">Dashboard</button></li>
             <li><button onClick={handleChange} name="flight_manage">Manage Flights</button></li>
@@ -33,7 +33,7 @@ const Layout = ({children}) => {
           </ul>
         </div>
 
-        <div className="data">
+        <div className="data-layout">
           {children}
         </div>
       </div>

@@ -46,15 +46,15 @@ const Feedback = () => {
       <Loading isLoading={isLoading} />
       <div className="content_">
         <Layout >
-      <div className="box">
+      <div className="box-feedback">
         <h2>Feedback</h2>
         <div className="feedback-list">
           {feedbacks.map(feedback => (
             <div key={feedback._id} className="feedback-item">
-              <p className="user">{feedback.user}</p>
-              <p className="comment">"{feedback.subject}"</p>
-              <p className="date">{new Date(feedback.date).toLocaleDateString()}</p>
-              <p className="message">{feedback.message}</p>
+              <p className="user-feedback">{feedback.user}</p>
+              <p className="comment-feedback">"{feedback.subject}"</p>
+              <p className="date-feedback">{new Date(feedback.date).toLocaleDateString()}</p>
+              <p className="message-feedback">{feedback.message}</p>
             </div>
           ))}
         </div>

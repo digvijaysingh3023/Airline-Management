@@ -131,7 +131,7 @@ const FlightManage = () => {
       <Loading isLoading={isLoading} />
       <div className="content_">
     <Layout> 
-        <div className="box">
+        <div className="box-FM">
           <h2>Flight Management</h2>
           <table>
             <thead>
@@ -165,8 +165,8 @@ const FlightManage = () => {
         </div>
 
         {editingFlight && (
-          <div ref={formRef} className="modal">
-            <div className="modal-content">
+          <div ref={formRef} className="modal-FM">
+            <div className="modal-content-FM">
               <h2>Edit Flight</h2>
               <form onSubmit={handleSubmit}>
                 <label>From:</label>
