@@ -26,7 +26,7 @@ function Login() {
     <div>
         <Navbar/>
         <div className="wrapper flex items-center h-screen justify-start" style={backgroundStyle}>
-            <div className="login-container min-w-[25rem]" style={{marginLeft:'20%'}}>
+            <div className="login-container min-w-[25rem] mx-auto md:ml-[20%]">
                 <div className="login-options flex items-center h-[40px] justify-around">
                     <button className={signIn ? "active h-full w-[4.3rem] rounded bg-blue-500" : "h-full w-[4.3rem] rounded bg-[#ebe8e8]"} onClick={() => setSignIn(true)}>Sign In</button>
                     <button className={!signIn ? "active h-full w-[8rem] rounded bg-blue-500" : "h-full w-[8rem] rounded bg-[#ebe8e8]"} onClick={() => setSignIn(false)}>Create Account</button>
