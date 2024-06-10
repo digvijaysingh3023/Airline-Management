@@ -38,6 +38,8 @@ Loader Elements
     position: absolute;
     margin: 0 auto;
     width: 100%;
+    top: 38%;
+    left: 28%;
   }
   
   #preloader .loader .plane .plane-img {
@@ -49,6 +51,11 @@ Loader Elements
   @media (max-width: 575px) {
     #preloader .loader .plane .plane-img {
       width: 210px;
+    }
+    #preloader .loader .plane {
+      width: 100%;
+      top: 38%;
+      left: 26%;
     }
   }
   
@@ -93,6 +100,39 @@ Loader Elements
     #preloader .loader .earth-wrapper .earth {
       width: 120px;
       height: 120px;
+    }
+  }
+
+  @media ((max-width: 400px) and  (min-width : 375px) ){
+    #preloader .loader .plane .plane-img {
+      width: 200px;
+    }
+    #preloader .loader .plane {
+      width: 90%;
+      top: 38.5%;
+      left: 23.5%;
+    }
+  }
+
+
+  @media (max-width: 420px) {
+    #preloader .loader .plane .plane-img {
+      width: 200px;
+    }
+    #preloader .loader .plane {
+      width: 90%;
+      top: 38.5%;
+      left: 23.5%;
+    }
+  }
+  @media ((max-width: 415px) and  (min-width : 400px) ){
+    #preloader .loader .plane .plane-img {
+      width: 200px;
+    }
+    #preloader .loader .plane {
+      width: 90%;
+      top: 38.5%;
+      left: 26%;
     }
   }
   

@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import Layout from './Layout';
 import Loading from '../../components/Loading';
+import '../../CSS/admindash.css'; 
 
 const AdminDashboard = () => {
   const [isLoading,setIsLoading] = useState(true);
@@ -13,15 +14,15 @@ const AdminDashboard = () => {
       <Loading isLoading={isLoading} />
       <div className="content_">
     <Layout >
-      <div className="box">
+      <div className="box-dash">
         <h2>Total Available Flights</h2>
         <h5>10</h5>
       </div>
-      <div className="box">
+      <div className="box-dash">
         <h2>Total Available Flights</h2>
         <h5>10</h5>
       </div>
-      <div className="box">
+      <div className="box-dash">
         <h2>Total Available Flights</h2>
         <h5>10</h5>
       </div>

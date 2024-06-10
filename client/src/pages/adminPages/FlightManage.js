@@ -16,7 +16,14 @@ const FlightManage = () => {
     flightNo: '',
     category: '',
     time: '',
-    seats: ''
+    seats: '',
+    date: ''
+  });
+
+  const [filters, setFilters] = useState({
+    date: '',
+    seats: '',
+    category: ''
   });
 
   const formRef = useRef(null);
@@ -49,7 +56,8 @@ const FlightManage = () => {
         setFlights(data.flights);
         setTimeout(() => {
           setIsLoading(false)
-        }, 1500);      } else {
+        }, 1500);      
+      } else {
         toast.error(data.message || "Error Occurred");
       }
     } catch (error) {
@@ -126,13 +134,40 @@ const FlightManage = () => {
     }
   };
 
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+  };
+
+  const filteredFlights = flights.filter(flight => {
+    const filterDate = filters.date ? new Date(filters.date) : null;
+    const flightDate = flight.date ? new Date(flight.date) : null;
+    return (
+      (!filters.date || (filterDate && flightDate && filterDate.toDateString() === flightDate.toDateString())) &&
+      (!filters.seats || flight.totalSeats >= filters.seats) &&
+      (!filters.category || flight.category.toLowerCase().includes(filters.category.toLowerCase()))
+    );
+  });
+
   return (
     <div className={isLoading ? 'loading' : 'loaded'}>
       <Loading isLoading={isLoading} />
       <div className="content_">
     <Layout> 
-        <div className="box">
+        <div className="box-FM">
           <h2>Flight Management</h2>
+
+          {/* Filter Section */}
+          <div className="filter-section">
+            <h3>Filter Flights</h3>
+            <label>Date:</label>
+            <input type="date" name="date" value={filters.date} onChange={handleFilterChange} />
+            <label>Seats:</label>
+            <input type="number" name="seats" value={filters.seats} onChange={handleFilterChange} />
+            <label>Category:</label>
+            <input type="text" name="category" value={filters.category} onChange={handleFilterChange} />
+          </div>
+
           <table>
             <thead>
               <tr>
@@ -142,11 +177,12 @@ const FlightManage = () => {
                 <th>Category</th>
                 <th>Schedule</th>
                 <th>Seats</th>
+                <th>Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {flights.map(flight => (
+              {filteredFlights.map(flight => (
                 <tr key={flight._id}>
                   <td>{flight.from}</td>
                   <td>{flight.to}</td>
@@ -154,6 +190,7 @@ const FlightManage = () => {
                   <td>{flight.category}</td>
                   <td>{flight.time}</td>
                   <td>{flight.totalSeats}</td>
+                  <td>{new Date(flight.date).toLocaleDateString()}</td>
                   <td>
                     <button onClick={() => handleEdit(flight)}>Edit</button>
                     <button onClick={() => handleDelete(flight._id)}>Delete</button>
@@ -165,8 +202,8 @@ const FlightManage = () => {
         </div>
 
         {editingFlight && (
-          <div ref={formRef} className="modal">
-            <div className="modal-content">
+          <div ref={formRef} className="modal-FM">
+            <div className="modal-content-FM">
               <h2>Edit Flight</h2>
               <form onSubmit={handleSubmit}>
                 <label>From:</label>
@@ -181,6 +218,8 @@ const FlightManage = () => {
                 <input type="text" name="time" value={formValues.time} onChange={handleChange} required />
                 <label>Seats:</label>
                 <input type="number" name="totalSeats" value={formValues.totalSeats} onChange={handleChange} required />
+                <label>Date:</label>
+                <input type="date" name="date" value={formValues.date} onChange={handleChange} required />
                 <button type="submit">Save</button>
                 <button type="button" onClick={() => setEditingFlight(null)}>Cancel</button>
               </form>

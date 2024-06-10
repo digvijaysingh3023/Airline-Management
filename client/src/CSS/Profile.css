@@ -1,5 +1,5 @@
 /* Profile specific styles */
-/* .profile-box {
+.profile-box {
     background-color: white;
     width: 50%;
     margin: 20px auto;
@@ -31,4 +31,22 @@
     border-radius: 5px;
     color: #333;
   }
-   */
+  .profile-container {
+    padding: 20px;
+  }
+  
+  .profile-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .profile-container p {
+    font-size: 16px;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .profile-container {
+      text-align: center;
+    }
+  }
+  

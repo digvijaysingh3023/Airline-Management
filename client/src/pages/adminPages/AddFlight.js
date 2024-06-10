@@ -65,19 +65,19 @@ const AddFlight = () => {
       <div className="add-flight-box">
         <h2>Add Flight</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>From:</label>
             <input type="text" name="from" value={flightDetails.from} onChange={handleChange} required />
           </div>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>To:</label>
             <input type="text" name="to" value={flightDetails.to} onChange={handleChange} required />
           </div>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>Flight No.:</label>
             <input type="text" name="flightNo" value={flightDetails.flightNo} onChange={handleChange} required />
           </div>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>Category:</label>
             <select
               name="category"
@@ -90,19 +90,19 @@ const AddFlight = () => {
               <option>First Class</option>
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>Schedule:</label>
             <input type="date" name="date" value={flightDetails.date} onChange={handleChange} required />
           </div>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>Seats:</label>
             <input type="number" name="totalSeats" value={flightDetails.totalSeats} onChange={handleChange} required />
           </div>
-          <div className="form-group">
+          <div className="form-group-addflight">
             <label>Time:</label>
             <input type="text" name="time" value={flightDetails.time} onChange={handleChange} required />
           </div>
-          <button type="submit">Add Flight</button>
+          <button className='addflight-btn' type="submit">Add Flight</button>
         </form>
       </div>
     </Layout>
