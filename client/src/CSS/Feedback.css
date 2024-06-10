@@ -1,74 +1,80 @@
-Feedback specific styles
 .box-feedback {
-    background-color: white;
+  background-color: white;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.box-feedback h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.filter-section-feedback {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.filter-section-feedback label {
+  margin-right: 10px;
+}
+
+.filter-section-feedback input {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.feedback-list {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.feedback-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.feedback-item:last-of-type {
+  border-bottom: none;
+}
+
+.user-feedback {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.comment-feedback {
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.date-feedback {
+  color: #7f8c8d;
+  font-size: 0.9em;
+}
+
+.message-feedback {
+  word-break: break-all;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .box-feedback {
+    width: 95%;
+  }
+
+  .box-feedback h2 {
+    font-size: 24px;
+  }
+
+  .filter-section-feedback label,
+  .filter-section-feedback input {
+    display: block;
+    margin: 5px auto;
     width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
   }
-  .box-feedback h2{
-position: absolute;
-left: 55%;
-font-size: 30px;
-  }
-  .feedback-list {
-    margin-top: 30px;
-    margin-left: 40px;
-  }
-  
-  .feedback-item {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-    text-align: left;
-  }
-  
-  .feedback-item:last-of-type {
-    border-bottom: none;
-  }
-  
-  .user-feedback {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-  
-  .comment-feedback {
-    font-style: italic;
-    margin: 5px 0;
-  }
-  
-  .date-feedback {
-    color: #7f8c8d;
-    font-size: 0.9em;
-  }
-  
-  .message-feedback{
-    word-break: break-all;
-  }
-  .feedback-container {
-    padding: 20px;
-  }
-  
-  .feedback-container h2 {
-    margin-bottom: 10px;
-  }
-  
-  .feedback-container p {
-    font-size: 16px;
-  }
-  
-  /* Media Queries for Responsiveness */
-  @media (max-width: 768px) {
-    .box-feedback h2{
-      position: absolute;
-      left: 35%;
-      font-size: 30px;
-        }
-    .feedback-container {
-      
-      text-align: center;
-    }
-  }
-  
+}
