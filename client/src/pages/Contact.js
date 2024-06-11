@@ -1,4 +1,6 @@
 import Navbar from '../components/Navbar';
+import Nav2 from '../components/Nav2';
+import Footer from '../components/Footer';
 import { useState, useContext } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +20,7 @@ function Contact({ username }) {
         email: "",
         subject: "",
         message: "",
+        mobile:"",
         username: username
     });
 
@@ -50,12 +53,12 @@ function Contact({ username }) {
             if (response.ok) {
                 setTimeout(() => {
                     setIsLoading(false)
-                  }, 2000);
+                }, 2000);
                 toast.success("Message sent successfully");
             } else {
                 setTimeout(() => {
                     setIsLoading(false)
-                  }, 2000);
+                }, 2000);
                 toast.error(data.message || "Error Occurred");
 
             }
@@ -69,87 +72,94 @@ function Contact({ username }) {
             email: "",
             subject: "",
             message: "",
+            mobile:"",
             username: username
         });
     };
 
-    const backgroundStyle = {
-        backgroundImage: 'url(/ContactImage.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      };
 
     return (
         <div className={isLoading ? 'loading' : 'loaded'}>
-        <Loading isLoading={isLoading} />
-        <div className="content_">
+            <Loading isLoading={isLoading} />
+            <div className="content_">
+                <Navbar />
+                <Nav2>Contact Us</Nav2>
+                <div className='h-screen bg-slate-100' >
+                    
+                    <div className='h-[70px]'></div>
+                    <div className="contact-container">
+                        <form onSubmit={submitHandler}>
+                            <div className='first1-line'>
+                                <div>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder='Name'
+                                        onChange={changeHandler}
+                                        value={formData.name}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder='Email'
+                                        onChange={changeHandler}
+                                        value={formData.email}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className='second1-line'>
+                                <div>
+                                    <input
+                                        type="tel"
+                                        name="mobile"
+                                        placeholder='Mobile No.'
+                                        onChange={changeHandler}
+                                        value={formData.mobile}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        name="subject"
+                                        placeholder='Subject'
+                                        onChange={changeHandler}
+                                        value={formData.subject}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className='third1-line'>
+                                <div>
+                                    <textarea
+                                        name="message"
+                                        placeholder='Message'
+                                        onChange={changeHandler}
+                                        value={formData.message}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="flex justify-center">
+                                <button
+                                className="inline text-white rounded text-l mt-4 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..."
+                                    type="submit"
+                                >
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
 
-
-        <div className='h-screen' style={backgroundStyle}>
-            <Navbar/>
-            <div className='h-[70px]'></div>
-            <div className="contact-container max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md bg-opacity-90">
-                <h1 className="text-3xl font-bold text-center mb-4">Contact Us</h1>
-                <p className="text-gray-600 text-center mb-8">If you have any questions, concerns, or feedback, please feel free to reach out to us using the form below. We are here to help and ensure you have a great experience with our airline.</p>
-                <form onSubmit={submitHandler}>
-                    <div>
-                        <p className="text-gray-700 font-semibold mb-2">Name</p>
-                        <input 
-                            type="text"
-                            name="name"
-                            onChange={changeHandler}
-                            value={formData.name}
-                            required
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
                     </div>
-                    <div>
-                        <p className="text-gray-700 font-semibold mb-2">Email</p>
-                        <input 
-                            type="email"
-                            name="email"
-                            onChange={changeHandler}
-                            value={formData.email}
-                            required
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-                    <div>
-                        <p className="text-gray-700 font-semibold mb-2">Subject</p>
-                        <input 
-                            type="text"
-                            name="subject"
-                            onChange={changeHandler}
-                            value={formData.subject}
-                            required
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-                    <div>
-                        <p className="text-gray-700 font-semibold mb-2">Message</p>
-                        <textarea 
-                            name="message"
-                            onChange={changeHandler}
-                            value={formData.message}
-                            required
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
-                        />
-                    </div>
-                    <div className="flex justify-center">
-                        <button 
-                            type="submit"
-                            className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                            Send Message
-                        </button>
-                    </div>
-                </form>
-        <div>
-           
-                   
-                   </div>
-                   </div>
+                    
                 </div>
+                <Footer/>
             </div>
         </div>
     )

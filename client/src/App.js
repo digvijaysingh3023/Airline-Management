@@ -31,7 +31,7 @@ function App() {
 
         <Route path="/my_flights" element={<MyFlights />} />
 
-        <Route path="/view_flights" element={<ViewFlights viewFlightData={viewFlightData} setBookFlightData={setBookFlightData}/>} />
+        <Route path="/view_flights" element={<ViewFlights setViewFlightData={setViewFlightData} viewFlightData={viewFlightData} setBookFlightData={setBookFlightData}/>} />
 
         <Route path="/book_flight" element={<BookFlight bookFlightData={bookFlightData} />} />
 

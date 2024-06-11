@@ -1,4 +1,6 @@
 import Navbar from '../components/Navbar';
+import Nav2 from '../components/Nav2';
+import Footer from '../components/Footer';
 import MyFlightCard from '../components/MyFlightCard';
 import Loading from '../components/Loading';
 import React, { useContext, useEffect, useState } from 'react';
@@ -43,8 +45,8 @@ function MyFlights() {
     }
 
     useEffect(() => {
-        console.log(isAuthenticated);
-        fetch_data();
+        // console.log(isAuthenticated);
+        if(isAuthenticated)fetch_data();
         setTimeout(() => {
             setIsLoading(false)
         }, 1500);
@@ -56,16 +58,21 @@ function MyFlights() {
                 <Loading isLoading={isLoading} />
                 <div className="content_">
                     <Navbar />
+                    <Nav2>My Flights</Nav2>
+                    <div className='bg-slate-100 pt-4 pb-4'>
                     {
                         !isAuthenticated ? (
                             <h1>Login First to visit Flights</h1>
-                        ) : (                             (
-                                myflights.map((flightData) => {
+                        ) : (        
+                            <div>
+                                {myflights.map((flightData) => {
                                     return <MyFlightCard key={flightData.id} flightData={flightData} />
-                                })
-                            )
+                                })}
+                            </div>
                         )
                     }
+                    </div>
+                    <Footer/>
                 </div>
             </div>
         </div>

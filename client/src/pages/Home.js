@@ -7,7 +7,7 @@ import '../CSS/Home.css';
 import AuthContext from '../authContext';
 import Loading from '../components/Loading';
 import Hero from '../components/Hero';
-import ViewFlights from '../components/ViewFlights';
+import SearchForm from '../components/SearchForm';
 import Avilable from '../components/Avilable';
 import Travel from '../components/Travel';
 import Achievements from '../components/Achievements';
@@ -57,7 +57,7 @@ function Home({ setViewFlightData }) {
 
         <Navbar/>
         <Hero/>
-        <ViewFlights props={setViewFlightData} />
+        <SearchForm setViewFlightData={setViewFlightData} />
         <Avilable/>
         <Travel/>
         <Achievements/>

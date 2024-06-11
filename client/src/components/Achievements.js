@@ -8,10 +8,10 @@ function Achievements(){
                     <div className="left-content">
                         <h2 className="inline-block mb-[0.5rem] text-blue-500 text-[1.5rem]">Achievement</h2>
                         <h2 className="font-bold text-[2rem] xl:text-[3rem] leading-[2.5rem] xl:leading-[3.5rem]">Your Destination Awaits, Book Now</h2>
-                        <p className="inline-block mt-[1rem] text-slate-400">
+                        {/* <p className="inline-block mt-[1rem] text-slate-400">
                         Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu.
                         In tellus interdum vel ac massa interdum viverra elementum auctor.
-                        </p>
+                        </p> */}
                         <div className='flex flex-col gap-y-[3rem] my-[2rem] lg:flex-row lg:gap-[2rem] xl:gap-[3rem] w-full justify-between'>
                             <div className='flex bg-slate-100 shadow-lg shadow-violet-300 py-[1rem] w-fit px-[2rem] rounded-lg'>
                                 <div className=''>
