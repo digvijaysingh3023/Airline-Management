@@ -1,33 +1,35 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Layout from './Layout';
 import Loading from '../../components/Loading';
-import '../../CSS/admindash.css'; 
+import '../../CSS/admindash.css';
 
 const AdminDashboard = () => {
-  const [isLoading,setIsLoading] = useState(true);
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1500);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1500);
 
   return (
-<div className={isLoading ? 'loading' : 'loaded'}>
+    <div className={isLoading ? 'loading' : 'loaded'}>
       <Loading isLoading={isLoading} />
       <div className="content_">
-    <Layout >
-      <div className="box-dash">
-        <h2>Total Available Flights</h2>
-        <h5>10</h5>
+        <Layout>
+          <div className="box-dash">
+            <h2>Total Available Flights</h2>
+            <h5>10</h5>
+          </div>
+          <div className="box-dash">
+            <h2>Total Available Flights</h2>
+            <h5>10</h5>
+          </div>
+          <div className="box-dash">
+            <h2>Total Available Flights</h2>
+            <h5>10</h5>
+          </div>
+        </Layout>
       </div>
-      <div className="box-dash">
-        <h2>Total Available Flights</h2>
-        <h5>10</h5>
-      </div>
-      <div className="box-dash">
-        <h2>Total Available Flights</h2>
-        <h5>10</h5>
-      </div>
-    </Layout>
-    </div></div>
+    </div>
   );
 };
 
