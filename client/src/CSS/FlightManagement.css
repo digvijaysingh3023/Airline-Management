@@ -9,20 +9,34 @@
   overflow-x: auto;
 }
 
-.filter-section {
+.filter-section, .sort-section {
   margin: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.filter-section label {
+.filter-section label, .sort-section label {
   margin-right: 10px;
 }
 
-.filter-section input {
+.filter-section input, .sort-section input, .filter-section select {
   margin-right: 20px;
   padding: 5px;
+}
+
+.sort-section button, .filter-section button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+}
+
+.sort-section button:hover, .filter-section button:hover {
+  opacity: 0.8;
 }
 
 .box-FM table {
@@ -54,23 +68,18 @@
   cursor: pointer;
 }
 
-.box-FM button:hover {
-  opacity: 0.8;
-}
-
-.box-FM button:first-of-type {
+.edit-btn {
   background-color: #3498db;
   color: white;
 }
 
-.box-FM button:nth-of-type(2) {
-  background-color: #2ecc71;
+.delete-btn {
+  background-color: #e74c3c;
   color: white;
 }
 
-.box-FM button:last-of-type {
-  background-color: #e74c3c;
-  color: white;
+.box-FM button:hover {
+  opacity: 0.8;
 }
 
 .modal-FM {
@@ -96,4 +105,14 @@
 .modal-content-FM form label {
   display: block;
   margin-top: 10px;
+}
+
+.save-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #e74c3c;
+  color: white;
 }

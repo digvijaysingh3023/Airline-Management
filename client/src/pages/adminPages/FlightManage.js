@@ -22,8 +22,12 @@ const FlightManage = () => {
 
   const [filters, setFilters] = useState({
     date: '',
-    seats: '',
     category: ''
+  });
+
+  const [sortConfig, setSortConfig] = useState({
+    key: 'totalSeats',
+    direction: 'ascending'
   });
 
   const formRef = useRef(null);
@@ -139,12 +143,36 @@ const FlightManage = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  const filteredFlights = flights.filter(flight => {
+  const clearFilters = () => {
+    setFilters({
+      date: '',
+      category: ''
+    });
+  };
+
+  const handleSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedFlights = flights.sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  const filteredFlights = sortedFlights.filter(flight => {
     const filterDate = filters.date ? new Date(filters.date) : null;
     const flightDate = flight.date ? new Date(flight.date) : null;
     return (
       (!filters.date || (filterDate && flightDate && filterDate.toDateString() === flightDate.toDateString())) &&
-      (!filters.seats || flight.totalSeats >= filters.seats) &&
       (!filters.category || flight.category.toLowerCase().includes(filters.category.toLowerCase()))
     );
   });
@@ -162,10 +190,25 @@ const FlightManage = () => {
             <h3>Filter Flights</h3>
             <label>Date:</label>
             <input type="date" name="date" value={filters.date} onChange={handleFilterChange} />
-            <label>Seats:</label>
-            <input type="number" name="seats" value={filters.seats} onChange={handleFilterChange} />
             <label>Category:</label>
-            <input type="text" name="category" value={filters.category} onChange={handleFilterChange} />
+            <select name="category" value={filters.category} onChange={handleFilterChange}>
+              <option value="">All</option>
+              <option value="First Class">First Class</option>
+              <option value="Economy">Economy</option>
+              <option value="Business">Business Class</option>
+            </select>
+            <button onClick={clearFilters}>Clear Filters</button>
+          </div>
+
+          {/* Sort Section */}
+          <div className="sort-section">
+            <h3>Sort Flights</h3>
+            <button onClick={() => handleSort('totalSeats')}>
+              Sort by Seats {sortConfig.key === 'totalSeats' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
+            </button>
+            <button onClick={() => handleSort('date')}>
+              Sort by Date {sortConfig.key === 'date' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
+            </button>
           </div>
 
           <table>
@@ -192,8 +235,8 @@ const FlightManage = () => {
                   <td>{flight.totalSeats}</td>
                   <td>{new Date(flight.date).toLocaleDateString()}</td>
                   <td>
-                    <button onClick={() => handleEdit(flight)}>Edit</button>
-                    <button onClick={() => handleDelete(flight._id)}>Delete</button>
+                    <button className="edit-btn" onClick={() => handleEdit(flight)}>Edit</button>
+                    <button className="delete-btn" onClick={() => handleDelete(flight._id)}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -220,8 +263,8 @@ const FlightManage = () => {
                 <input type="number" name="totalSeats" value={formValues.totalSeats} onChange={handleChange} required />
                 <label>Date:</label>
                 <input type="date" name="date" value={formValues.date} onChange={handleChange} required />
-                <button type="submit">Save</button>
-                <button type="button" onClick={() => setEditingFlight(null)}>Cancel</button>
+                <button className="save-btn" type="submit">Save</button>
+                <button className="cancel-btn" type="button" onClick={() => setEditingFlight(null)}>Cancel</button>
               </form>
             </div>
           </div>

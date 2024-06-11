@@ -11,6 +11,10 @@ const Feedback = () => {
   const [filters, setFilters] = useState({
     date: ''
   });
+  const [sortConfig, setSortConfig] = useState({
+    key: 'date',
+    direction: 'descending'
+  });
 
   async function fetch_data() {
     try {
@@ -48,7 +52,25 @@ const Feedback = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  const filteredFeedbacks = feedbacks.filter(feedback => {
+  const handleSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedFeedbacks = feedbacks.sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  const filteredFeedbacks = sortedFeedbacks.filter(feedback => {
     const filterDate = filters.date ? new Date(filters.date) : null;
     const feedbackDate = feedback.date ? new Date(feedback.date) : null;
     return (
@@ -73,6 +95,15 @@ const Feedback = () => {
                   value={filters.date}
                   onChange={handleFilterChange}
                 />
+              </div>
+              <div className="sort-section-feedback">
+                <h3>Sort Feedback</h3>
+                <button onClick={() => handleSort('date')}>
+                  Sort by Date {sortConfig.key === 'date' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
+                </button>
+                <button onClick={() => handleSort('user')}>
+                  Sort by User {sortConfig.key === 'user' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
+                </button>
               </div>
               <div className="feedback-list">
                 {filteredFeedbacks.map(feedback => (
