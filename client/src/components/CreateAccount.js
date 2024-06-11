@@ -66,12 +66,12 @@ function CreateAccount({ setSignIn }) {
     }
 
     return (
-        <div className="create-account-container bg-[#ebe8e8] bg-opacity-40 rounded-2xl">
+        <div className="create-account-container rounded-2xl">
             <form className="m-0 px-4 pb-6" onSubmit={submitHandler}>
                 <div className="name-container flex gap-2 pt-4">
                     <div>
-                        <p>First Name</p>
                         <input 
+                        placeholder="First Name"
                             type="text"
                             name="firstName"
                             onChange={changeHandler}
@@ -80,8 +80,8 @@ function CreateAccount({ setSignIn }) {
                         ></input>
                     </div>
                     <div>
-                        <p>Last Name</p>
                         <input 
+                        placeholder="Last Name"
                             type="text"
                             name="lastName"
                             onChange={changeHandler}
@@ -90,8 +90,8 @@ function CreateAccount({ setSignIn }) {
                     </div>
                 </div>
                 <div>
-                    <p>Mobile No.</p>
                     <input 
+                    placeholder="Mobile No."
                         type="tel"
                         name="mobile"
                         onChange={changeHandler}
@@ -100,8 +100,8 @@ function CreateAccount({ setSignIn }) {
                     ></input>
                 </div>
                 <div>
-                    <p>Address</p>
                     <input 
+                    placeholder="Address"
                         type="text"
                         name="address"
                         onChange={changeHandler}
@@ -109,8 +109,8 @@ function CreateAccount({ setSignIn }) {
                     ></input>
                 </div>
                 <div>
-                    <p>Email</p>
                     <input 
+                    placeholder="Email"
                         type="email"
                         name="email"
                         onChange={changeHandler}
@@ -119,8 +119,8 @@ function CreateAccount({ setSignIn }) {
                     ></input>
                 </div>
                 <div>
-                    <p>Username</p>
                     <input 
+                    placeholder="Username"
                         type="text"
                         name="username"
                         onChange={changeHandler}
@@ -130,8 +130,8 @@ function CreateAccount({ setSignIn }) {
                 </div>
                 <div className="password-container flex gap-2">
                     <div>
-                        <p>Password</p>
                         <input 
+                        placeholder="Password"
                             type="password"
                             name="password"
                             onChange={changeHandler}
@@ -140,8 +140,8 @@ function CreateAccount({ setSignIn }) {
                         ></input>
                     </div>
                     <div>
-                        <p>Confirm Password</p>
                         <input 
+                        placeholder="Confirm Password"
                             type="password"
                             name="confirmPassword"
                             onChange={handleConfirmPassword}
@@ -151,7 +151,7 @@ function CreateAccount({ setSignIn }) {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <button type="submit">Create Account</button>
+                    <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." type="submit">Create Account</button>
                 </div>
                
             </form>

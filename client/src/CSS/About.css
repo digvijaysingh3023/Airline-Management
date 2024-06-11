@@ -1,41 +1,52 @@
-/* .about-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+.airpot{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:40px;
+    width:70%;
+    margin:auto;
+    border-radius:35px;
 }
 
-.about-container h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #333;
+.airpot1{
+    text-align: center;
+    width:80%;
+    font-weight:500;
+    font-size:40px;
 }
 
-.about-container h2 {
-    font-size: 2em;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #555;
+.airpot2{
+    text-align: center;
+    width:80%;
+    margin-top:18px;
+    font-size:17px;
+    margin-bottom:18px;
 }
 
-.about-container p {
-    font-size: 1.2em;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 20px;
+@media(max-width:900px){
+    .airpot1{
+        font-size:35px;
+    }
+    .airpot2{
+        font-size:17px;
+    }
 }
 
-.about-container ul {
-    list-style-type: disc;
-    padding-left: 20px;
+@media(max-width:750px){
+    .airpot1{
+        font-size:30px;
+    }
+    .airpot2{
+        font-size:15px;
+    }
 }
 
-.about-container ul li {
-    font-size: 1.2em;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 10px;
-} */
+@media(max-width:500px){
+    .airpot1{
+        font-size:27px;
+    }
+    .airpot2{
+        font-size:15px;
+    }
+}

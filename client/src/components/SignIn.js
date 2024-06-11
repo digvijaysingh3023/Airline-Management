@@ -49,12 +49,11 @@ function SignIn() {
     }
 
     return (
-        <div className="signin-container bg-[#ebe8e8] bg-opacity-40 rounded-lg">
+        <div className="signin-container rounded-lg">
             <form className="m-0 pl-4 pr-4 pb-4">
                 <div className="pt-4">
-                    <p>Username</p>
                     <input
-                        
+                        placeholder="Username"
                         type="text"
                         name="username"
                         onChange={changeHandler}
@@ -63,8 +62,8 @@ function SignIn() {
                     ></input>
                 </div>
                 <div>
-                    <p>Password</p>
                     <input
+                    placeholder="Password"
                         type="password"
                         name="password"
                         onChange={changeHandler}
@@ -73,7 +72,7 @@ function SignIn() {
                     ></input>
                 </div>
                 <div className="flex justify-center items-center">
-                    <button onClick={HandleSubmitUser}>Sign In</button>
+                    <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." onClick={HandleSubmitUser}>Sign In</button>
                     <Link className="ml-10 text-blue-500" to="/admin_login">Sign In as Admin</Link>
                 </div>
             </form>

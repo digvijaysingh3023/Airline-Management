@@ -4,7 +4,34 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Testimonial({ data }) {
+function Testimonial() {
+  let data=[
+    {
+      'img':'/testimonial1.jpeg',
+      'review':'Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu In tellus interdum vel ac massa interdum viverra elementum auctor. Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu In tellus interdum vel ac massa interdum viverra elementum auctor. Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu In tellus interdum vel ac massa interdum viverra elementum auctor.',
+      'name':'Mr John Deo',
+      'des':'Ceo At Fly Now'
+    },
+    {
+      'img':'/testimonial3.jpeg',
+      'review':'Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu In tellus interdum vel ac massa interdum viverra elementum auctor.',
+      'name':'Mr John Deo',
+      'des':'Ceo At Fly Now'
+    },
+    {
+      'img':'/testimonial2.jpeg',
+      'review':'Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu In tellus interdum vel ac massa interdum viverra elementum auctor.',
+      'name':'Mr John Deo',
+      'des':'Ceo At Fly Now'
+    },
+    {
+      'img':'/testimonial4.jpeg',
+      'review':'Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu In tellus interdum vel ac massa interdum viverra elementum auctor.',
+      'name':'Mr John Deo',
+      'des':'Ceo At Fly Now'
+    }
+  ]
+  
   const [currIndex, setCurrIndex] = useState(0);
 
   const prevSlide=()=>{

@@ -67,6 +67,30 @@
     background-color: #0d6efd;
 }
 
+.confirm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .confirm-dialog p {
+    margin-bottom: 10px;
+  }
+
+  .confirm-dialog button {
+    margin-right: 20px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
 @media(max-width:1000px){
     .all-booking-info{
         flex-direction: column;

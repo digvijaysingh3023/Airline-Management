@@ -247,8 +247,10 @@ function BookFlight({ bookFlightData }) {
                         {showConfirmDialog && (
                             <div className="confirm-dialog">
                                 <p>Are you sure you want to book this flight?</p>
-                                <button onClick={bookFlight}>Yes</button>
-                                <button onClick={() => setShowConfirmDialog(false)}>No</button>
+                                <div classname="m-auto">
+                                <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." onClick={bookFlight}>Yes</button>
+                                <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." onClick={() => setShowConfirmDialog(false)}>No</button>
+                                </div>
                             </div>
                         )}
                     </div>

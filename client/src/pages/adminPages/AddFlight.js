@@ -17,7 +17,7 @@ const AddFlight = () => {
     "to": '',
     "from": '',
     "category": '',
-    "totalSeats": 0,
+    "totalSeats": '',
     "date": '',
     "time": '',
   });
@@ -85,9 +85,10 @@ const AddFlight = () => {
               value={flightDetails.category}
               required
             >
-              <option>Economy</option>
-              <option>Business</option>
-              <option>First Class</option>
+              <option value="">Category</option>
+              <option value="Economy">Economy</option>
+              <option value="Business">Business</option>
+              <option value="First Class">First Class</option>
             </select>
           </div>
           <div className="form-group-addflight">

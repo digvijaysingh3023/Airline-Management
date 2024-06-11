@@ -105,14 +105,37 @@ function UserProfile() {
                     <div className="user-profile-container">
                         <h2>User Profile</h2>
                         <div className="user-info">
-                            <p><strong>First Name:</strong> {userData.firstName}</p>
-                            <p><strong>Last Name:</strong> {userData.lastName}</p>
-                            <p><strong>Mobile:</strong> {userData.mobile}</p>
-                            <p><strong>Address:</strong> {userData.address}</p>
-                            <p><strong>Username:</strong> {userData.username}</p>
-                            <p><strong>Email:</strong> {userData.email}</p>
+                            <div className='user1'>
+                                <div className='user2'>First Name</div>
+                                <div className='user3'>{userData.firstName}</div>
+                            </div>
+                            <hr/>
+                            <div className='user1'>
+                                <div className='user2'>Last name</div>
+                                <div className='user3'>{userData.lastName}</div>
+                            </div>
+                            <hr/>
+                            <div className='user1'>
+                                <div className='user2'>Mobile</div>
+                                <div className='user3'>{userData.mobile}</div>
+                            </div>
+                            <hr/>
+                            <div className='user1'>
+                                <div className='user2'>Address</div>
+                                <div className='user3'>{userData.address}</div>
+                            </div>
+                            <hr/>
+                            <div className='user1'>
+                                <div className='user2'>Username</div>
+                                <div className='user3'>{userData.username}</div>
+                            </div>
+                            <hr/>
+                            <div className='user1'>
+                                <div className='user2'>Email</div>
+                                <div className='user3'>{userData.email}</div>
+                            </div>
                         </div>
-                        <button onClick={() => setIsEditing(true)}>Edit</button>
+                        <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." onClick={() => setIsEditing(true)}>Edit</button>
                     </div>
                     ) : (
                     <div className='form-container'>
@@ -157,8 +180,8 @@ function UserProfile() {
                                     required
                                 />
                             </div>
-                            <button type="submit">Update</button>
-                            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+                            <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." type="submit">Update</button>
+                            <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." type="button" onClick={() => setIsEditing(false)}>Cancel</button>
                         </form>
                     </div>
                     )

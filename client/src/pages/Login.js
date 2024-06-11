@@ -7,39 +7,39 @@ import Loading from "../components/Loading";
 
 function Login() {
     const [signIn, setSignIn] = useState(true);
-    const [isLoading,setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     setTimeout(() => {
-      setIsLoading(false)
+        setIsLoading(false)
     }, 1500);
 
     const backgroundStyle = {
         backgroundImage: 'url(/loginImage.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-      };
+    };
 
     return (
-    
         <div className={isLoading ? 'loading' : 'loaded'}>
-        <Loading isLoading={isLoading} />
-        <div className="content_">
-    <div>
-        <Navbar/>
-        <div className="wrapper flex items-center h-screen justify-start" style={backgroundStyle}>
-            <div className="login-container min-w-[25rem] mx-auto md:ml-[20%]">
-                <div className="login-options flex items-center h-[40px] justify-around">
-                    <button className={signIn ? "active h-full w-[4.3rem] rounded bg-blue-500" : "h-full w-[4.3rem] rounded bg-[#ebe8e8]"} onClick={() => setSignIn(true)}>Sign In</button>
-                    <button className={!signIn ? "active h-full w-[8rem] rounded bg-blue-500" : "h-full w-[8rem] rounded bg-[#ebe8e8]"} onClick={() => setSignIn(false)}>Create Account</button>
+            <Loading isLoading={isLoading} />
+            <div className="content_">
+                <div>
+                    <Navbar />
+                    <div className="wrapper flex items-center h-screen justify-start bg-slate-200">
+                        <div className="login-container bg-white min-w-[28rem] mx-auto pt-8 p-6 rounded-2xl">
+                            <div className="login-options flex items-center h-[40px] justify-around">
+                                <button className={signIn ? "active h-full w-[4.3rem] rounded bg-blue-500" : "h-full w-[4.3rem] rounded bg-slate-100"} onClick={() => setSignIn(true)}>Sign In</button>
+                                <button className={!signIn ? "active h-full w-[8rem] rounded bg-blue-500" : "h-full w-[8rem] rounded bg-slate-100"} onClick={() => setSignIn(false)}>Create Account</button>
+                            </div>
+                            {signIn ? <SignIn /> : <CreateAccount setSignIn={setSignIn} />}
+                        </div>
+                        <div>
+                            
+                        </div>
+                    </div>
                 </div>
-                {signIn ? <SignIn /> : <CreateAccount setSignIn={setSignIn}/>}
             </div>
 
-
-                </div>
-            </div>
-        </div>
-        
-    </div>)
+        </div>)
 }
 
 export default Login;

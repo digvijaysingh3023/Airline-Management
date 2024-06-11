@@ -84,7 +84,7 @@ function Contact({ username }) {
             <div className="content_">
                 <Navbar />
                 <Nav2>Contact Us</Nav2>
-                <div className='h-screen bg-slate-100' >
+                <div className='h-screen bg-slate-200' >
                     
                     <div className='h-[70px]'></div>
                     <div className="contact-container">

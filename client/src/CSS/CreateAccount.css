@@ -21,26 +21,15 @@
 }
 
 .create-account-container form input {
-  padding: 8px;
-  border: 1px solid #ccc;
   border-radius: 3px;
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  width: 90%;
+  margin-bottom: 10px;
+  padding:10px 5px 10px 5px;
+  margin-top:20px;
+  background-color: rgb(248,247,247);
+  color:rgb(93,93,93);
 }
 
-.create-account-container form button {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.create-account-container form button:hover {
-  background-color: #0056b3;
-}
 /*
 .name-container {
   display: flex;
