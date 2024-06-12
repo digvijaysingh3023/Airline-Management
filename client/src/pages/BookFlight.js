@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../authContext';
 import Loading from '../components/Loading';
 import Navbar from '../components/Navbar';
-import MyFlightCard from '../components/MyFlightCard';
+import BookingDetails from '../components/BookingDetails';
 import Nav2 from '../components/Nav2';
 import Footer from '../components/Footer';
 import '../CSS/BookFlight.css';
@@ -27,7 +27,7 @@ function BookFlight({ bookFlightData }) {
         email: '',
         nationality: '',
         phoneNumber: '',
-        dateOfBirth: '',
+        age: '',
         postalCode: '',
         passportNo: ''
     }]);
@@ -42,7 +42,7 @@ function BookFlight({ bookFlightData }) {
                 email: '',
                 nationality: '',
                 phoneNumber: '',
-                dateOfBirth: '',
+                age: '',
                 postalCode: '',
                 passportNo: ''
             }]);
@@ -158,7 +158,7 @@ function BookFlight({ bookFlightData }) {
                 <Nav2>Flight Booking</Nav2>
                 <div className="all-booking-info bg-slate-100">
                     <div className="airline-details">
-                        <MyFlightCard flightData={bookFlightData} />
+                        <BookingDetails flightData={bookFlightData} />
                     </div>
                     <div className="booking-details">
                         <div className="passengers-info">
@@ -238,10 +238,12 @@ function BookFlight({ bookFlightData }) {
                                             </div>
                                             <div>
                                                 <input
-                                                    type="date"
-                                                    name="dateOfBirth"
-                                                    placeholder="Date of Birth"
-                                                    value={passenger.dateOfBirth}
+                                                    type="number"
+                                                    name="age"
+                                                    placeholder="Age"
+                                                    value={passenger.age}
+                                                    min="0"
+                                                    max="150"
                                                     onChange={(e) => handleChange(index, e)}
                                                     required
                                                 />
@@ -270,9 +272,9 @@ function BookFlight({ bookFlightData }) {
                                                 />
                                             </div>
                                         </div>
-                                        <div className='delete-btn'>
+                                        <div className='delete-btn1'>
                                             {passengers.length > 1 && (
-                                                <button
+                                                <button className='text-sky-600'
                                                 type="button" onClick={() => deletePassenger(index)}>Delete Passenger</button>
                                             )}
                                         </div>
@@ -280,7 +282,7 @@ function BookFlight({ bookFlightData }) {
                                 ))}
                                 <div className='add-btn'>
                                     {passengers.length < 6 && (
-                                        <button type="button" onClick={addPassenger}>Add Passenger</button>
+                                        <button className='text-sky-600' type="button" onClick={addPassenger}>Add Passenger</button>
                                     )}
                                 </div>
                                 <div className='back-book-btns'>

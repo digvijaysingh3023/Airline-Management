@@ -108,6 +108,10 @@
 }
 
 @media(max-width:750px){
+    .flight-booking-detail{
+        width:95%;
+    }
+
     .route-plan-img{
         width:100px;
     }

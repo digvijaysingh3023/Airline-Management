@@ -35,6 +35,9 @@
 @media(max-width:900px){
     .first1-line, .second1-line{
         grid-template-columns: 1fr;
-        row-gap: 30px;
+        row-gap: 20px;
+    }
+    .contact-container{
+        width:80%;
     }
 }

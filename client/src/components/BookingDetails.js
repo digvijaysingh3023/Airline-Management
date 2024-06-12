@@ -1,18 +1,13 @@
 import '../CSS/BookingDetails.css';
 import React from 'react';
 import route_plan from '../images/route-plan.png'
-import { useNavigate } from 'react-router-dom';
 
-function MyFlightCard({ flightData }) {
-    const navigate=useNavigate();
+function BookingDetails({ flightData }) {
     const { flightNo, from, to, category, date, departureTime, duration, arrivalTime, price, aircraft, airline, stops } = flightData;
     return (
         <div className="flight-booking-detail">
-            <div className="flight-booking-title flex justify-between">
-                <div className="booking-title-text">{flightNo}</div>
-                <div>
-                    <button className='text-xl mr-6 underline text-sky-600' onClick={()=>{navigate(`/my_flights/${flightNo}`)}}>All Details</button>
-                </div>
+            <div className="flight-booking-title">
+                <div className="booking-title-text">Your Booking Detail</div>
             </div>
             <div className="booking-detail-box">
                 <div className="booking-flight-detail">
@@ -34,7 +29,7 @@ function MyFlightCard({ flightData }) {
                         <div className="booking-arrival-location">{to}</div>
                     </div>
                 </div>
-                <div className="booking-dates pb-6">
+                <div className="booking-dates">
                     <div className="booking-date-info">
                         <h6 className="date-label">Departure</h6>
                         <h5 className="date-text">{date}</h5>
@@ -45,10 +40,17 @@ function MyFlightCard({ flightData }) {
                         <h5 className="date-text">{date}</h5>
                     </div>
                 </div>
+                <hr className="separator-line"/>
+                <div className="booking-flight-text">
+                    <h6 className="operator-info">Tpm Line</h6>
+                    <h6 className="operator-info">Operated by {airline} Airlines</h6>
+                    <h6 className="operator-info">{category} | Flight {flightNo} | Aircraft {aircraft}</h6>
+                    <h6 className="operator-info">Adult(s): 25KG luggage free</h6>
+                </div>
             </div>
         </div>
 
     );
 }
 
-export default MyFlightCard;
+export default BookingDetails;

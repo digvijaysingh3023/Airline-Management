@@ -1,6 +1,6 @@
 .all-booking-info{
-    display:flex;
-    flex-direction:row;
+    display:grid;
+    grid-template-columns: 5fr 4fr;
     justify-content: space-around;
     padding: 50px;
 }
@@ -44,7 +44,9 @@
     padding-left:20px;
 }
 
-.delete-btn, .add-btn{
+.delete-btn1, .add-btn{
+    display: flex;
+    justify-content: end;
     color:rgb(68, 68, 68);
     margin-top:15px;
 }
@@ -93,7 +95,7 @@
 
 @media(max-width:1000px){
     .all-booking-info{
-        flex-direction: column;
+        grid-template-columns: 1fr;
         align-items: center;
     }
     .passenger-details input, .passenger-details select{

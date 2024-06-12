@@ -151,7 +151,7 @@ function CreateAccount({ setSignIn }) {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <button className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." type="submit">Create Account</button>
+                    <button className="inline text-white rounded text-l mt-6 font-bold p-2  transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." type="submit">Create Account</button>
                 </div>
                
             </form>
