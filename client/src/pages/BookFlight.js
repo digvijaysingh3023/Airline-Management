@@ -16,7 +16,7 @@ function BookFlight({ bookFlightData }) {
     setTimeout(() => {
         setIsLoading(false);
     }, 1500);
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, userName, email } = useContext(AuthContext);
     const navigate = useNavigate();
     const { flightNo } = bookFlightData;
 
@@ -75,33 +75,78 @@ function BookFlight({ bookFlightData }) {
             navigate('/login');
             return;
         }
-        setIsLoading(true);
+        setIsLoading(true)
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1500);
+
         try {
-            const response = await fetch('http://127.0.0.1:8080/api/bookflight', {
+            const res = await fetch('http://localhost:8080/api/payment/getkey', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+            const { key } = await res.json();
+
+            const response = await fetch('http://localhost:8080/api/payment/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ flightNo, passengers })
+                body: JSON.stringify({ amount: 500 })
             });
 
             const data = await response.json();
+            console.log(data.order);
+            const order = data.order
 
-            if (response.ok) {
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, 1500);
-                navigate('/my_flights');
-                toast.success("Successfully Booked Flight");
-            } else {
-                toast.error(data.message || "Booking failed");
-            }
+            const options = {
+                key,
+                amount: order.amount,
+                currency: "INR",
+                name: "Digvijay Singh",
+                description: "Flight Booking",
+                image: "https://avatars.githubusercontent.com/u/25058652?v=4",
+                order_id: order.id,
+                // callback_url: "http://localhost:8080/api/payment/paymentverification",
+                 handler: async function (response) {
+                    console.log(response);
+                    const resp = {
+                        response,
+                        flightNo,
+                    }
+                    const res1 = await fetch("http://localhost:8080/api/payment/paymentverification", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify(resp)
+                    });
+                    console.log(res1);
+                    toast.success('Flight Booked Successfully.')
+                    navigate('/my_flights')
+                    // navigate(`/paymentsuccess?reference=${response.razorpay_payment_id}`)
+                },
+                prefill: {
+                    name: {userName},
+                    email: {email},
+                },
+                notes: {
+                    "address": "Razorpay Corporate Office"
+                },
+                theme: {
+                    "color": "#121212"
+                }
+            };
+            var razor = new window.Razorpay(options);
+            razor.open();
+
         } catch (error) {
-            toast.error("Network error, please try again later");
-            console.error("Network error:", error);
-        } finally {
-            setShowConfirmDialog(false);
+            toast.error(error)
         }
     };
 

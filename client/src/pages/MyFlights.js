@@ -45,8 +45,7 @@ function MyFlights() {
     }
 
     useEffect(() => {
-        // console.log(isAuthenticated);
-        if(isAuthenticated)fetch_data();
+        if({isAuthenticated})fetch_data();
         setTimeout(() => {
             setIsLoading(false)
         }, 1500);

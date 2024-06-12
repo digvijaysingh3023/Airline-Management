@@ -51,7 +51,7 @@ const login = async (req, res) => {
         }
 
         // Generate JWT
-        const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '12h' });
+        const token = jwt.sign({ userId: user._id, username: user.username,email:user.email }, process.env.JWT_SECRET, { expiresIn: '12h' });
 
         res.status(200).json({ status: 'ok', user: token });
     } catch (error) {
@@ -61,7 +61,7 @@ const login = async (req, res) => {
 };
 
 const verifyUser = async (req,res) => {
-    res.status(200).json({status : 'ok'})
+    res.status(200).json({status : 'ok',username : req.user.username,email:req.user.email})
 }
 
 

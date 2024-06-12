@@ -101,6 +101,35 @@ const bookFlight = async (req, res) => {
     }
 }
 
+const alreadybooked = async (req, res) => {
+    const username = req.user.username;
+    const { flightNo } = req.body;
+
+    try {
+        if (username) {
+            const flight = await Flight.findOne({ flightNo });
+            if (flight) {
+                const user = await User.findOne({ username });
+
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+
+                if (user.flights.includes(flight._id)) {
+                    return res.status(200).json({ canbook: false, message: 'You have already booked this flight' });
+                }
+                return res.status(200).json({ canbook: true });
+            } else {
+                return res.status(400).send({ message: `No flight exist with no - ${flightNo}` });
+            }
+        } else {
+            return res.status(400).send({ message: "Not Authorized!" });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: "Please try again later." });
+    }
+}
+
 const getBookedFlights = async (req, res) => {
     const username = req.user.username;
     // console.log(username);
@@ -127,5 +156,6 @@ module.exports = {
     getBookedFlights,
     getUserDetails,
     updateUserDetails,
-    searchFlight
+    searchFlight,
+    alreadybooked
 };

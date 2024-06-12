@@ -6,19 +6,21 @@ const router = require('./router/UserRoutes.js');
 const authroutes = require('./router/UserAuthRoutes.js');
 const adminRoutes = require('./router/adminRoutes.js');
 const feedbackRoutes = require('./router/feedbackRoutes.js'); // Add this line
+const paymentRoutes = require('./router/paymentRoutes.js'); // Add this line
 const connect = require('./db/connection.js');
 const dotenv = require('dotenv');
 const authMiddleware = require('./middleware/authMiddleware.js');
 
-const app = express();
 
 dotenv.config();
+const app = express();
+
 
 /* middleware */
-app.use(express.json());
+// app.use(morgan('tiny'));
 app.use(cors());
-app.use(morgan('tiny'));
-app.disable('x-powered-by');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const port = 8080;
 
@@ -29,6 +31,8 @@ app.get('/', (req, res) => {
 /* api routes */
 /** USER Auth Routes */
 app.use('/api/auth', authroutes);
+
+app.use('/api/payment',authMiddleware,paymentRoutes);
 
 /** FEEDBACK Routes */
 app.use('/api/feedback', feedbackRoutes);

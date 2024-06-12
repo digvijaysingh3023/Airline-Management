@@ -1,10 +1,13 @@
 /*-------------------------
 Loader Elements
 -------------------------*/
+.loader {
+  height: 100vh;
+}
 #preloader {
     position: fixed;
     width: 100%;
-    /* height: 100vh; */
+    height: 100%;
     display: flex;
     align-items: center;
     text-align: center;
@@ -26,7 +29,7 @@ Loader Elements
     max-width: 35rem;
     height: 30rem;
     margin: 0 auto;
-    bottom: 40%;
+    bottom: 15%;
   }
   
   #preloader .loader .wait {
@@ -38,8 +41,6 @@ Loader Elements
     position: absolute;
     margin: 0 auto;
     width: 100%;
-    top: 38%;
-    left: 28%;
   }
   
   #preloader .loader .plane .plane-img {
@@ -54,8 +55,6 @@ Loader Elements
     }
     #preloader .loader .plane {
       width: 100%;
-      top: 38%;
-      left: 26%;
     }
   }
   
@@ -103,38 +102,7 @@ Loader Elements
     }
   }
 
-  @media ((max-width: 400px) and  (min-width : 375px) ){
-    #preloader .loader .plane .plane-img {
-      width: 200px;
-    }
-    #preloader .loader .plane {
-      width: 90%;
-      top: 38.5%;
-      left: 23.5%;
-    }
-  }
 
-
-  @media (max-width: 420px) {
-    #preloader .loader .plane .plane-img {
-      width: 200px;
-    }
-    #preloader .loader .plane {
-      width: 90%;
-      top: 38.5%;
-      left: 23.5%;
-    }
-  }
-  @media ((max-width: 415px) and  (min-width : 400px) ){
-    #preloader .loader .plane .plane-img {
-      width: 200px;
-    }
-    #preloader .loader .plane {
-      width: 90%;
-      top: 38.5%;
-      left: 26%;
-    }
-  }
   
   @keyframes earthAnim {
     0% {

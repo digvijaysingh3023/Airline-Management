@@ -11,35 +11,44 @@ import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 function FlightCard({flightData, setBookFlightData }) {
     const { isAuthenticated } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
     const [FDBtnActive, setFDBtnActive] = useState(false);
 
-    // Temporary flight data object
-    flightData = {
-        flightNo: 'FK234',
-        from: 'DUB',
-        to: 'SHJ',
-        category: 'Economy',
-        date: '14 August, 2023',
-        departureTime: '12:00',
-        duration: '0h 50m',
-        arrivalTime: '12:50',
-        price: 240,
-        aircraft:'Boeing 777-90',
-        airline:'United Dubai Airlines',
-        stops:1
-    };
 
     const { flightNo, from, to, category, date, departureTime, duration, arrivalTime, price, aircraft, airline, stops } = flightData;
 
-    function book_flight(event) {
+    async function book_flight(event) {
         event.preventDefault();
         if (!isAuthenticated) {
             toast.error("Login first to book flight");
             navigate('/login');
             return;
         }
-        setBookFlightData(flightData);
-        navigate('/book_flight');
+
+        try {
+            setIsLoading(true)
+            const response = await fetch('http://127.0.0.1:8080/api/canbook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ flightNo })
+            });
+
+            const data = await response.json();
+            if (data.canbook) {
+                setBookFlightData(flightData);
+                navigate('/book_flight');
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 1500);
+            } else {
+                toast.error(data.message || "Booking failed");
+            }
+        } catch (error) {
+            toast.error("Network error, please try again later");
+        }
     }
 
     function toggleFlightDetails() {
