@@ -144,8 +144,9 @@ const FlightManage = () => {
                 <label htmlFor="filterCategory">Filter by Category:</label>
                 <select id="filterCategory" name="category" value={filterCategory} onChange={handleFilterChange}>
                   <option value="">All</option>
-                  <option value="Economy">Economy</option>
-                  <option value="Business">Business</option>
+                  <option value="Economy">Economy Class</option>
+                  <option value="Business">Business Class</option>
+                  <option value="Economy">First Class</option>
                 </select>
               </div>
               <div>
