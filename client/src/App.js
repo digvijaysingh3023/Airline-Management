@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import ViewFlights from './pages/ViewFlights';
 import MyFlights from './pages/MyFlights';
+import MyFlightDetails from './pages/MyFlightDetails';
 import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
 import About from './pages/About';
@@ -30,6 +31,8 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/my_flights" element={<MyFlights />} />
+
+        <Route path="/my_flights/:flightNo" element={<MyFlightDetails/>} />
 
         <Route path="/view_flights" element={<ViewFlights setViewFlightData={setViewFlightData} viewFlightData={viewFlightData} setBookFlightData={setBookFlightData}/>} />
 

@@ -45,7 +45,7 @@ function Navbar() {
     <div className="navbar-container flex flex-row w-screen h-[70px] items-center justify-between bg-gradient-to-r from-white to-slate-200">
 
 
-        <div className="logo pt-2 pb-2 h-full pl-2 text-gray-800 text-xl font-bold">
+        <div className="logo pt-2 pb-2 h-full pl-2 text-gray-800 text-2xl font-bold">
             <img src='/logo.png' alt="#"></img>
         </div>
 
