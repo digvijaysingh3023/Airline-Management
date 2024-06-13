@@ -1,276 +1,277 @@
-import Layout from './Layout';
-import "../../CSS/FlightManagement.css"; 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from "react";
+import Layout from "./Layout";
+import "../../CSS/FlightManagement.css";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Loading from '../../components/Loading';
+import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const FlightManage = () => {
-  const [isLoading, setIsLoading] = useState(true); 
   const [flights, setFlights] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [editingFlight, setEditingFlight] = useState(null);
-  const [formValues, setFormValues] = useState({
-    id: '',
-    from: '',
-    to: '',
-    flightNo: '',
-    category: '',
-    time: '',
-    seats: '',
-    date: ''
-  });
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterAirline, setFilterAirline] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+  const [sortKey, setSortKey] = useState("");
+  const navigate = useNavigate();
 
-  const [filters, setFilters] = useState({
-    date: '',
-    category: ''
-  });
-
-  const [sortConfig, setSortConfig] = useState({
-    key: 'totalSeats',
-    direction: 'ascending'
-  });
-
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    fetch_data();
-  }, []);
-
-  // Scroll to form when editingFlight changes
-  useEffect(() => {
-    if (editingFlight) {
-      formRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [editingFlight]);
-
-  async function fetch_data() {
-    setIsLoading(true);
+  const fetchFlights = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/admin/getallflights', {
-        method: 'GET',
+      const response = await fetch("http://localhost:8080/api/admin/getallflights", {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setFlights(data.flights);
-        setTimeout(() => {
-          setIsLoading(false)
-        }, 1500);      
-      } else {
-        toast.error(data.message || "Error Occurred");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Network error, please try again later");
-    }
-  }
-
-  const handleEdit = (flight) => {
-    setEditingFlight(flight);
-    setFormValues(flight);
-  };
-
-  const handleDelete = async (id) => {
-    setIsLoading(true)
-    try {
-      const response = await fetch(`http://localhost:8080/api/admin/deleteFlight/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
-
       const data = await response.json();
-      console.log(data);
-      if (data.status) {
-        setFlights(data["flights"]);
-        setTimeout(() => {
-          setIsLoading(false)
-        }, 1500);
-        toast.success(data.message);
+      if (response.ok) {
+        setFlights(data.flights);
+        setIsLoading(false);
       } else {
-        toast.error(data.message || "Error Occurred");
+        toast.error(data.message || "Failed to fetch flights");
       }
     } catch (error) {
-      console.log(error);
       toast.error("Network error, please try again later");
+      console.error("Network error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlights();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this flight?")) return;
+    try {
+      const response = await fetch(`http://localhost:8080/api/admin/deleteflight/${id}`, {
+        method: "DELETE",
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message || "Flight deleted successfully");
+        setFlights(data.flights);
+      } else {
+        toast.error(data.message || "Failed to delete flight");
+      }
+    } catch (error) {
+      toast.error("Network error, please try again later");
+      console.error("Network error:", error);
+    }
+  };
+
+  const handleEdit = (flight) => {
+    setEditingFlight(flight);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingFlight(null);
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:8080/api/admin/editflight/${editingFlight._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(editingFlight),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message || "Flight updated successfully");
+        fetchFlights();
+        setEditingFlight(null);
+      } else {
+        toast.error(data.message || "Failed to update flight");
+      }
+    } catch (error) {
+      toast.error("Network error, please try again later");
+      console.error("Network error:", error);
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    setIsLoading(true);
-    e.preventDefault();
-    try {
-      const response = await fetch(`http://localhost:8080/api/admin/updateFlight/${formValues._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(formValues)
-      });
-
-      if (response.ok) {
-        setFlights(flights.map(flight => flight._id === formValues._id ? formValues : flight));
-        setEditingFlight(null);
-        setTimeout(() => {
-          setIsLoading(false)
-        }, 1500);
-        toast.success("Flight updated successfully");
-      } else {
-        const data = await response.json();
-        toast.error(data.message || "Error Occurred");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Network error, please try again later");
-    }
+    setEditingFlight((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
   };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });
+    if (name === "category") setFilterCategory(value);
+    if (name === "airline") setFilterAirline(value);
+    if (name === "date") setFilterDate(value);
   };
 
-  const clearFilters = () => {
-    setFilters({
-      date: '',
-      category: ''
-    });
+  const handleSortChange = (e) => {
+    setSortKey(e.target.value);
   };
 
-  const handleSort = (key) => {
-    let direction = 'ascending';
-    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-      direction = 'descending';
-    }
-    setSortConfig({ key, direction });
-  };
+  const filteredFlights = flights.filter(flight =>
+    (filterCategory ? flight.category === filterCategory : true) &&
+    (filterAirline ? flight.airline.toLowerCase().includes(filterAirline.toLowerCase()) : true) &&
+    (filterDate ? flight.date.split('T')[0] === filterDate : true)
+  );
 
-  const sortedFlights = flights.sort((a, b) => {
-    if (a[sortConfig.key] < b[sortConfig.key]) {
-      return sortConfig.direction === 'ascending' ? -1 : 1;
-    }
-    if (a[sortConfig.key] > b[sortConfig.key]) {
-      return sortConfig.direction === 'ascending' ? 1 : -1;
+  const sortedFlights = [...filteredFlights].sort((a, b) => {
+    if (sortKey === "date") {
+      return new Date(a.date) - new Date(b.date);
+    } else if (sortKey === "airline") {
+      return a.airline.localeCompare(b.airline);
+    } else if (sortKey === "flightNo") {
+      return a.flightNo.localeCompare(b.flightNo);
+    } else if (sortKey === "seats") {
+      return a.totalSeats - b.totalSeats;
     }
     return 0;
-  });
-
-  const filteredFlights = sortedFlights.filter(flight => {
-    const filterDate = filters.date ? new Date(filters.date) : null;
-    const flightDate = flight.date ? new Date(flight.date) : null;
-    return (
-      (!filters.date || (filterDate && flightDate && filterDate.toDateString() === flightDate.toDateString())) &&
-      (!filters.category || flight.category.toLowerCase().includes(filters.category.toLowerCase()))
-    );
   });
 
   return (
     <div className={isLoading ? 'loading' : 'loaded'}>
       <Loading isLoading={isLoading} />
       <div className="content_">
-    <Layout> 
-        <div className="box-FM">
-          <h2>Flight Management</h2>
-
-          {/* Filter Section */}
-          <div className="filter-section">
-            <h3>Filter Flights</h3>
-            <label>Date:</label>
-            <input type="date" name="date" value={filters.date} onChange={handleFilterChange} />
-            <label>Category:</label>
-            <select name="category" value={filters.category} onChange={handleFilterChange}>
-              <option value="">All</option>
-              <option value="First Class">First Class</option>
-              <option value="Economy">Economy</option>
-              <option value="Business">Business Class</option>
-            </select>
-            <button onClick={clearFilters}>Clear Filters</button>
-          </div>
-
-          {/* Sort Section */}
-          <div className="sort-section">
-            <h3>Sort Flights</h3>
-            <button onClick={() => handleSort('totalSeats')}>
-              Sort by Seats {sortConfig.key === 'totalSeats' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-            </button>
-            <button onClick={() => handleSort('date')}>
-              Sort by Date {sortConfig.key === 'date' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
-            </button>
-          </div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Flight No.</th>
-                <th>Category</th>
-                <th>Schedule</th>
-                <th>Seats</th>
-                <th>Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredFlights.map(flight => (
-                <tr key={flight._id}>
-                  <td>{flight.from}</td>
-                  <td>{flight.to}</td>
-                  <td>{flight.flightNo}</td>
-                  <td>{flight.category}</td>
-                  <td>{flight.time}</td>
-                  <td>{flight.totalSeats}</td>
-                  <td>{new Date(flight.date).toLocaleDateString()}</td>
-                  <td>
-                    <button className="edit-btn" onClick={() => handleEdit(flight)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDelete(flight._id)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {editingFlight && (
-          <div ref={formRef} className="modal-FM">
-            <div className="modal-content-FM">
-              <h2>Edit Flight</h2>
-              <form onSubmit={handleSubmit}>
-                <label>From:</label>
-                <input type="text" name="from" value={formValues.from} onChange={handleChange} required />
-                <label>To:</label>
-                <input type="text" name="to" value={formValues.to} onChange={handleChange} required />
-                <label>Flight No:</label>
-                <input type="text" name="flightNo" value={formValues.flightNo} onChange={handleChange} required />
-                <label>Category:</label>
-                <input type="text" name="category" value={formValues.category} onChange={handleChange} required />
-                <label>Schedule:</label>
-                <input type="text" name="time" value={formValues.time} onChange={handleChange} required />
-                <label>Seats:</label>
-                <input type="number" name="totalSeats" value={formValues.totalSeats} onChange={handleChange} required />
-                <label>Date:</label>
-                <input type="date" name="date" value={formValues.date} onChange={handleChange} required />
-                <button className="save-btn" type="submit">Save</button>
-                <button className="cancel-btn" type="button" onClick={() => setEditingFlight(null)}>Cancel</button>
-              </form>
+        <Layout>
+          <div className="box-FM">
+            <h2>Manage Flights</h2>
+            <div className="filter-section">
+              <div>
+                <label htmlFor="filterCategory">Filter by Category:</label>
+                <select id="filterCategory" name="category" value={filterCategory} onChange={handleFilterChange}>
+                  <option value="">All</option>
+                  <option value="Economy">Economy</option>
+                  <option value="Business">Business</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="filterAirline">Filter by Airline:</label>
+                <input 
+                  type="text" 
+                  id="filterAirline" 
+                  name="airline" 
+                  value={filterAirline} 
+                  onChange={handleFilterChange} 
+                  placeholder="Enter airline"
+                />
+              </div>
+              <div>
+                <label htmlFor="filterDate">Filter by Date:</label>
+                <input 
+                  type="date" 
+                  id="filterDate" 
+                  name="date" 
+                  value={filterDate} 
+                  onChange={handleFilterChange}
+                />
+              </div>
+              <div className="sort-section">
+                <label htmlFor="sort">Sort by:</label>
+                <select id="sort" value={sortKey} onChange={handleSortChange}>
+                  <option value="">None</option>
+                  <option value="date">Date</option>
+                  <option value="airline">Airline</option>
+                  <option value="flightNo">Flight No.</option>
+                  <option value="seats">Seats</option>
+                </select>
+              </div>
             </div>
+            {editingFlight ? (
+              <div className="modal-FM">
+                <div className="modal-content-FM">
+                  <form onSubmit={handleUpdate} className="edit-flight-form">
+                    <h3>Edit Flight</h3>
+                    <div className="form-group">
+                      <label>From:</label>
+                      <input type="text" name="from" value={editingFlight.from} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>To:</label>
+                      <input type="text" name="to" value={editingFlight.to} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Airline:</label>
+                      <input type="text" name="airline" value={editingFlight.airline} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Flight No.:</label>
+                      <input type="text" name="flightNo" value={editingFlight.flightNo} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Category:</label>
+                      <select name="category" onChange={handleChange} value={editingFlight.category} required>
+                        <option value="Economy">Economy</option>
+                        <option value="Business">Business</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Total Seats:</label>
+                      <input type="number" name="totalSeats" value={editingFlight.totalSeats} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Date:</label>
+                      <input type="date" name="date" value={editingFlight.date.split('T')[0]} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Departure Time:</label>
+                      <input type="time" name="departureTime" value={editingFlight.departureTime} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Arrival Time:</label>
+                      <input type="time" name="arrivalTime" value={editingFlight.arrivalTime} onChange={handleChange} required />
+                    </div>
+                   
+                    <button type="submit" className="save-btn">Update</button>
+                    <button type="button" className="cancel-btn" onClick={handleCancelEdit}>Cancel</button>
+                  </form>
+                </div>
+              </div>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Airline</th>
+                    <th>Flight No.</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Category</th>
+                    <th>Total Seats</th>
+                    <th>Date</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                   
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedFlights.map((flight) => (
+                    <tr key={flight._id}>
+                      <td>{flight.airline}</td>
+                      <td>{flight.flightNo}</td>
+                      <td>{flight.from}</td>
+                      <td>{flight.to}</td>
+                      <td>{flight.category}</td>
+                      <td>{flight.totalSeats}</td>
+                      <td>{flight.date.split('T')[0]}</td>
+                      <td>{flight.departureTime}</td>
+                      <td>{flight.arrivalTime}</td>
+                     
+                      <td>
+                        <button onClick={() => handleEdit(flight)} className="edit-btn">Edit</button>
+                        <button onClick={() => handleDelete(flight._id)} className="delete-btn">Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
-        )}
-    </Layout>
-    </div>
+        </Layout>
+      </div>
     </div>
   );
 };

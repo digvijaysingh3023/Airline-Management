@@ -97,7 +97,7 @@ const Feedback = () => {
                 />
               </div>
               <div className="sort-section-feedback">
-                <h3>Sort Feedback</h3>
+                
                 <button onClick={() => handleSort('date')}>
                   Sort by Date {sortConfig.key === 'date' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
                 </button>

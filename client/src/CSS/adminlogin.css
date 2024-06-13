@@ -1,7 +1,7 @@
 /* SignIn.css */
 
 
-.signin-container {
+.signin-container-admin {
     width: 100%;
     max-width: 400px;
     margin: auto;
@@ -10,24 +10,24 @@
     border-radius: 5px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 1;
+    margin-top: 150px;
 }
 
-.signin-container form {
+.signin-container-admin form {
     display: flex;
     flex-direction: column;
 }
 
-.signin-container form div {
+.signin-container-admin form div {
     margin-bottom: 10px;
 }
 
-.signin-container form p {
+.signin-container-admin form p {
     padding-left: 10px;
     margin: 0;
 }
 
-.signin-container form input {
+.signin-container-admin form input {
     border-radius: 3px;
     width: 100%;
     padding: 10px;
@@ -37,7 +37,7 @@
     border: 1px solid #ccc;
 }
 
-.signin-container form button {
+.signin-container-admin form button {
     border-radius: 3px;
     width: 100%;
     padding: 10px;
@@ -49,13 +49,13 @@
     font-size: 16px;
 }
 
-.signin-container form button:hover {
+.signin-container-admin form button:hover {
     background-color: #45a049;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-    .signin-container {
+    .signin-container-admin {
         width: 90%;
     }
 }

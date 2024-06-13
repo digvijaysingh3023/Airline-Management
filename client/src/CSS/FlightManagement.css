@@ -1,7 +1,8 @@
+/* General container for the flight management section */
 .box-FM {
   background-color: white;
-  width: 100%;
-  margin: 20px;
+  width: 90%;
+  margin: auto;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -9,24 +10,43 @@
   overflow-x: auto;
 }
 
-.filter-section, .sort-section {
+/* Filter and sort section styles */
+.filter-section {
   margin: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #f7f9fc;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.filter-section label, .sort-section label {
+.filter-section div,
+.sort-section {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.filter-section label, 
+.sort-section label {
   margin-right: 10px;
+  font-weight: bold;
+  color: #34495e;
 }
 
-.filter-section input, .sort-section input, .filter-section select {
+.filter-section select, 
+.sort-section select,
+.filter-section input {
   margin-right: 20px;
   padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #ecf0f1;
 }
 
-.sort-section button, .filter-section button {
-  margin-right: 10px;
+.filter-section button, 
+.sort-section button {
   padding: 5px 10px;
   border: none;
   border-radius: 3px;
@@ -35,17 +55,20 @@
   color: white;
 }
 
-.sort-section button:hover, .filter-section button:hover {
+.filter-section button:hover, 
+.sort-section button:hover {
   opacity: 0.8;
 }
 
+/* Table styles */
 .box-FM table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.box-FM th, .box-FM td {
+.box-FM th, 
+.box-FM td {
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -68,6 +91,7 @@
   cursor: pointer;
 }
 
+/* Button styles */
 .edit-btn {
   background-color: #3498db;
   color: white;
@@ -82,6 +106,7 @@
   opacity: 0.8;
 }
 
+/* Modal styles */
 .modal-FM {
   position: fixed;
   top: 0;
@@ -102,14 +127,30 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content-FM form label {
-  display: block;
-  margin-top: 10px;
+/* Form group styles within the modal */
+.modal-content-FM .form-group {
+  margin-bottom: 15px;
 }
 
+.modal-content-FM label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-content-FM input,
+.modal-content-FM select {
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+/* Button styles within the modal */
 .save-btn {
   background-color: #2ecc71;
   color: white;
+  margin-right: 10px;
 }
 
 .cancel-btn {

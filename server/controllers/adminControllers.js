@@ -21,29 +21,29 @@ const adminLogin = async (req, res) => {
     }
 };
 
-async function getAllFlights(req,res) {
+async function getAllFlights(req, res) {
     try {
-        if(req.user.role !== 'admin'){
-            return res.status(400).json({message: "Not Authorized"})
+        if (req.user.role !== 'admin') {
+            return res.status(400).json({ message: "Not Authorized" });
         }
 
-        const flights = await Flight.find()
+        const flights = await Flight.find();
 
-        return res.status(200).json({flights})
-        
+        return res.status(200).json({ flights });
+
     } catch (error) {
-        return res.status(400).json({message : "Not Authorized"})
+        return res.status(400).json({ message: "Not Authorized" });
     }
 }
 
 async function addFlight(req, res) {
-    const { flightNo, to, from, category, totalSeats, date,time } = req.body;
+    const { flightNo, to, from, category, totalSeats, date, departureTime, arrivalTime, airline } = req.body;
     const date_ = new Date(date);
     try {
-        if(req.user.role !== 'admin'){
-            return res.status(400).json({message : "Not Authorized"})
+        if (req.user.role !== 'admin') {
+            return res.status(400).json({ message: "Not Authorized" });
         }
-        const flight = new Flight({ flightNo, to, from, category, totalSeats, date: date_, time });
+        const flight = new Flight({ flightNo, to, from, category, totalSeats, date: date_, departureTime, arrivalTime, airline });
         await flight.save();
 
         return res.status(200).json({ status: 'ok', message: `New Flight created with flightNo- ${flightNo}` });
@@ -61,11 +61,11 @@ async function addFlight(req, res) {
 
 async function editFlight(req, res) {
     const { id } = req.params;
-    const { flightNo, to, from, category, totalSeats, date, time } = req.body;
+    const { flightNo, to, from, category, totalSeats, date, departureTime, arrivalTime, airline } = req.body;
 
     try {
-        if(req.user.role != 'admin'){
-            return res.status(400).json({message: "Not Authorized"})
+        if (req.user.role != 'admin') {
+            return res.status(400).json({ message: "Not Authorized" });
         }
         const flight = await Flight.findById(id);
         if (!flight) {
@@ -78,7 +78,9 @@ async function editFlight(req, res) {
         if (category) flight.category = category;
         if (totalSeats) flight.totalSeats = totalSeats;
         if (date) flight.date = new Date(date);
-        if (time) flight.time = time;
+        if (departureTime) flight.departureTime = departureTime;
+        if (arrivalTime) flight.arrivalTime = arrivalTime;
+        if (airline) flight.airline = airline;
 
         await flight.save();
 
@@ -93,16 +95,16 @@ async function deleteFlight(req, res) {
     const { id } = req.params;
 
     try {
-        if(req.user.role != 'admin'){
-            return res.status(400).json({message: "Not Authorized"})
+        if (req.user.role != 'admin') {
+            return res.status(400).json({ message: "Not Authorized" });
         }
         const flight = await Flight.findByIdAndDelete(id);
 
         if (!flight) {
             return res.status(404).json({ message: 'Flight not found' });
         }
-        const flights = await Flight.find()
-        return res.status(200).json({ status: 'ok', message: `Flight with flightNo- ${flight.flightNo} deleted successfully`,flights });
+        const flights = await Flight.find();
+        return res.status(200).json({ status: 'ok', message: `Flight with flightNo- ${flight.flightNo} deleted successfully`, flights });
 
     } catch (error) {
         console.log(error);
