@@ -50,6 +50,7 @@
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .add-flight-box {
+    margin-top: 250px;
     width: 70%;
   }
 }
