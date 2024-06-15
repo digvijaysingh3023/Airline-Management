@@ -19,7 +19,7 @@ const app = express();
 /* middleware */
 app.use(cors(
     {
-        origin:["https://airline-management-mauve.vercel.app/"],
+        origin:["https://flynow-five.vercel.app/"],
         methods:["POST","GET","PUT","DELETE"],
         credentials:true
     }
