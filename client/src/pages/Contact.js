@@ -40,7 +40,7 @@ function Contact({ username }) {
             return;
         }
         try {
-            const response = await fetch('http://localhost:8080/api/feedback/addFeedback', { // Update the URL
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/feedback/addFeedback', { // Update the URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

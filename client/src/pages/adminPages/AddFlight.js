@@ -36,7 +36,7 @@ const AddFlight = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/admin/addflight', {
+      const response = await fetch('https://airline-management-mauve.vercel.app/api/admin/addflight', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

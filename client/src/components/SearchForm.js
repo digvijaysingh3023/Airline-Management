@@ -24,7 +24,7 @@ function SearchForm({setViewFlightData}){
     async function submitHandler(event) {
         event.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8080/api/searchFlight', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/searchFlight', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

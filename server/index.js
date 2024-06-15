@@ -17,8 +17,14 @@ const app = express();
 
 
 /* middleware */
-// app.use(morgan('tiny'));
-app.use(cors());
+app.use(cors(
+    {
+        origin:["https://airline-management-mauve.vercel.app/"],
+        methods:["POST","GET","PUT","DELETE"],
+        credentials:true
+    }
+));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

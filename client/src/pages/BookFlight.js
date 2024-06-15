@@ -81,7 +81,7 @@ function BookFlight({ bookFlightData }) {
         }, 1500);
 
         try {
-            const res = await fetch('http://localhost:8080/api/payment/getkey', {
+            const res = await fetch('https://airline-management-mauve.vercel.app/api/payment/getkey', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ function BookFlight({ bookFlightData }) {
             });
             const { key } = await res.json();
 
-            const response = await fetch('http://localhost:8080/api/payment/checkout', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/payment/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,14 +111,14 @@ function BookFlight({ bookFlightData }) {
                 description: "Flight Booking",
                 image: "https://avatars.githubusercontent.com/u/25058652?v=4",
                 order_id: order.id,
-                // callback_url: "http://localhost:8080/api/payment/paymentverification",
+                // callback_url: "https://airline-management-mauve.vercel.app/api/payment/paymentverification",
                  handler: async function (response) {
                     console.log(response);
                     const resp = {
                         response,
                         flightNo,
                     }
-                    const res1 = await fetch("http://localhost:8080/api/payment/paymentverification", {
+                    const res1 = await fetch("https://airline-management-mauve.vercel.app/api/payment/paymentverification", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

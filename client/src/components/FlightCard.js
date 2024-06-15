@@ -27,7 +27,7 @@ function FlightCard({flightData, setBookFlightData }) {
 
         try {
             setIsLoading(true)
-            const response = await fetch('http://127.0.0.1:8080/api/canbook', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/canbook', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

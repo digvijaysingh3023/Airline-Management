@@ -19,7 +19,7 @@ function UserProfile() {
 
     async function fetch_data() {
         try {
-            const response = await fetch('http://localhost:8080/api/getuserdetails', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/getuserdetails', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ function UserProfile() {
         event.preventDefault();
         setIsLoading(true)
         try {
-            const response = await fetch('http://localhost:8080/api/updateuserdetails', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/updateuserdetails', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

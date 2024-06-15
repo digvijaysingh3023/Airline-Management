@@ -18,7 +18,7 @@ const Feedback = () => {
 
   async function fetch_data() {
     try {
-      const response = await fetch('http://localhost:8080/api/feedback/getAllFeedback', { // Update the URL
+      const response = await fetch('https://airline-management-mauve.vercel.app/api/feedback/getAllFeedback', { // Update the URL
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

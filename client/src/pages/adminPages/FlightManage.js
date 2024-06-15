@@ -17,7 +17,7 @@ const FlightManage = () => {
 
   const fetchFlights = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/admin/getallflights", {
+      const response = await fetch("https://airline-management-mauve.vercel.app/api/admin/getallflights", {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -42,7 +42,7 @@ const FlightManage = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this flight?")) return;
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/deleteflight/${id}`, {
+      const response = await fetch(`https://airline-management-mauve.vercel.app/api/admin/deleteflight/${id}`, {
         method: "DELETE",
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -72,7 +72,7 @@ const FlightManage = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/updateFlight/${editingFlight._id}`, {
+      const response = await fetch(`https://airline-management-mauve.vercel.app/api/admin/updateFlight/${editingFlight._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

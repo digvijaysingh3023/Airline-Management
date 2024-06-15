@@ -34,7 +34,7 @@ function AdminLogin() {
     const handleSubmitAdmin = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8080/api/admin/login', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

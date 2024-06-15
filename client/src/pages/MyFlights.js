@@ -16,7 +16,7 @@ function MyFlights() {
 
     async function fetch_data() {
         try {
-            const response = await fetch('http://127.0.0.1:8080/api/getbookedflights', {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/getbookedflights', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
