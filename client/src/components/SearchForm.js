@@ -98,7 +98,7 @@ function SearchForm({setViewFlightData}){
                                 <option value="">Category</option>
                                 <option value="Economy">Economy</option>
                                 <option value="Business">Business</option>
-                                <option value="First Class">First Class</option>
+                                <option value="First">First Class</option>
                             </select>
                         </div>
                     </div>

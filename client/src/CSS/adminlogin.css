@@ -6,7 +6,7 @@
     max-width: 400px;
     margin: auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -37,7 +37,7 @@
     border: 1px solid #ccc;
 }
 
-.signin-container-admin form button {
+/* .signin-container-admin form button {
     border-radius: 3px;
     width: 100%;
     padding: 10px;
@@ -47,11 +47,11 @@
     border: none;
     cursor: pointer;
     font-size: 16px;
-}
+} */
 
-.signin-container-admin form button:hover {
+/* .signin-container-admin form button:hover {
     background-color: #45a049;
-}
+} */
 
 /* Responsive adjustments */
 @media (max-width: 600px) {

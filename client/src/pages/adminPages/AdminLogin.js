@@ -65,10 +65,10 @@ function AdminLogin() {
                 <div className="content_">
                     <Navbar />
                     <div className="signin-container-admin">
-                        <form onSubmit={handleSubmitAdmin}>
+                        <form onSubmit={handleSubmitAdmin} className="pt-4 pl-4 pr-4 rounded-lg">
                             <div>
-                                <p>Username</p>
                                 <input
+                                    placeholder="Username"
                                     type="text"
                                     name="username"
                                     onChange={changeHandler}
@@ -77,8 +77,8 @@ function AdminLogin() {
                                 />
                             </div>
                             <div>
-                                <p>Password</p>
                                 <input
+                                    placeholder="Password"
                                     type="password"
                                     name="password"
                                     onChange={changeHandler}
@@ -86,8 +86,8 @@ function AdminLogin() {
                                     required
                                 />
                             </div>
-                            <div>
-                                <button type="submit">Sign In</button>
+                            <div className="flex justify-center items-center">
+                                <button className="inline text-white rounded text-l m-auto mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ..." type="submit">Sign In</button>
                             </div>
                         </form>
                     </div>

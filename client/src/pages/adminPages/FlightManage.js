@@ -146,7 +146,7 @@ const FlightManage = () => {
                   <option value="">All</option>
                   <option value="Economy">Economy Class</option>
                   <option value="Business">Business Class</option>
-                  <option value="Economy">First Class</option>
+                  <option value="First">First Class</option>
                 </select>
               </div>
               <div>

@@ -1,7 +1,4 @@
-/* SignIn.css */
-
-
-.signin-container {
+/* .signin-container {
     width: 100%;
     max-width: 400px;
     margin: auto;
@@ -11,7 +8,7 @@
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 1;
-}
+} */
 
 .signin-container form {
     display: flex;
@@ -34,10 +31,10 @@
     margin-top: 10px;
     background-color: rgb(248, 247, 247);
     color: rgb(93, 93, 93);
-    border: 1px solid #ccc;
+    border: none;
 }
 
-.signin-container form button {
+/* .signin-container form button {
     border-radius: 3px;
     width: 100%;
     padding: 10px;
@@ -47,15 +44,14 @@
     border: none;
     cursor: pointer;
     font-size: 16px;
-}
+} */
 
-.signin-container form button:hover {
+/* .signin-container form button:hover {
     background-color: #45a049;
-}
+} */
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
     .signin-container {
         width: 90%;
     }
-}
+} 

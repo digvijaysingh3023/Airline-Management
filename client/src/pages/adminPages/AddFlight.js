@@ -86,8 +86,8 @@ const AddFlight = () => {
                 <label>Category:</label>
                 <select name="category" onChange={handleChange} value={flightDetails.category} required>
                   <option value="">Select Category</option>
-                  <option value="Economy">Economy Class</option>
-                  <option value="Business">Business Class</option>
+                  <option value="Economy Class">Economy Class</option>
+                  <option value="Business Class">Business Class</option>
                   <option value="First">First Class</option>
                 </select>
               </div>
