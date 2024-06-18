@@ -78,3 +78,11 @@
 .filter-section-feedback button:hover {
   opacity: 0.8;
 }
+
+@media (max-width: 768px) {
+  .box-feedback{
+    margin-top: 300px;
+  
+}
+
+}

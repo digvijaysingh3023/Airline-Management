@@ -72,7 +72,7 @@ const FlightManage = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/editflight/${editingFlight._id}`, {
+      const response = await fetch(`http://localhost:8080/api/admin/updateFlight/${editingFlight._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

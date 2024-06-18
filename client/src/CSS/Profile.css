@@ -45,8 +45,13 @@
   
   /* Media Queries for Responsiveness */
   @media (max-width: 768px) {
+    .profile-box {
+       
+      margin-top: 200px;
+    }
     .profile-container {
-      text-align: center;
+       
+    text-align: center;
     }
   }
   

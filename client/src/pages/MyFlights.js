@@ -61,7 +61,10 @@ function MyFlights() {
                     <div className='bg-slate-100 pt-4 pb-4'>
                     {
                         !isAuthenticated ? (
-                            <div className='text-2xl text-center'>Login First to visit Flights</div>
+                            <div className='text-4xl text-center'>
+                                Login First to visit Flights.
+                                Click <a className='underline' href='/login'>here</a> to login now.
+                                </div>
                         ) : (        
                             <div>
                                 {myflights.map((flightData) => {
