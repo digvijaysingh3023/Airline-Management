@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyToken = async (token) => {
     try {
-      const response = await axios.get('https://airline-management-mauve.vercel.app/alhost:8080/api/auth/verify', {
+      const response = await axios.get('https://airline-management-mauve.vercel.app/api/auth/verify', {
         headers: {
           Authorization: `Bearer ${token}`
         }
