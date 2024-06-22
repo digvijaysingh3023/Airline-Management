@@ -65,6 +65,23 @@ async function searchFlight(req, res) {
     }
 }
 
+async function searchAllFlights(req, res) {
+    try {
+        const flights = await Flight.find();
+
+        if (flights.length === 0) {
+            return res.status(404).json({ message: 'No flights found ' });
+        }
+
+        res.status(200).json({
+            message: 'Flights retrieved successfully',
+            flights
+        });
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong." });
+    }
+}
+
 const bookFlight = async (req, res) => {
     const username = req.user.username;
     const { flightNo } = req.body;
@@ -157,5 +174,6 @@ module.exports = {
     getUserDetails,
     updateUserDetails,
     searchFlight,
+    searchAllFlights,
     alreadybooked
 };
