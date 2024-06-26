@@ -151,11 +151,30 @@ const getBookedFlights = async (req, res) => {
     }
 };
 
+
+async function searchAllFlights(req, res) {
+    try {
+        const flights = await Flight.find();
+
+        if (flights.length === 0) {
+            return res.status(404).json({ message: 'No flights found ' });
+        }
+
+        res.status(200).json({
+            message: 'Flights retrieved successfully',
+            flights
+        });
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong." });
+    }
+}
+
 module.exports = {
     bookFlight,
     getBookedFlights,
     getUserDetails,
     updateUserDetails,
     searchFlight,
-    alreadybooked
+    alreadybooked,
+    searchAllFlights,
 };

@@ -54,7 +54,7 @@ app.use('/api/admin', (req, res, next) => {
 
 /** USER Routes */
 app.use('/api', (req, res, next) => {
-    if (req.path === '/searchFlight') {
+    if (req.path === '/searchFlight'  || req.path==='/searchAllFlights') {
         next(); // Skip authMiddleware for this route
     } else {
         authMiddleware(req, res, next);

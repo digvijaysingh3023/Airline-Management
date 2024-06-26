@@ -48,6 +48,31 @@ function SearchForm({setViewFlightData}){
         }
     }
 
+    async function viewAllFlights(event) {
+        event.preventDefault();
+        try {
+            const response = await fetch('https://airline-management-mauve.vercel.app/api/searchAllFlights', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const data = await response.json();
+
+            if (response.status === 200) {
+                console.log(response.status);
+                setViewFlightData(data.flights);
+                navigate('/view_flights');
+            } else {
+                toast.error(data.message || "Error Occurred");
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Network error, please try again later");
+        }
+    }
+
 
 
     return(
@@ -103,9 +128,10 @@ function SearchForm({setViewFlightData}){
                         </div>
                     </div>
                     
-                    <div className="col-span-2 flex justify-center mt-4">
+                    <div className="col-span-2 flex justify-around mt-4">
                          <button type="submit" className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ...">View Flights</button>
-                    </div>  
+                         <button onClick={viewAllFlights} className="inline text-white rounded text-l mt-6 font-bold p-2 sm:w-[8rem] transition duration-500 ease-in-out bg-blue-600 hover:bg-slate-300 hover:text-black transform hover:-translate-y-1 hover:scale-110 ...">View All Flights</button>
+                    </div>
                 </form>
             </div>
             </div>
