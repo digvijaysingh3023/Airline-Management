@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     async function fetchTopFeedbacks() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/feedback/getAllFeedback",
+          "https://airline-management-mauve.vercel.app/api/feedback/getAllFeedback",
           {
             method: "GET",
             headers: {
